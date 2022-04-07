@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/07 08:04:54 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/07 08:22:09 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,6 @@ $(BIN)/%.o : $(SRC)/%.c
 				$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
-
-
-help: 
-	@echo "src: $(SOURCE)"
-	@echo "obj: $(OBJS)"
 
 ${NAME}:	${OBJS}
 			@make -C ${LIBFT_DIR}/
