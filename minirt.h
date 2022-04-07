@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/07 08:20:18 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/07 17:33:41 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,37 @@
 //open
 # include <unistd.h>
 // close read write
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		size;
+	int		height;
+	int		width;
+}	t_data;
+
+typedef	struct	s_shape {
+	char	*type;
+	double	coordinates[3];
+	double	diameter;
+	int		color[3];
+}	t_shape;
+
+
+
+typedef struct	s_node {
+	int	x;
+	int	y;
+	int	z;
+} 	t_node;
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+	t_shape	*shape;
+}	t_vars;
 
 #endif
