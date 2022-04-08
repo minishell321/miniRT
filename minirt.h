@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 13:58:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/08 15:10:28 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // UTILS.C
 void	ft_error(void);
+
+// PARSING_UTILS.C
+double	ft_atof(char *str);
 
 #endif
