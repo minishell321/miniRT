@@ -6,11 +6,13 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 15:43:54 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/08 16:28:33 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
+
+int	parse_file()
 
 int	parse_scene(t_shape *shape, char *file)
 {
@@ -90,3 +92,4 @@ int	parse_scene(t_shape *shape, char *file)
 	close (fd);
 	return (0);
 }
+
