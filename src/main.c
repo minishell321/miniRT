@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 16:25:41 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/08 16:57:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,9 @@ int main(int argc, char **argv)
 	t_data	img;
 	t_vars	vars;
 	t_shape	*shape;
+	t_scene	scene;
 	
-
+	ft_bzero(&scene, sizeof(t_scene));
 	if (argc == 2)
 	{
 		vars.mlx = mlx_init();

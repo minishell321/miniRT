@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/08 16:48:19 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/08 18:09:28 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/utils.c\
 			$(SRC)/parsing_utils.c\
 			$(SRC)/parsing.c\
+			$(SRC)/upload_scene.c\
 
 					
 		

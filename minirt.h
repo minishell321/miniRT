@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 16:34:37 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/08 18:09:59 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,11 @@ int		my_close(int keycode, t_vars *vars);
 
 // PARSING_UTILS.C
 double	ft_atof(char *str);
+
+// PARSING.C
+void	read_file(t_scene *scene, char *file);
+
+// UPLOAD_SCENE.C
+int		upload_scene(char **split, t_scene *scene);
 
 #endif
