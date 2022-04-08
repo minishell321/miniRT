@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/07 17:33:41 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/08 13:58:32 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,11 @@ typedef struct	s_vars {
 	void	*win;
 	t_shape	*shape;
 }	t_vars;
+
+// MLX_UTILS.C
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+// UTILS.C
+void	ft_error(void);
 
 #endif

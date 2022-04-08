@@ -6,25 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/07 17:46:34 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/08 13:56:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-void	ft_error(void)
-{
-	write(2, "Error\n", 6);
-	exit (1);
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
 
 int	my_close(int keycode, t_vars *vars)
 {

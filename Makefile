@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/07 08:22:09 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/08 13:59:23 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ BIN = bin
 
 $(shell mkdir -p $(BIN))
 
-SOURCE =  $(SRC)/main.c\
+SOURCE =  	$(SRC)/main.c\
+			$(SRC)/mlx_utils.c\
+			$(SRC)/utils.c
 
 					
 		
