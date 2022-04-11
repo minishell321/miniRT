@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:08:06 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 10:05:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,38 +103,40 @@ int	ray_tracing(t_data img, t_shape *shape)
 
 int main(int argc, char **argv)
 {
-	t_data	img;
-	t_vars	vars;
-	t_shape	*shape;
-	// t_scene *scene;
+	// t_data	img;
+	// t_vars	vars;
+	// t_shape	*shape;
+	t_scene scene;
 
+	init_scene(&scene);
 	if (argc == 2)
 	{
-		vars.mlx = mlx_init();
-		vars.win = mlx_new_window(vars.mlx, 1024, 1024, "miniRT");
-		img.img = mlx_new_image(vars.mlx, 1024, 1024);
-		(void)argv;
-		shape = malloc(sizeof(t_shape));
-		if (shape == 0)
-			return (1);
-		if (parse_scene(shape, argv[1]))
-			ft_error();
-		img.height = 1024;
-		img.width = 1024;
-		printf("shape->type = %s\n", shape->type);
-		printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
-		printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
-		printf("shape->coordinates[2] = %f\n", shape->coordinates[2]);
-		printf("shape->diameter = %f\n", shape->diameter);
-		vars.shape = shape;
+		// vars.mlx = mlx_init();
+		// vars.win = mlx_new_window(vars.mlx, 1024, 1024, "miniRT");
+		// img.img = mlx_new_image(vars.mlx, 1024, 1024);
+		// (void)argv;
+		// shape = malloc(sizeof(t_shape));
+		// if (shape == 0)
+		// 	return (1);
+		// if (parse_scene(shape, argv[1]))
+		// 	ft_error();
+		read_file(&scene, argv[1]);
+		// img.height = 1024;
+		// img.width = 1024;
+		// printf("shape->type = %s\n", shape->type);
+		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
+		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
+		// printf("shape->coordinates[2] = %f\n", shape->coordinates[2]);
+		// printf("shape->diameter = %f\n", shape->diameter);
+		// vars.shape = shape;
 
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-				&img.line_length, &img.endian);
-		if (ray_tracing(img, shape))
-			ft_error();
-		mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-		mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
-		mlx_loop(vars.mlx);
+		// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+		// 		&img.line_length, &img.endian);
+		// if (ray_tracing(img, shape))
+		// 	ft_error();
+		// mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+		// mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
+		// mlx_loop(vars.mlx);
 	}
 	else
 		ft_error();

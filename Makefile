@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/11 08:19:34 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/11 10:15:45 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/upload_scene.c\
 			$(SRC)/ft_atof.c\
 			$(SRC)/create_shape.c\
+			$(SRC)/print_scene.c\
+			
 
 					
 		
@@ -64,8 +66,6 @@ ${NAME}:	${OBJS}
 
 clean:
 		@rm -f $(OBJS)
-		make -C ${LIBFT_DIR} fclean
-		make -C ${MLX_DIR} clean
 
 fclean: clean
 		@rm -f $(NAME)

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:14:57 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:14:58 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 11:57:44 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	int_len(int num)
 	i = 0;
 	if (num < 0)
 		num *= -1;
+	if (num == 0)
+		return (1);
 	while (num > 0)
 	{
 		num /= 10;

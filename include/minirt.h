@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:42:54 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 09:43:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 
 int 	parse_scene(t_shape *shape, char *file);
+void	print_scene(t_scene *scene);
 // MLX_UTILS.C
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
@@ -40,6 +41,7 @@ int	    init_vect_orient_3d(t_shapes *shape, char *str);
 int	    init_colors(t_shapes *shape, char *str);
 int	    init_coord(t_shapes *shape, char *str);
 void	insert_shape_at_end(t_scene *scene, t_shapes *shape);
+void	init_scene(t_scene *scene);
 
 // FT_ATOF.C
 double	ft_atof(char *str);
