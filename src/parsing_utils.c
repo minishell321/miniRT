@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:15:55 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:33:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	init_coord(t_shapes *shape, char *str)
 	sub_split = ft_split(str, ',');
 	if (sub_split == NULL)
 		return (1);
-    shape->coord->x = ft_atof(sub_split[0]);
-    shape->coord->x = ft_atof(sub_split[1]);
-    shape->coord->x = ft_atof(sub_split[2]);
+    shape->coordinates[0] = ft_atof(sub_split[0]);
+    shape->coordinates[1] = ft_atof(sub_split[1]);
+    shape->coordinates[2] = ft_atof(sub_split[2]);
     free(sub_split);
 	return (0);
 }
@@ -33,9 +33,9 @@ int	init_vect_orient_3d(t_shapes *shape, char *str)
 	sub_split = ft_split(str, ',');
 	if (sub_split == NULL)
 		return (1);
-    shape->vect_orient_3d->x = ft_atof(sub_split[0]);
-	shape->vect_orient_3d->y = ft_atof(sub_split[1]);
-	shape->vect_orient_3d->z = ft_atof(sub_split[2]);
+    shape->vect_orient_3d[0] = ft_atof(sub_split[0]);
+	shape->vect_orient_3d[1] = ft_atof(sub_split[1]);
+	shape->vect_orient_3d[2] = ft_atof(sub_split[2]);
     free(sub_split);
 	return (0);
 }
@@ -47,9 +47,9 @@ int	init_colors(t_shapes *shape, char *str)
 	sub_split = ft_split(str, ',');
 	if (sub_split == NULL)
 		return (1);
-    shape->color->r = ft_atoi(sub_split[0]);
-	shape->color->g = ft_atoi(sub_split[1]);
-	shape->color->b = ft_atoi(sub_split[2]);
+    shape->colors[0] = ft_atoi(sub_split[0]);
+	shape->colors[1] = ft_atoi(sub_split[1]);
+	shape->colors[2]= ft_atoi(sub_split[2]);
     free(sub_split);
 	return (0);
 }

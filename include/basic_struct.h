@@ -6,19 +6,13 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:13:47 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:40:00 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASIC_STRUCT_H
 # define BASIC_STRUCT_H
 
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb;
 
 typedef struct s_coord {
 	double	x;
@@ -29,11 +23,11 @@ typedef struct s_coord {
 typedef struct s_shapes
 {
 	char	*type;
-	t_coord	*coord;
-	t_coord	*vect_orient_3d;
+	double	coordinates[3];
+	double	vect_orient_3d[3];
 	double	diameter;
 	double	height;
-	t_rgb	*color;
+	int		colors[3];
 	struct s_shapes *next;
 }	t_shapes;
 
@@ -41,25 +35,25 @@ typedef	struct	s_shape {
 	char	*type;
 	double	coordinates[3];
 	double	diameter;
-	int		color[3];
+	int		colors[3];
 }	t_shape;
 
 typedef struct s_amb_light
 {
 	double	light;
-	t_rgb	color;
+	int		colors[3];
 }	t_amb_light;
 
 typedef struct s_lignt
 {
-	t_coord	*coord;
+	double	coordinates[3];
 	double	ratio;
 }	t_light;
 
 typedef struct s_camera
 {
-	t_coord	*coord;
-	t_coord	*vect_orient_3d;
+	double	coordinates[3];
+	double	vect_orient_3d[3];
 	int		fov;
 }	t_camera;
 
