@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:42:54 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:54:21 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 int 	parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 
 // UTILS.C
 void	ft_error(void);

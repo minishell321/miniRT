@@ -6,13 +6,13 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:56:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:08:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 16:51:48 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
 {
 	char	*dst;
 

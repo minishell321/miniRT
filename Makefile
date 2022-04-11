@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/11 08:19:34 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/11 10:17:19 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,7 @@ ${NAME}:	${OBJS}
 			@echo "$(GREEN)$(NAME) sucessfully created$(RESET)"
 
 clean:
-		@rm -f $(OBJS)
-		make -C ${LIBFT_DIR} fclean
-		make -C ${MLX_DIR} clean
+		@rm -f $(OBJS)		
 
 fclean: clean
 		@rm -f $(NAME)

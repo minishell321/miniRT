@@ -6,12 +6,14 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:45:29 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 13:23:05 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASIC_STRUCT_H
 # define BASIC_STRUCT_H
+
+# define M_PI 3.141592653589793
 
 typedef struct s_shapes
 {
@@ -37,7 +39,7 @@ typedef struct s_amb_light
 	int		colors[3];
 }	t_amb_light;
 
-typedef struct s_lignt
+typedef struct s_light
 {
 	double	coordinates[3];
 	double	ratio;

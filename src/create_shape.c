@@ -38,7 +38,6 @@ static int  create_sphere(t_scene *scene, char **split)
         return (1);
     shape->next = NULL;
     shape->height = 0;
-    shape->vect_orient_3d = NULL;
     insert_shape_at_end(scene, shape);
     return (0);
 }
