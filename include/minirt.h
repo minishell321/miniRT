@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 18:09:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:16:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINIRT_H
 
 # include "basic_struct.h"
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 # include <math.h>
 # include <stdio.h>
 // printf perror strerror
@@ -27,14 +27,21 @@
 // close read write
 
 
+int parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
-void	my_mlx_pixel_put(t_data *data, double x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // UTILS.C
 void	ft_error(void);
 int		my_close(int keycode, t_vars *vars);
 
 // PARSING_UTILS.C
+int	    init_vect_orient_3d(t_shapes *shape, char *str);
+int	    init_colors(t_shapes *shape, char *str);
+int	    init_coord(t_shapes *shape, char *str);
+void	insert_shape_at_end(t_scene *scene, t_shapes *shape);
+
+// FT_ATOF.C
 double	ft_atof(char *str);
 
 // PARSING.C
@@ -42,5 +49,7 @@ void	read_file(t_scene *scene, char *file);
 
 // UPLOAD_SCENE.C
 int		upload_scene(char **split, t_scene *scene);
+// CREATE_SHAPE.C
+int     create_shape(char **split, t_scene *scene);
 
 #endif

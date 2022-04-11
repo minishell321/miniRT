@@ -6,11 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:56:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 13:56:21 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:08:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../include/minirt.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

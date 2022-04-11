@@ -6,64 +6,65 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 15:37:30 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:15:55 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../include/minirt.h"
 
-static int	int_len(int num)
+int	init_coord(t_shapes *shape, char *str)
 {
-	int	i;
+	char **sub_split;
 
-	i = 0;
-	if (num < 0)
-		num *= -1;
-	while (num > 0)
-	{
-		num /= 10;
-		i++;
-	}
-	return (i);
+	sub_split = ft_split(str, ',');
+	if (sub_split == NULL)
+		return (1);
+    shape->coord->x = ft_atof(sub_split[0]);
+    shape->coord->x = ft_atof(sub_split[1]);
+    shape->coord->x = ft_atof(sub_split[2]);
+    free(sub_split);
+	return (0);
 }
 
-static void	check_sign(char *str, int *factor, int *i)
+int	init_vect_orient_3d(t_shapes *shape, char *str)
 {
-	int	j;
+	char **sub_split;
 
-	j = 0;
-	if (str[j] == '-' || str[j] == '+')
-	{
-		if (str[j] == '-')
-			*factor = -1;
-		*i += 1;
-	}
+	sub_split = ft_split(str, ',');
+	if (sub_split == NULL)
+		return (1);
+    shape->vect_orient_3d->x = ft_atof(sub_split[0]);
+	shape->vect_orient_3d->y = ft_atof(sub_split[1]);
+	shape->vect_orient_3d->z = ft_atof(sub_split[2]);
+    free(sub_split);
+	return (0);
 }
 
-double	ft_atof(char *str)
+int	init_colors(t_shapes *shape, char *str)
 {
-	double	fractional;
-	int		atoi;
-	int		i;
-	int		factor;
+	char **sub_split;
 
-	factor = 1;
-	fractional = 0;
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	check_sign(str + i, &factor, &i);
-	atoi = ft_atoi(str);
-	i += int_len(atoi);
-	if (str[i] != '.')
-		return (atoi);
-	i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	sub_split = ft_split(str, ',');
+	if (sub_split == NULL)
+		return (1);
+    shape->color->r = ft_atoi(sub_split[0]);
+	shape->color->g = ft_atoi(sub_split[1]);
+	shape->color->b = ft_atoi(sub_split[2]);
+    free(sub_split);
+	return (0);
+}
+
+void	insert_shape_at_end(t_scene *scene, t_shapes *shape)
+{
+	t_shapes *tmp;
+
+	tmp = scene->stack;
+	if (tmp == NULL)
+		scene->stack = shape;
+	else
 	{
-		factor *= 10;
-		fractional = fractional * 10 + str[i] - 48;
-		i++;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = shape;
 	}
-	fractional /= factor;
-	return (atoi + fractional);
 }

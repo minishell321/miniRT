@@ -6,11 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/08 16:57:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:08:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../include/minirt.h"
 
 double norm_squared(double *crdnt)
 {
@@ -40,21 +40,21 @@ double	dot_product(double *a, double *b)
 }
 
 // ASSUMING AN ORIGIN OF THE RAY AT {0, 0, 0}
-int	intersection(double *ray_dir, t_shape *shape)
+int	intersection(double *ray_dir, double *sphere, double sp_diameter)
 {
 	double	a;
 	double	b;
 	double	c;
 	double	delta;
-	double	dist_to_shape_center[3];
+	double	dist_to_sphere_center[3];
 
 	// using {0,0,0} as origin otherwise this would have to be modified
-	dist_to_shape_center[0] = -1 * shape->coord->x;
-	dist_to_shape_center[1] = -1 * shape->coord->y;
-	dist_to_shape_center[2] = -1 * shape->coord->z;
+	dist_to_sphere_center[0] = -1 * sphere[0];
+	dist_to_sphere_center[1] = -1 * sphere[1];
+	dist_to_sphere_center[2] = -1 * sphere[2];
 	a = 1;
-	b = 2 * dot_product(ray_dir, dist_to_shape_center);
-	c = norm_squared(dist_to_shape_center) - (shape->diameter * shape->diameter);
+	b = 2 * dot_product(ray_dir, dist_to_sphere_center);
+	c = norm_squared(dist_to_sphere_center) - (sp_diameter * sp_diameter);
 	delta = b * b - (4 * a * c);
 	if (delta < 0)
 		return (0);
@@ -91,7 +91,7 @@ int	ray_tracing(t_data img, t_shape *shape)
 		j = 0;
 		while (j < img.width)
 		{
-			if (intersection(normalize(dir_vec(ray_dir, i, j, img.width, img.height, fov)), shape))
+			if (intersection(normalize(dir_vec(ray_dir, i, j, img.width, img.height, fov)), shape->coordinates, shape->diameter))
 				my_mlx_pixel_put(&img, i, j, 0xf5aa42);
 			j++;
 		}
@@ -106,9 +106,8 @@ int main(int argc, char **argv)
 	t_data	img;
 	t_vars	vars;
 	t_shape	*shape;
-	t_scene	scene;
-	
-	ft_bzero(&scene, sizeof(t_scene));
+	// t_scene *scene;
+
 	if (argc == 2)
 	{
 		vars.mlx = mlx_init();
@@ -123,9 +122,9 @@ int main(int argc, char **argv)
 		img.height = 1024;
 		img.width = 1024;
 		printf("shape->type = %s\n", shape->type);
-		printf("shape->coord->x = %f\n", shape->coord->x);
-		printf("shape->coord->y) = %f\n", shape->coord->y);
-		printf("shape->coord->z) = %f\n", shape->coord->z);
+		printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
+		printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
+		printf("shape->coordinates[2] = %f\n", shape->coordinates[2]);
 		printf("shape->diameter = %f\n", shape->diameter);
 		vars.shape = shape;
 
