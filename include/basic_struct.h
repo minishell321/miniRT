@@ -6,19 +6,12 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 08:40:00 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:45:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASIC_STRUCT_H
 # define BASIC_STRUCT_H
-
-
-typedef struct s_coord {
-	double	x;
-	double	y;
-	double	z;
-}	t_coord;
 
 typedef struct s_shapes
 {
