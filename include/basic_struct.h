@@ -6,11 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/04/11 13:23:05 by vbotev           ###   ########.fr       */
-=======
-/*   Updated: 2022/04/11 11:30:37 by rburri           ###   ########.fr       */
->>>>>>> robin
+/*   Updated: 2022/04/12 10:31:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +70,15 @@ typedef struct s_data
 	int		size;
 	int		height;
 	int		width;
+	void	*mlx;
+	void	*win;
+	t_scene	*scene;
 }	t_data;
 
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
-	t_shape	*shape;
 }	t_vars;
 
 #endif

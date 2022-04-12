@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 09:40:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 10:38:49 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 
 // UTILS.C
 void	ft_error(void);
-int		my_close(int keycode, t_vars *vars);
+int		my_close(int keycode, t_data *data);
 
 // PARSING_UTILS.C
 int	    init_vect_orient_3d(t_shapes *shape, char *str);

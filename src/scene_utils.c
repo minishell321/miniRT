@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 09:25:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 10:51:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	free_scene_el(t_scene *scene)
 {
 	t_shapes *tmp;
 	t_shapes *tmp_next;
-
+	printf("IN FREE\n");
 	if (scene->light)
 	{
 		printf("free light\n");
@@ -87,15 +87,12 @@ void	free_scene_el(t_scene *scene)
 		tmp = scene->stack;
 		while (tmp != NULL)
 		{
-			if (tmp->next)
-				tmp_next = tmp->next;
+			//if (tmp->next)
+			tmp_next = tmp->next;
 			printf("free : %s\n", tmp->type);
 			free(tmp->type);
 			free(tmp);
-			if (tmp->next == NULL)
-				tmp = NULL;
-			else
-				tmp = tmp_next;
+			tmp = tmp_next;
 		}
 	}
 }

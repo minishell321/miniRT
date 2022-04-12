@@ -6,11 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/04/11 17:56:01 by vbotev           ###   ########.fr       */
-=======
-/*   Updated: 2022/04/12 07:55:09 by rburri           ###   ########.fr       */
->>>>>>> robin
+/*   Updated: 2022/04/12 11:06:01 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +87,10 @@ unsigned int	dec2hex(int n)
 	//hex = pow(16, 6) * (n % 16);
 	hex += pow(16, 5) * (n / 16);
 	hex += pow(16, 4) * (n % 16);
-	hex += pow(16, 3) * (n / 16);
-	hex += pow(16, 2) * (n % 16);
-	hex += pow(16, 1) * (n / 16);
-	hex += n % 16;
+	//hex += pow(16, 3) * (n / 16);
+	//hex += pow(16, 2) * (n % 16);
+	//hex += pow(16, 1) * (n / 16);
+	//hex += n % 16;
 	return (hex);
 }
 
@@ -107,7 +103,7 @@ double *dir_vec(double *ray_dir, int i, int j, int W, int H, double fov)
 }
 
 // FOV SET TO 60 degrees
-int	ray_tracing(t_data img, t_shape *shape, t_light *light)
+int	ray_tracing(t_data data, t_shapes *shape, t_light *light)
 {
 	int		i;
 	int		j;
@@ -126,12 +122,12 @@ int	ray_tracing(t_data img, t_shape *shape, t_light *light)
 	tmp = malloc(sizeof(double) * 3);
 	if (ray_dir == 0 || position == 0 || normal == 0 || tmp == 0)
 		return (1);
-	while (i < img.height)
+	while (i < data.height)
 	{
 		j = 0;
-		while (j < img.width)
+		while (j < data.width)
 		{
-			if (intersection(normalize(dir_vec(ray_dir, i, j, img.width, img.height, fov)), shape->coordinates, shape->diameter, position, normal))
+			if (intersection(normalize(dir_vec(ray_dir, i, j, data.width, data.height, fov)), shape->coordinates, shape->diameter, position, normal))
 			{
 				position[0] = light->coordinates[0] - position[0];
 				position[1] = light->coordinates[1] - position[1];
@@ -141,7 +137,7 @@ int	ray_tracing(t_data img, t_shape *shape, t_light *light)
 				tmp[2] = position[2];
 				tmp = normalize(tmp);
 				pixel_intensity = light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
-				my_mlx_pixel_put(&img, j, img.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
+				my_mlx_pixel_put(&data, j, data.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
 			}
 			j++;
 		}
@@ -156,45 +152,49 @@ int	ray_tracing(t_data img, t_shape *shape, t_light *light)
 
 int main(int argc, char **argv)
 {
-	t_data	img;
-	t_vars	vars;
-	t_shape	*shape;
-	t_light	*light;
-	// t_scene *scene;
+	t_data	data;
+	// t_vars	vars;
+	// t_shape	*shape;
+	// t_light	*light;
+	t_scene scene;
 
-	init_scene(&scene);
+	// data = malloc(sizeof(t_data));
+	// init_scene(&scene);
 	if (argc == 2)
 	{
-		vars.mlx = mlx_init();
-		vars.win = mlx_new_window(vars.mlx, 1024, 1024, "miniRT");
-		img.img = mlx_new_image(vars.mlx, 1024, 1024);
-		(void)argv;
-		shape = malloc(sizeof(t_shape));
-		light = malloc(sizeof(t_light));
-		if (shape == 0 || light == 0)
-			return (1);
-		if (parse_scene(shape, argv[1]))
+		data.mlx = mlx_init();
+		data.win = mlx_new_window(data.mlx, 1024, 1024, "miniRT");
+		data.img = mlx_new_image(data.mlx, 1024, 1024);
+		// (void)argv;
+		// shape = malloc(sizeof(t_shape));
+		// light = malloc(sizeof(t_light));
+		// if (shape == 0 || light == 0)
+		// 	return (1);
+		// if (parse_scene(shape, argv[1]))
+		// 	ft_error();
+		if (read_file(&scene, argv[1]))
 			ft_error();
-		img.height = 1024;
-		img.width = 1024;
-		printf("shape->type = %s\n", shape->type);
-		printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
-		printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
-		printf("shape->coordinates[2] = %f\n", shape->coordinates[2]);
-		printf("shape->diameter = %f\n", shape->diameter);
-		vars.shape = shape;
-		light->coordinates[0] = 15;
-		light->coordinates[1] = 40;
-		light->coordinates[2] = 0;
-		light->ratio = 0.7;
+		data.scene = &scene;
+		data.height = 1024;
+		data.width = 1024;
+		// printf("shape->type = %s\n", shape->type);
+		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
+		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
+		// printf("shape->coordinates[2] = %f\n", shape->coordinates[2]);
+		// printf("shape->diameter = %f\n", shape->diameter);
+		// vars.shape = shape;
+		// light->coordinates[0] = 15;
+		// light->coordinates[1] = 40;
+		// light->coordinates[2] = 0;
+		// light->ratio = 0.7;
 
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-				&img.line_length, &img.endian);
-		if (ray_tracing(img, shape, light))
+		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
+				&data.line_length, &data.endian);
+		if (ray_tracing(data, data.scene->stack, data.scene->light))
 			ft_error();
-		mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-		mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
-		mlx_loop(vars.mlx);
+		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+		mlx_hook(data.win, 2, 1L << 0, my_close, &data);
+		mlx_loop(data.mlx);
 	}
 	else
 		ft_error();
