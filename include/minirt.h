@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 16:54:21 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/12 09:40:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ int	    init_vect_orient_3d(t_shapes *shape, char *str);
 int	    init_colors(t_shapes *shape, char *str);
 int	    init_coord(t_shapes *shape, char *str);
 void	insert_shape_at_end(t_scene *scene, t_shapes *shape);
+int		ft_isspace_nnl(int c);
+// SCENE_UTILS.C
+void	init_scene(t_scene *scene);
+void	print_scene(t_scene *scene);
+void	free_scene_el(t_scene *scene);
 
 // FT_ATOF.C
 double	ft_atof(char *str);

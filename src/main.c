@@ -6,7 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/11 17:56:01 by vbotev           ###   ########.fr       */
+=======
+/*   Updated: 2022/04/12 07:55:09 by rburri           ###   ########.fr       */
+>>>>>>> robin
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +162,7 @@ int main(int argc, char **argv)
 	t_light	*light;
 	// t_scene *scene;
 
+	init_scene(&scene);
 	if (argc == 2)
 	{
 		vars.mlx = mlx_init();

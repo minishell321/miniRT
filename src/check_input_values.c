@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   check_input_values.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 11:17:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 07:36:30 by rburri           ###   ########.fr       */
+/*   Created: 2022/04/12 08:03:39 by rburri            #+#    #+#             */
+/*   Updated: 2022/04/12 08:54:11 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minirt.h"
 
-int	ft_isspace(int c)
+int	check_colors_values()
 {
-	return (c == ' ' || c == '\f' || c == '\n' || c == '\r'
-		|| c == '\t' || c == '\v');
+	return (0);
+}
+
+int check_vect_orient_values()
+{
+	return (0);
+	
+}
+
+int check_coords_values()
+{
+	return (0);
+	
 }

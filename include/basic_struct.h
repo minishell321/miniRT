@@ -6,7 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/11 13:23:05 by vbotev           ###   ########.fr       */
+=======
+/*   Updated: 2022/04/11 11:30:37 by rburri           ###   ########.fr       */
+>>>>>>> robin
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +84,3 @@ typedef struct s_vars
 }	t_vars;
 
 #endif
-
-// typedef struct s_cylinder
-// {
-// 	t_coord *coord;
-// 	t_coord *vect_orient_3d;
-// 	double	diameter;
-// 	double	height;
-// 	t_rgb	*color;
-// }				t_cylinder;
-
-// typedef struct s_plan
-// {
-// 	t_coord *coord;
-// 	t_coord *vect_orient_3d;
-// 	t_rgb	*color;
-// }				t_plan;
