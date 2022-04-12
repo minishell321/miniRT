@@ -34,8 +34,6 @@ static int  create_plan(t_scene *scene, char **split)
     if (init_colors(shape, split[3]) == 1)
             return (1);
     shape->next = NULL;
-    shape->diameter = 0;
-    shape->height = 0;
     insert_shape_at_end(scene, shape);
     return (0);
 }
@@ -55,7 +53,6 @@ static int  create_sphere(t_scene *scene, char **split)
     if (init_colors(shape, split[3]) == 1)
         return (1);
     shape->next = NULL;
-    shape->height = 0;
     insert_shape_at_end(scene, shape);
     return (0);
 }

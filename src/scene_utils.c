@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene-utils.c                                      :+:      :+:    :+:   */
+/*   scene_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 07:50:22 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 08:01:04 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,20 @@ void	free_scene_el(t_scene *scene)
 	t_shapes *tmp_next;
 
 	if (scene->light)
+	{
+		printf("\033[0;32mfree light\n\033[0m");
 		free(scene->light);
+	}
 	if (scene->amb_light)
+	{
+		printf("\033[0;32mfree amb_light\n\033[0m");
 		free(scene->amb_light);
+	}
 	if (scene->camera)
+	{
+		printf("\033[0;32mfree camera\n\033[0m");
 		free(scene->camera);
+	}
 	if (scene->stack)
 	{
 		tmp = scene->stack;
@@ -80,6 +89,7 @@ void	free_scene_el(t_scene *scene)
 		{
 			if (tmp->next)
 				tmp_next = tmp->next;
+			printf("\033[0;32mfree : %s\n\033[0m", tmp->type);
 			free(tmp->type);
 			free(tmp);
 			if (tmp->next == NULL)

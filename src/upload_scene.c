@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 07:50:30 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 09:07:17 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,25 @@
 static int	create_amb_light(char **split, t_scene *scene)
 {
 	char		**sub_split;
-
+	int			i;
+	
+	i = 0;
 	scene->amb_light = malloc(sizeof(t_amb_light));
 	if (scene->amb_light == NULL)
 		return (1);
 	scene->amb_light->light = ft_atof(split[1]);
+	if (scene->amb_light->light > 1.0 || scene->amb_light->light < 0.0)
+		return (1);
 	sub_split = ft_split(split[2], ',');
 	if (sub_split == NULL)
 		return (1);
-	scene->amb_light->colors[0] = ft_atoi(sub_split[0]);
-	scene->amb_light->colors[1] = ft_atoi(sub_split[1]);
-	scene->amb_light->colors[2] = ft_atoi(sub_split[2]);
+	while (i < 3)
+	{
+		scene->amb_light->colors[i] = ft_atoi(sub_split[i]);
+		if (scene->amb_light->colors[i] > 255 || scene->amb_light->colors[i] < 0)
+			return (1); // not enough must stop
+		i++;
+	}
 	free(sub_split);
 	return (0);
 }
@@ -33,42 +41,51 @@ static int	create_amb_light(char **split, t_scene *scene)
 static int	create_camera(char **split, t_scene *scene)
 {
 	char	**sub_split;
+	char	**sub_split2;
+	int		i;	
 
+	i = 0;
 	scene->camera = malloc(sizeof(t_camera));
-	if (scene->camera ==  NULL)
-		return (1);
 	sub_split = ft_split(split[1], ',');
-	if (sub_split == NULL)
+	sub_split2 = ft_split(split[2], ',');
+	if (sub_split == NULL || sub_split2 == NULL || scene->camera ==  NULL)  
 		return (1);
-	scene->camera->coordinates[0] = ft_atof(sub_split[0]);
-	scene->camera->coordinates[1] = ft_atof(sub_split[1]);
-	scene->camera->coordinates[2] = ft_atof(sub_split[2]);
+	while (i < 3)
+	{
+		scene->camera->coordinates[i] = ft_atof(sub_split[i]);
+		scene->camera->vect_orient_3d[i] = ft_atof(sub_split2[i]);
+		if (scene->camera->vect_orient_3d[i] < -1.0 || scene->camera->vect_orient_3d[i] > 1.0)
+			return (1); // not enough must stop
+		i++;
+	}
 	free(sub_split);
-	sub_split = ft_split(split[2], ',');
-	if (sub_split == NULL)
-		return (1);
-	scene->camera->vect_orient_3d[0] = ft_atof(sub_split[0]);
-	scene->camera->vect_orient_3d[1] = ft_atof(sub_split[1]);
-	scene->camera->vect_orient_3d[2] = ft_atof(sub_split[2]);
-	free(sub_split);
+	free(sub_split2);
 	scene->camera->fov = ft_atoi(split[3]);
+	if (scene->camera->fov < 0 || scene->camera->fov > 180)
+		return (1);
 	return (0);
 }
 
 static int	create_light(char **split, t_scene *scene)
 {
 	char	**sub_split;
+	int		i;
 
+	i = 0;
 	scene->light = malloc(sizeof(t_light));
 	if (scene->light == NULL)
 		return (1);
 	scene->light->ratio = ft_atof(split[2]);
+	if (scene->light->ratio > 1.0 || scene->light->ratio < 0.0)
+		return (1);
 	sub_split = ft_split(split[1], ',');
 	if (sub_split == NULL)
 		return (1);
-	scene->light->coordinates[0] = ft_atof(sub_split[0]);
-	scene->light->coordinates[1] = ft_atof(sub_split[1]);
-	scene->light->coordinates[2] = ft_atof(sub_split[2]);
+	while (i < 3)
+	{
+		scene->light->coordinates[i] = ft_atof(sub_split[i]);
+		i++;
+	}
 	free(sub_split);
 	return (0);
 }

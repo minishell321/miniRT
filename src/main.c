@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 07:51:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 07:55:09 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 		// mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 		// mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
 		// mlx_loop(vars.mlx);
-		
+		free_scene_el(&scene);
 	}
 	else
 		ft_error();
