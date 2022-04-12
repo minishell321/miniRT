@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 10:05:39 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 07:51:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int main(int argc, char **argv)
 		// 	return (1);
 		// if (parse_scene(shape, argv[1]))
 		// 	ft_error();
-		read_file(&scene, argv[1]);
+		if (read_file(&scene, argv[1]))
+			ft_error();
 		// img.height = 1024;
 		// img.width = 1024;
 		// printf("shape->type = %s\n", shape->type);
@@ -137,6 +138,7 @@ int main(int argc, char **argv)
 		// mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 		// mlx_hook(vars.win, 2, 1L << 0, my_close, &vars);
 		// mlx_loop(vars.mlx);
+		
 	}
 	else
 		ft_error();

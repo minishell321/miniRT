@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 11:43:16 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 07:46:45 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static int check_char(char *s)
 	i = 0;
 	while (s[i])
 	{
-		printf("char %c - char +1 = %d\n", s[i], s[i + 1]);
+		// printf("char %c\n", s[i]);
+		if (s[i] == '\n')
+			return (0);
 		if (ft_isdigit(s[i]) || s[i] == ' ' || s[i] == '.' || s[i] == ',' || s[i] == '-')
 			i++;
 		else
@@ -35,7 +37,7 @@ static int	check_param(char **split)
 	i = 1;
 	while (split[i])
 	{
-		printf("split[%d]\n", i);
+		// printf("split[%d]\n", i);
 		if (check_char(split[i]))
 			return (1);
 		i++;
@@ -45,42 +47,18 @@ static int	check_param(char **split)
 
 static int	check_split(char **split)
 {
-	int	i;
-
-	i = 1;
-	if (ft_strncmp(split[0], "A", 2) == 0)
+	if (ft_strncmp(split[0], "A", 2) == 0 || ft_strncmp(split[0], "C", 2) == 0)
 	{
-		printf("A\n");
 		if (check_param(split))
 			return (1);
 	}
-	else if (ft_strncmp(split[0], "C", 2) == 0)
+	else if (ft_strncmp(split[0], "L", 2) == 0 || ft_strncmp(split[0], "sp", 3) == 0)
 	{
-		printf("C\n");
 		if (check_param(split))
 			return (1);
 	}
-	else if (ft_strncmp(split[0], "L", 2) == 0)
+	else if (ft_strncmp(split[0], "pl", 3) == 0 || ft_strncmp(split[0], "cy", 3) == 0)
 	{
-		printf("L\n");
-		if (check_param(split))
-			return (1);
-	}
-	else if (ft_strncmp(split[0], "sp", 3) == 0)
-	{
-		printf("sp\n");
-		if (check_param(split))
-			return (1);
-	}
-	else if (ft_strncmp(split[0], "pl", 3) == 0)
-	{
-		printf("pl\n");
-		if (check_param(split))
-			return (1);
-	}
-	else if (ft_strncmp(split[0], "cy", 3) == 0)
-	{
-		printf("cy\n");
 		if (check_param(split))
 			return (1);
 	}
@@ -96,19 +74,23 @@ static int	parse_line(char *str, t_scene *scene)
 	(void)scene;
 
 	i = 0;
-	while (ft_isspace(str[i]))
+	while (ft_isspace_nnl(str[i]))
 		i++;
 	split = ft_split((str + i), ' ');
-	printf("here\n");
+	if (ft_strncmp(split[0], "\n", 1)  == 0)
+	{
+		free(split);
+		return (0);
+	}
 	if (check_split(split))
 	{
-		printf("check_split KO\n");	
+		// printf("check_split KO\n");	
 		free(split);
 		return (1);
 	}
 	else
 	{
-		printf("correct line\n");
+		// printf("check_split OK\n");
 		upload_scene(split, scene);
 	}
 	free(split);

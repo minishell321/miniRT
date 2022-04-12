@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 17:52:14 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 11:56:03 by rburri           ###   ########.fr       */
+/*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
+/*   Updated: 2022/04/12 07:50:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ static int	create_amb_light(char **split, t_scene *scene)
 	if (scene->amb_light == NULL)
 		return (1);
 	scene->amb_light->light = ft_atof(split[1]);
-	printf("solit[1] = %s\n", split[1]);
-	printf("amb_light light: %f\n", ft_atof(split[1]));
-	printf("amb_light light: %f\n", scene->amb_light->light);
 	sub_split = ft_split(split[2], ',');
 	if (sub_split == NULL)
 		return (1);
@@ -80,25 +77,21 @@ int	upload_scene(char **split, t_scene *scene)
 {
 	if (!ft_strncmp(split[0], "A", 2))
 	{
-		printf("upload A\n");
 		if (create_amb_light(split, scene))
 			return (1);
 	}
 	else if (!ft_strncmp(split[0], "C", 2))
 	{
-		printf("upload C\n");
 		if (create_camera(split, scene))
 			return (1);
 	}
 	else if (!ft_strncmp(split[0], "L", 2))
 	{
-		printf("upload L\n");
 		if (create_light(split, scene))
 			return (1);
 	}
 	else
 	{
-		printf("upload Shape\n");
 		if (create_shape(split, scene))
 			return (1);
 	}

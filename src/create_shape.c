@@ -22,7 +22,6 @@ static int  create_plan(t_scene *scene, char **split)
 {
     t_shapes *shape;
 
-	printf("I'm a pl\n");
     shape = malloc(sizeof(t_shapes));
     if (shape == NULL)
         return (1);
@@ -45,8 +44,6 @@ static int  create_sphere(t_scene *scene, char **split)
 {
     t_shapes *shape;
 
-	printf("I'm a sp\n");
-
     shape = malloc(sizeof(t_shapes));
     if (shape == NULL)
         return (1);
@@ -67,7 +64,6 @@ static int  create_cylinder(t_scene *scene, char **split)
 {
     t_shapes *shape;
 
-	printf("I'm a cy\n");
     shape = malloc(sizeof(t_shapes));
     if (shape == NULL)
         return (1);

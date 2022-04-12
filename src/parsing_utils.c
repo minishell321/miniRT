@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/11 11:37:23 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 07:46:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,9 @@ void	insert_shape_at_end(t_scene *scene, t_shapes *shape)
 			tmp = tmp->next;
 		tmp->next = shape;
 	}
+}
+
+int	ft_isspace_nnl(int c)
+{
+	return (c == ' ' || c == '\f' || c == '\r' || c == '\t' || c == '\v');
 }
