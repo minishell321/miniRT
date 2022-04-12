@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 09:18:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 09:21:42 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int	parse_line(char *str, t_scene *scene)
 		// printf("check_split OK\n");
 		if (upload_scene(split, scene))
 		{
-			// free_scene_el(scene);
+			free_scene_el(scene);
 			return (1);
 		}
 	}

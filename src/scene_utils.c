@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 08:01:04 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 09:25:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	print_scene(t_scene *scene)
 	{
 		printf("\033[0;31mlight: \n\033[0m");
 		printf("light ratio de lumiosite: %f\n", scene->light->ratio);
-		printf("light coord: x= %f, y= %f, z= %f\n", scene->light->coordinates[0], scene->light->coordinates[1], scene->light->coordinates[2]);
+		printf("light coord: x = %f, y = %f, z = %f\n", scene->light->coordinates[0], scene->light->coordinates[1], scene->light->coordinates[2]);
 	}
 	if (scene->camera)
 	{
 		printf("\033[0;31mcamera: \n\033[0m");
-		printf("camera coord: x= %f, y= %f, z= %f\n", scene->camera->coordinates[0], scene->camera->coordinates[1], scene->camera->coordinates[2]);
-		printf("vect_orient_3d: x= %f, y= %f, z= %f\n", scene->camera->vect_orient_3d[0], scene->camera->vect_orient_3d[1], scene->camera->vect_orient_3d[2]);
+		printf("camera coord: x = %f, y = %f, z = %f\n", scene->camera->coordinates[0], scene->camera->coordinates[1], scene->camera->coordinates[2]);
+		printf("vect_orient_3d: x = %f, y= %f, z = %f\n", scene->camera->vect_orient_3d[0], scene->camera->vect_orient_3d[1], scene->camera->vect_orient_3d[2]);
 		printf("camera FOV: %d\n", scene->camera->fov);
 	}
 	if (scene->stack)
@@ -50,9 +50,9 @@ void	print_scene(t_scene *scene)
 		while (tmp != NULL)
 		{
 			printf("\033[0;31mshape type: %s\n\033[0m",tmp->type);
-			printf("shape coord: x= %f, y= %f, z= %f\n", tmp->coordinates[0], tmp->coordinates[1], tmp->coordinates[2]);
+			printf("shape coord: x = %f, y = %f, z = %f\n", tmp->coordinates[0], tmp->coordinates[1], tmp->coordinates[2]);
 			printf("shape RGB: %d, %d ,%d\n", tmp->colors[0], tmp->colors[1], tmp->colors[2]);
-			printf("shape vect_orient_3d: x= %f, y= %f, z= %f\n", tmp->vect_orient_3d[0], tmp->vect_orient_3d[1], tmp->vect_orient_3d[2]);
+			printf("shape vect_orient_3d: x = %f, y = %f, z = %f\n", tmp->vect_orient_3d[0], tmp->vect_orient_3d[1], tmp->vect_orient_3d[2]);
 			if (tmp->diameter)
 				printf("shape diameter: %f\n", tmp->diameter);
 			if (tmp->height)
@@ -69,17 +69,17 @@ void	free_scene_el(t_scene *scene)
 
 	if (scene->light)
 	{
-		printf("\033[0;32mfree light\n\033[0m");
+		printf("free light\n");
 		free(scene->light);
 	}
 	if (scene->amb_light)
 	{
-		printf("\033[0;32mfree amb_light\n\033[0m");
+		printf("free amb_light\n");
 		free(scene->amb_light);
 	}
 	if (scene->camera)
 	{
-		printf("\033[0;32mfree camera\n\033[0m");
+		printf("free camera\n");
 		free(scene->camera);
 	}
 	if (scene->stack)
@@ -89,7 +89,7 @@ void	free_scene_el(t_scene *scene)
 		{
 			if (tmp->next)
 				tmp_next = tmp->next;
-			printf("\033[0;32mfree : %s\n\033[0m", tmp->type);
+			printf("free : %s\n", tmp->type);
 			free(tmp->type);
 			free(tmp);
 			if (tmp->next == NULL)
