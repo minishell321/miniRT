@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 09:07:17 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 11:18:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	create_amb_light(char **split, t_scene *scene)
 			return (1); // not enough must stop
 		i++;
 	}
-	free(sub_split);
+	ft_free_split(sub_split);
 	return (0);
 }
 
@@ -58,8 +58,8 @@ static int	create_camera(char **split, t_scene *scene)
 			return (1); // not enough must stop
 		i++;
 	}
-	free(sub_split);
-	free(sub_split2);
+	ft_free_split(sub_split);
+	ft_free_split(sub_split2);
 	scene->camera->fov = ft_atoi(split[3]);
 	if (scene->camera->fov < 0 || scene->camera->fov > 180)
 		return (1);
@@ -86,7 +86,7 @@ static int	create_light(char **split, t_scene *scene)
 		scene->light->coordinates[i] = ft_atof(sub_split[i]);
 		i++;
 	}
-	free(sub_split);
+	ft_free_split(sub_split);
 	return (0);
 }
 

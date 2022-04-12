@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 10:18:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/12 11:17:38 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static int	parse_line(char *str, t_scene *scene)
 	split = ft_split((str + i), ' ');
 	if (ft_strncmp(split[0], "\n", 1)  == 0)
 	{
-		free(split);
+		ft_free_split(split);
 		return (0);
 	}
 	if (check_split(split))
 	{
 		// printf("check_split KO\n");	
-		free(split);
+		ft_free_split(split);
 		return (1);
 	}
 	else
@@ -97,7 +97,7 @@ static int	parse_line(char *str, t_scene *scene)
 			return (1);
 		}
 	}
-	free(split);
+	ft_free_split(split);
 	return (0);
 }
 

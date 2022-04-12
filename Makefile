@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/12 09:44:51 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/12 11:24:26 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/ft_atof.c\
 			$(SRC)/create_shape.c\
 			$(SRC)/scene_utils.c\
-			$(SRC)/check_input_values.c\
 			
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))
@@ -65,6 +64,8 @@ ${NAME}:	${OBJS}
 
 clean:
 		@rm -f $(OBJS)		
+		make -C ${LIBFT_DIR} clean
+		make -C ${MLX_DIR} clean		
 
 fclean: clean
 		@rm -f $(NAME)
