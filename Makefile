@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/12 11:24:26 by rburri           ###   ########.fr        #
+#    Updated: 2022/04/13 08:19:36 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,13 +64,13 @@ ${NAME}:	${OBJS}
 
 clean:
 		@rm -f $(OBJS)		
-		make -C ${LIBFT_DIR} clean
-		make -C ${MLX_DIR} clean		
 
 fclean: clean
 		@rm -f $(NAME)
 		@rm -f $(MLX_A)
 		@rm -f $(LIBFT_A)
+		make -C ${LIBFT_DIR} fclean
+		make -C ${MLX_DIR} clean		
 	
 re: fclean all
 
