@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:55:21 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 09:12:07 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 10:59:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	close_win(t_data *data)
 	exit (0);
 }
 
-unsigned int	encode_rgb(int red, int green, int blue)
+unsigned int	encode_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
-	return (red << 16 | green << 8 | blue);
+	return (r << 16 | g << 8 | b);
 }

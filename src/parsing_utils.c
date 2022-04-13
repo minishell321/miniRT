@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 09:35:34 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 10:57:34 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	init_colors(t_shapes *shape, char *str)
 		return (1);
 	while (i < 3)
 	{
-		shape->colors[i] = ft_atof(sub_split[i]);
+		shape->colors[i] = ft_atoi(sub_split[i]);
 		if (shape->colors[i] < 0 || shape->colors[i] > 255)
 			return (1);
 		i++;

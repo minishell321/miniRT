@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 10:05:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 11:54:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,21 @@ unsigned int	dec2hex(int n)
 	return (hex);
 }
 
-
-
-double *dir_vec(double *ray_dir, int i, int j, int W, int H, double fov)
+double *dir_vec(double *ray_dir, int i, int j, t_data data)
 {
-	ray_dir[0] = j - W / 2;
-	ray_dir[1] = i - H / 2;
-	ray_dir[2] = -W / (2 * tan (fov / 2));
+	ray_dir[0] = j - data.width / 2;
+	ray_dir[1] = i - data.height / 2;
+	ray_dir[2] = -data.width / (2 * tan (data.scene->camera->fov / 2));
 	return (ray_dir);
 }
+
+// double *dir_vec(double *ray_dir, int i, int j, int W, int H, double fov)
+// {
+// 	ray_dir[0] = j - W / 2;
+// 	ray_dir[1] = i - H / 2;
+// 	ray_dir[2] = -W / (2 * tan (fov / 2));
+// 	return (ray_dir);
+// }
 
 int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *position, double *normal)
 {
@@ -143,11 +149,10 @@ int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *po
 
 // FOV SET TO 60 degrees
 //int	ray_tracing(t_data data, t_shapes *shape, t_light *light)
-int	ray_tracing(t_data data, t_light *light)
+int	ray_tracing(t_data data)
 {
 	int		i;
 	int		j;
-	double	fov;
 	double	t_light;
 	double	*ray_dir;
 	double	*ray_light;
@@ -159,7 +164,6 @@ int	ray_tracing(t_data data, t_light *light)
 	double	pixel_intensity;
 
 	i = 0;
-	fov = 60 * M_PI / 180;
 	ray_dir = malloc(sizeof(double) * 3);
 	position = malloc(sizeof(double) * 3);
 	pos_light = malloc(sizeof(double) * 3);
@@ -178,14 +182,15 @@ int	ray_tracing(t_data data, t_light *light)
 			tmp[1] = 0;
 			tmp[2] = 0;
 //			if (intersection(normalize(dir_vec(ray_dir, i, j, data.width, data.height, fov)), shape->coordinates, shape->diameter, position, normal))
-			if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data.width, data.height, fov)), data, position, normal))
+			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data.width, data.height, data.scene->camera->fov)), data, position, normal))
+			if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
 			{
 				tmp[0] = position[0] + 0.0001 * normal[0];
 				tmp[1] = position[1] + 0.0001 * normal[1];
 				tmp[2] = position[2] + 0.0001 * normal[2];
-				position[0] = light->coordinates[0] - position[0];
-				position[1] = light->coordinates[1] - position[1];
-				position[2] = light->coordinates[2] - position[2];
+				position[0] = data.scene->light->coordinates[0] - position[0];
+				position[1] = data.scene->light->coordinates[1] - position[1];
+				position[2] = data.scene->light->coordinates[2] - position[2];
 				ray_light[0] = position[0];
 				ray_light[1] = position[1];
 				ray_light[2] = position[2];
@@ -201,7 +206,7 @@ int	ray_tracing(t_data data, t_light *light)
 				ray_light[1] = tmp[1];
 				ray_light[2] = tmp[2];
 				
-				pixel_intensity = light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
+				pixel_intensity = data.scene->light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
 				my_mlx_pixel_put(&data, j, data.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
 				}
 			}
@@ -263,7 +268,7 @@ int main(int argc, char **argv)
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
 				&data.line_length, &data.endian);
 //		if (ray_tracing(data, data.scene->stack, data.scene->light))
-		if (ray_tracing(data, data.scene->light))
+		if (ray_tracing(data))
 			ft_error();
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 		mlx_hook(data.win, 2, 1L << 0, my_close, &data);
