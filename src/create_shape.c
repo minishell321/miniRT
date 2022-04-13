@@ -7,11 +7,12 @@ static void shape_init(t_shapes *shape)
 	shape->coordinates[0] = 0;
 	shape->coordinates[1] = 0;
 	shape->coordinates[2] = 0;
-	shape->vect_orient_3d[0] = 0;
-	shape->vect_orient_3d[1] = 0;
-	shape->vect_orient_3d[2] = 0;
+	shape->vect_3d[0] = 0;
+	shape->vect_3d[1] = 0;
+	shape->vect_3d[2] = 0;
 	shape->diameter = 0;
 	shape->height = 0;
+	shape->color = 0;
 	shape->colors[0] = 0;
 	shape->colors[1] = 0;
 	shape->colors[2] = 0;
@@ -29,7 +30,7 @@ static int  create_plan(t_scene *scene, char **split)
     shape->type = ft_strdup("pl");
     if  (init_coord(shape, split[1]) == 1)
             return (1);
-	if (init_vect_orient_3d(shape, split[2]) == 1)
+	if (init_vect_3d(shape, split[2]) == 1)
             return (1);
     if (init_colors(shape, split[3]) == 1)
             return (1);
@@ -69,7 +70,7 @@ static int  create_cylinder(t_scene *scene, char **split)
     shape->type = ft_strdup("cy");
     if (init_coord(shape, split[1]) == 1)
             return (1);
-	if (init_vect_orient_3d(shape, split[2]) == 1)
+	if (init_vect_3d(shape, split[2]) == 1)
             return (1);
     if (init_colors(shape, split[5]) == 1)
         return (1);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 10:38:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:30:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,36 @@
 // close read write
 
 
-int 	parse_scene(t_shape *shape, char *file);
+// int 	parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
-void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
+void			my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 
 // UTILS.C
-void	ft_error(void);
-int		my_close(int keycode, t_data *data);
+unsigned int	encode_rgb(int red, int green, int blue);
+void			ft_error(void);
+int				my_close(int keycode, t_data *data);
+int				close_win(t_data *data);
 
 // PARSING_UTILS.C
-int	    init_vect_orient_3d(t_shapes *shape, char *str);
-int	    init_colors(t_shapes *shape, char *str);
-int	    init_coord(t_shapes *shape, char *str);
-void	insert_shape_at_end(t_scene *scene, t_shapes *shape);
-int		ft_isspace_nnl(int c);
+int				init_vect_3d(t_shapes *shape, char *str);
+int				init_colors(t_shapes *shape, char *str);
+int				init_coord(t_shapes *shape, char *str);
+void			insert_shape_at_end(t_scene *scene, t_shapes *shape);
+int				ft_isspace_nnl(int c);
 // SCENE_UTILS.C
-void	init_scene(t_scene *scene);
-void	print_scene(t_scene *scene);
-void	free_scene_el(t_scene *scene);
+void			init_scene(t_scene *scene);
+void			print_scene(t_scene *scene);
+void			free_scene_el(t_scene *scene);
 
 // FT_ATOF.C
-double	ft_atof(char *str);
+double			ft_atof(char *str);
 
 // PARSING.C
-int	read_file(t_scene *scene, char *file);
+int				read_file(t_scene *scene, char *file);
 
 // UPLOAD_SCENE.C
-int		upload_scene(char **split, t_scene *scene);
+int				upload_scene(char **split, t_scene *scene);
 // CREATE_SHAPE.C
-int     create_shape(char **split, t_scene *scene);
+int				create_shape(char **split, t_scene *scene);
 
 #endif

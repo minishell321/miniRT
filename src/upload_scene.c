@@ -6,34 +6,36 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 11:18:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:31:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-static int	create_amb_light(char **split, t_scene *scene)
+static int	create_amb_lit(char **split, t_scene *scene)
 {
 	char		**sub_split;
 	int			i;
-	
+
 	i = 0;
-	scene->amb_light = malloc(sizeof(t_amb_light));
-	if (scene->amb_light == NULL)
+	scene->amb_lit = malloc(sizeof(t_amb_lit));
+	if (scene->amb_lit == NULL)
 		return (1);
-	scene->amb_light->light = ft_atof(split[1]);
-	if (scene->amb_light->light > 1.0 || scene->amb_light->light < 0.0)
+	scene->amb_lit->light = ft_atof(split[1]);
+	if (scene->amb_lit->light > 1.0 || scene->amb_lit->light < 0.0)
 		return (1);
 	sub_split = ft_split(split[2], ',');
 	if (sub_split == NULL)
 		return (1);
 	while (i < 3)
 	{
-		scene->amb_light->colors[i] = ft_atoi(sub_split[i]);
-		if (scene->amb_light->colors[i] > 255 || scene->amb_light->colors[i] < 0)
-			return (1); // not enough must stop
+		scene->amb_lit->colors[i] = ft_atoi(sub_split[i]);
+		if (scene->amb_lit->colors[i] > 255 || scene->amb_lit->colors[i] < 0)
+			return (1);
 		i++;
 	}
+	scene->amb_lit->color = encode_rgb(scene->amb_lit->colors[0], \
+		scene->amb_lit->colors[1], scene->amb_lit->colors[2]);
 	ft_free_split(sub_split);
 	return (0);
 }
@@ -48,15 +50,14 @@ static int	create_camera(char **split, t_scene *scene)
 	scene->camera = malloc(sizeof(t_camera));
 	sub_split = ft_split(split[1], ',');
 	sub_split2 = ft_split(split[2], ',');
-	if (sub_split == NULL || sub_split2 == NULL || scene->camera ==  NULL)  
+	if (sub_split == NULL || sub_split2 == NULL || scene->camera == NULL)
 		return (1);
 	while (i < 3)
 	{
 		scene->camera->coordinates[i] = ft_atof(sub_split[i]);
-		scene->camera->vect_orient_3d[i] = ft_atof(sub_split2[i]);
-		if (scene->camera->vect_orient_3d[i] < -1.0 || scene->camera->vect_orient_3d[i] > 1.0)
-			return (1); // not enough must stop
-		i++;
+		scene->camera->vect_3d[i] = ft_atof(sub_split2[i]);
+		if (scene->camera->vect_3d[i] < -1.0 || scene->camera->vect_3d[i] > 1.0)
+			return (1);
 	}
 	ft_free_split(sub_split);
 	ft_free_split(sub_split2);
@@ -94,7 +95,7 @@ int	upload_scene(char **split, t_scene *scene)
 {
 	if (!ft_strncmp(split[0], "A", 2))
 	{
-		if (create_amb_light(split, scene))
+		if (create_amb_lit(split, scene))
 			return (1);
 	}
 	else if (!ft_strncmp(split[0], "C", 2))

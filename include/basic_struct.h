@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 10:31:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:30:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,27 @@ typedef struct s_shapes
 {
 	char	*type;
 	double	coordinates[3];
-	double	vect_orient_3d[3];
+	double	vect_3d[3];
 	double	diameter;
 	double	height;
 	int		colors[3];
+	unsigned int color;
 	struct s_shapes *next;
 }	t_shapes;
 
-typedef	struct	s_shape {
-	char	*type;
-	double	coordinates[3];
-	double	diameter;
-	int		colors[3];
-}	t_shape;
+// typedef	struct	s_shape {
+// 	char	*type;
+// 	double	coordinates[3];
+// 	double	diameter;
+// 	int		colors[3];
+// }	t_shape;
 
-typedef struct s_amb_light
+typedef struct s_amb_lit
 {
 	double	light;
 	int		colors[3];
-}	t_amb_light;
+	unsigned int color;
+}	t_amb_lit;
 
 typedef struct s_light
 {
@@ -48,14 +50,14 @@ typedef struct s_light
 typedef struct s_camera
 {
 	double	coordinates[3];
-	double	vect_orient_3d[3];
+	double	vect_3d[3];
 	int		fov;
 }	t_camera;
 
 typedef struct s_scene
 {
 	t_shapes	*stack;
-	t_amb_light	*amb_light;
+	t_amb_lit	*amb_lit;
 	t_light		*light;
 	t_camera	*camera;
 }	t_scene;

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 16:58:08 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:29:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ unsigned int	dec2hex(int n)
 	hex += n % 16;
 	return (hex);
 }
+
+
 
 double *dir_vec(double *ray_dir, int i, int j, int W, int H, double fov)
 {
@@ -240,10 +242,14 @@ int main(int argc, char **argv)
 		// if (parse_scene(shape, argv[1]))
 		// 	ft_error();
 		if (read_file(&scene, argv[1]))
+		{
+			free_scene_el(&scene);
 			ft_error();
+		}
 		data.scene = &scene;
 		data.height = 1250;
 		data.width = 1250;
+		printf("HELLO\n");
 		// printf("shape->type = %s\n", shape->type);
 		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
 		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
@@ -262,6 +268,7 @@ int main(int argc, char **argv)
 			ft_error();
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 		mlx_hook(data.win, 2, 1L << 0, my_close, &data);
+		mlx_hook(data.win, 17, 0, close_win, &data);
 		mlx_loop(data.mlx);
 	}
 	else

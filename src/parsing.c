@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/12 11:17:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:36:18 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int check_char(char *s)
 	i = 0;
 	while (s[i])
 	{
-		// printf("char %c\n", s[i]);
 		if (s[i] == '\n')
 			return (0);
 		if (ft_isdigit(s[i]) || s[i] == ' ' || s[i] == '.' || s[i] == ',' || s[i] == '-')
@@ -37,7 +36,6 @@ static int	check_param(char **split)
 	i = 1;
 	while (split[i])
 	{
-		// printf("split[%d]\n", i);
 		if (check_char(split[i]))
 			return (1);
 		i++;
