@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 09:29:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/13 10:05:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,6 @@ int main(int argc, char **argv)
 		data.scene = &scene;
 		data.height = 1250;
 		data.width = 1250;
-		printf("HELLO\n");
 		// printf("shape->type = %s\n", shape->type);
 		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
 		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
