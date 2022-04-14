@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 04:47:06 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 15:58:59 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ typedef struct s_shapes
 // 	double	diameter;
 // 	int		colors[3];
 // }	t_shape;
+
+typedef struct s_ray
+{
+	double			*org;
+	double			*dir;
+	double			*pos;
+	double			*nrm;
+	unsigned char	*sf_color;
+	double			intersect;
+}	t_ray;
 
 typedef struct s_amb_lit
 {

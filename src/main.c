@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 08:12:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 16:51:54 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ double	dot_product(double *a, double *b)
 
 // ASSUMING AN ORIGIN OF THE RAY AT {0, 0, 0}
 //int	intersection(double *ray_dir, double *sphere, double sp_diameter, double *position, double *normal)
-double	intersection(double *ray_origin, double *ray_dir, double *sphere, double sp_diameter, double *position, double *normal)
+//double	intersection(double *ray_origin, double *ray_dir, double *sphere, double sp_diameter, double *position, double *normal)
+double	intersection(t_ray *ray, t_shapes *shape, double *position, double *normal)
 {
 	double	a;
 	double	b;
@@ -50,12 +51,17 @@ double	intersection(double *ray_origin, double *ray_dir, double *sphere, double 
 	double	delta;
 	double	dist_to_sphere_center[3];
 
-	dist_to_sphere_center[0] = ray_origin[0] - sphere[0];
-	dist_to_sphere_center[1] = ray_origin[1] - sphere[1];
-	dist_to_sphere_center[2] = ray_origin[2] - sphere[2];
+//	dist_to_sphere_center[0] = ray_origin[0] - sphere[0];
+//	dist_to_sphere_center[1] = ray_origin[1] - sphere[1];
+//	dist_to_sphere_center[2] = ray_origin[2] - sphere[2];
+	dist_to_sphere_center[0] = ray->org[0] - shape->coordinates[0];
+	dist_to_sphere_center[1] = ray->org[1] - shape->coordinates[1];
+	dist_to_sphere_center[2] = ray->org[2] - shape->coordinates[2];
 	a = 1;
-	b = 2 * dot_product(ray_dir, dist_to_sphere_center);
-	c = norm_squared(dist_to_sphere_center) - (sp_diameter / 2 * sp_diameter / 2);
+//	b = 2 * dot_product(ray_dir, dist_to_sphere_center);
+	b = 2 * dot_product(ray->dir, dist_to_sphere_center);
+//	c = norm_squared(dist_to_sphere_center) - (sp_diameter / 2 * sp_diameter / 2);
+	c = norm_squared(dist_to_sphere_center) - (shape->diameter / 2 * shape->diameter / 2);
 	delta = b * b - (4 * a * c);
 	if (delta < 0)
 		return (0);
@@ -67,12 +73,18 @@ double	intersection(double *ray_origin, double *ray_dir, double *sphere, double 
 	{	
 		t = (-b + sqrt(delta)) / (2 * a);
 	}
-	position[0] = t * ray_dir[0];
-	position[1] = t * ray_dir[1];
-	position[2] = t * ray_dir[2];
-	normal[0] = position[0] - sphere[0];
-	normal[1] = position[1] - sphere[1];
-	normal[2] = position[2] - sphere[2];
+//	position[0] = t * ray_dir[0];
+//	position[1] = t * ray_dir[1];
+//	position[2] = t * ray_dir[2];
+	position[0] = ray->org[0] + t * ray->dir[0];
+	position[1] = ray->org[1] + t * ray->dir[1];
+	position[2] = ray->org[2] + t * ray->dir[2];
+//	normal[0] = position[0] - sphere[0];
+//	normal[1] = position[1] - sphere[1];
+//	normal[2] = position[2] - sphere[2];
+	normal[0] = position[0] - shape->coordinates[0];
+	normal[1] = position[1] - shape->coordinates[1];
+	normal[2] = position[2] - shape->coordinates[2];
 	normal = normalize(normal);
 	return (t);
 //	return (1);
@@ -111,53 +123,97 @@ double *dir_vec(double *ray_dir, int i, int j, t_data data)
 // 	return (ray_dir);
 // }
 
-void	pixel_colors(t_data data, double *tmp, double *normal, double *position)
+//void	pixel_colors(t_data data, double *tmp, double *normal, double *position)
+void	pixel_colors(t_data data, t_ray *ray)
 {
 	double pixel_intensity_r;
 	double pixel_intensity_g;
 	double pixel_intensity_b;
+	double *tmp;
+
+	tmp = malloc(sizeof(double) * 3);
+	tmp[0] = ray->pos[0];
+	tmp[1] = ray->pos[1];
+	tmp[2] = ray->pos[2];
+	tmp = normalize(tmp);
+
 	
-	pixel_intensity_r = fmin(data.scene->stack->colors[0], data.scene->stack->colors[0] \
-		* data.scene->light->ratio * 10000 \
-		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
-	pixel_intensity_g = fmin(data.scene->stack->colors[1], data.scene->stack->colors[1] \
-		* data.scene->light->ratio * 10000 \
-		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
-	pixel_intensity_b = fmin(data.scene->stack->colors[2], data.scene->stack->colors[2] \
-		* data.scene->light->ratio * 10000 \
-		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+//	pixel_intensity_r = fmin(data.scene->stack->colors[0], data.scene->stack->colors[0] \
+//		* data.scene->light->ratio * 10000 \
+//		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+//	pixel_intensity_g = fmin(data.scene->stack->colors[1], data.scene->stack->colors[1] \
+//		* data.scene->light->ratio * 10000 \
+//		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+//	pixel_intensity_b = fmin(data.scene->stack->colors[2], data.scene->stack->colors[2] \
+//		* data.scene->light->ratio * 10000 \
+//		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+
+//	pixel_intensity_r = fmin(ray->sf_color[0], fmax(0, data.scene->light->ratio \
+//		* 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+//	pixel_intensity_g = fmin(ray->sf_color[1], fmax(0, data.scene->light->ratio \
+//		* 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+//	pixel_intensity_b = fmin(ray->sf_color[0], fmax(0, data.scene->light->ratio \
+//		* 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+	
+	pixel_intensity_r = fmin(ray->sf_color[0], ray->sf_color[0] \
+      * data.scene->light->ratio * 5000 \
+     * fmax(0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	pixel_intensity_g = fmin(ray->sf_color[1], ray->sf_color[1] \
+      * data.scene->light->ratio * 5000 \
+     * fmax(0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	pixel_intensity_b = fmin(ray->sf_color[2], ray->sf_color[2] \
+      * data.scene->light->ratio * 5000 \
+     * fmax(0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	
 	data.scene->stack->color = encode_rgb((unsigned char)pixel_intensity_r, \
 		(unsigned char)pixel_intensity_g, (unsigned char)pixel_intensity_b);
+	free(tmp);
 }
 
-int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *position, double *normal)
+//int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *position, double *normal)
+int	scene_intersect(t_data data, t_ray *ray)
 {
 	int			has_intersect;
 	t_shapes	*tmp;
-	double		solution_min;
+//	double		solution_min;
 	double		*position_tmp;
 	double		*normal_tmp;
 	double		ret;
 
 	position_tmp = malloc(sizeof(double) * 3);
 	normal_tmp = malloc(sizeof(double) * 3);
-	solution_min = 2147483647;
+//	solution_min = 2147483647;
+	ray->intersect = 2147483647;	
 	has_intersect = 0;
 	tmp = data.scene->stack;
 	while(tmp)
 	{
-		ret = intersection(ray_origin, ray_dir, tmp->coordinates, tmp->diameter, position_tmp, normal_tmp);
-		if (ret && ret < solution_min)
+	//	ret = intersection(ray_origin, ray_dir, tmp->coordinates, tmp->diameter, position_tmp, normal_tmp);
+		ret = intersection(ray, tmp, position_tmp, normal_tmp);
+	//	if (ret && ret < solution_min)
+		if (ret && ret < ray->intersect)
 		{
 		//	has_intersect = 1;
-			solution_min = ret;
-			has_intersect = solution_min;
-			position[0] = position_tmp[0];
-			position[1] = position_tmp[1];
-			position[2] = position_tmp[2];
-			normal[0] = normal_tmp[0];
-			normal[1] = normal_tmp[1];
-			normal[2] = normal_tmp[2];
+		//	solution_min = ret;
+		//	has_intersect = solution_min;
+
+			has_intersect = 1;
+			ray->intersect = ret;
+		//	position[0] = position_tmp[0];
+		//	position[1] = position_tmp[1];
+		//	position[2] = position_tmp[2];
+		//	normal[0] = normal_tmp[0];
+		//	normal[1] = normal_tmp[1];
+		//	normal[2] = normal_tmp[2];
+			ray->pos[0] = position_tmp[0];
+			ray->pos[1] = position_tmp[1];
+			ray->pos[2] = position_tmp[2];
+			ray->nrm[0] = normal_tmp[0];
+			ray->nrm[1] = normal_tmp[1];
+			ray->nrm[2] = normal_tmp[2];
+			ray->sf_color[0] = tmp->colors[0];
+			ray->sf_color[1] = tmp->colors[1];
+			ray->sf_color[2] = tmp->colors[2];
 		}
 		tmp = tmp->next;
 	}
@@ -166,70 +222,116 @@ int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *po
 	return (has_intersect);
 }
 
+int	init_ray(t_ray *ray)
+{
+	ray->org = malloc(sizeof(double) * 3);
+	ray->dir = malloc(sizeof(double) * 3);
+	ray->pos = malloc(sizeof(double) * 3);
+	ray->nrm = malloc(sizeof(double) * 3);
+	ray->sf_color = malloc(sizeof(unsigned char) * 3);
+	if (!ray->org || !ray->dir || !ray->pos || !ray->nrm || !ray->sf_color)
+		return (1);
+	return (0);
+}
+
+void	free_ray(t_ray *ray)
+{
+	free(ray->org);
+	free(ray->dir);
+	free(ray->pos);
+	free(ray->nrm);
+	free(ray->sf_color);
+	free(ray);
+}
+
 // FOV SET TO 60 degrees
 //int	ray_tracing(t_data data, t_shapes *shape, t_light *light)
 int	ray_tracing(t_data data)
 {
-	int		i;
-	int		j;
-	double	t_light;
-	double	*ray_dir;
-	double	*ray_light;
-	double	*position;
-	double	*pos_light;
-	double	*normal;
-	double	*nrm_light;
-	double	*tmp;
+	int			i;
+	int			j;
+//	double		t_light;
+//	double		*ray_dir;
+//	double		*ray_light;
+//	double		*position;
+//	double		*pos_light;
+//	double		*normal;
+//	double		*nrm_light;
+//	double		*tmp;
+	t_ray		*ray;
+	t_ray		*light;
 	// double	pixel_intensity;
 
 	i = 0;
-	ray_dir = malloc(sizeof(double) * 3);
-	position = malloc(sizeof(double) * 3);
-	pos_light = malloc(sizeof(double) * 3);
-	normal = malloc(sizeof(double) * 3);
-	nrm_light = malloc(sizeof(double) * 3);
-	ray_light = malloc(sizeof(double) * 3);
-	tmp = malloc(sizeof(double) * 3);
-	if (ray_dir == 0 || position == 0 || pos_light == 0 || normal == 0 || nrm_light == 0 || ray_light == 0 || tmp == 0)
+	ray = malloc(sizeof(t_ray));
+	light = malloc(sizeof(t_ray));
+	if (ray == 0 || init_ray(ray) || light == 0 || init_ray(light))
 		return (1);
+//	ray_dir = malloc(sizeof(double) * 3);
+//	position = malloc(sizeof(double) * 3);
+//	pos_light = malloc(sizeof(double) * 3);
+//	normal = malloc(sizeof(double) * 3);
+//	nrm_light = malloc(sizeof(double) * 3);
+//	ray_light = malloc(sizeof(double) * 3);
+//	tmp = malloc(sizeof(double) * 3);
+//	if (ray_dir == 0 || position == 0 || pos_light == 0 || normal == 0 || nrm_light == 0 || ray_light == 0 || tmp == 0)
+//		return (1);
 	while (i < data.height)
 	{
 		j = 0;
 		while (j < data.width)
 		{
-			tmp[0] = 0;
-			tmp[1] = 0;
-			tmp[2] = 0;
+			ray->dir = normalize(dir_vec(ray->dir, i, j, data));
+			ray->org[0] = data.scene->camera->coordinates[0];
+			ray->org[1] = data.scene->camera->coordinates[1];
+			ray->org[2] = data.scene->camera->coordinates[2];
+		//	tmp[0] = 0;
+		//	tmp[1] = 0;
+		//	tmp[2] = 0;
 //			if (intersection(normalize(dir_vec(ray_dir, i, j, data.width, data.height, fov)), shape->coordinates, shape->diameter, position, normal))
 			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data.width, data.height, data.scene->camera->fov)), data, position, normal))
 			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
-			if (scene_intersect(data.scene->camera->coordinates, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
+	//		if (scene_intersect(data.scene->camera->coordinates, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
+			if (scene_intersect(data, ray))		
 			{
-				tmp[0] = position[0] + 0.0001 * normal[0];
-				tmp[1] = position[1] + 0.0001 * normal[1];
-				tmp[2] = position[2] + 0.0001 * normal[2];
-				position[0] = data.scene->light->coordinates[0] - position[0];
-				position[1] = data.scene->light->coordinates[1] - position[1];
-				position[2] = data.scene->light->coordinates[2] - position[2];
-				ray_light[0] = position[0];
-				ray_light[1] = position[1];
-				ray_light[2] = position[2];
-				ray_light = normalize(ray_light);
-				t_light = scene_intersect(tmp, ray_light, data, pos_light, nrm_light);
-				if (!(t_light && (t_light * t_light < norm_squared(position))))
+			//	tmp[0] = position[0] + 0.0001 * normal[0];
+			//	tmp[1] = position[1] + 0.0001 * normal[1];
+			//	tmp[2] = position[2] + 0.0001 * normal[2];
+				light->org[0] = ray->pos[0] + 0.00001 * ray->nrm[0];
+				light->org[1] = ray->pos[1] + 0.00001 * ray->nrm[1];
+				light->org[2] = ray->pos[2] + 0.00001 * ray->nrm[2];
+			//	position[0] = data.scene->light->coordinates[0] - position[0];
+			//	position[1] = data.scene->light->coordinates[1] - position[1];
+			//	position[2] = data.scene->light->coordinates[2] - position[2];
+				ray->pos[0] = data.scene->light->coordinates[0] - ray->pos[0];
+				ray->pos[1] = data.scene->light->coordinates[1] - ray->pos[1];
+				ray->pos[2] = data.scene->light->coordinates[2] - ray->pos[2];
+			//	ray_light[0] = position[0];
+			//	ray_light[1] = position[1];
+			//	ray_light[2] = position[2];
+				light->dir[0] = ray->pos[0];
+				light->dir[1] = ray->pos[1];
+				light->dir[2] = ray->pos[2];
+				light->dir = normalize(light->dir);
+			//	ray_light = normalize(ray_light);
+			//	t_light = scene_intersect(tmp, ray_light, data, pos_light, nrm_light);
+			//	t_light = scene_intersect(data, light);
+			//	if (!(t_light && (t_light * t_light < norm_squared(position))))
+				if (!(scene_intersect(data, light) && (light->intersect * light->intersect < norm_squared(ray->pos))))
 				{
-				tmp[0] = position[0];
-				tmp[1] = position[1];
-				tmp[2] = position[2];
-				tmp = normalize(tmp);
-				ray_light[0] = tmp[0];
-				ray_light[1] = tmp[1];
-				ray_light[2] = tmp[2];
+		//		tmp[0] = position[0];
+		//		tmp[1] = position[1];
+		//		tmp[2] = position[2];
+		//		tmp = normalize(tmp);
+		//		ray_light[0] = tmp[0];
+		//		ray_light[1] = tmp[1];
+		//		ray_light[2] = tmp[2];
 				
 				// pixel_intensity = data.scene->light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
 				// my_mlx_pixel_put(&data, j, data.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
 
-				pixel_colors(data, tmp, normal, position);
+		//		pixel_colors(data, tmp, normal, position);
+				pixel_colors(data, ray);
 				my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
 				}
 			}
@@ -237,13 +339,15 @@ int	ray_tracing(t_data data)
 		}
 		i++;
 	}
-	free(ray_dir);
-	free(position);
-	free(pos_light);
-	free(normal);
-	free(nrm_light);
-	free(ray_light);
-	free(tmp);
+	free_ray(ray);
+	free_ray(light);
+//	free(ray_dir);
+//	free(position);
+//	free(pos_light);
+//	free(normal);
+//	free(nrm_light);
+//	free(ray_light);
+//	free(tmp);
 	return (0);
 }
 
