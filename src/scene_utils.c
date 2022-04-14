@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 09:32:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 03:48:49 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	print_scene(t_scene *scene)
 		printf("\033[0;31mcamera: \n\033[0m");
 		printf("camera coord: x = %f, y = %f, z = %f\n", scene->camera->coordinates[0], scene->camera->coordinates[1], scene->camera->coordinates[2]);
 		printf("vect_3d: x = %f, y= %f, z = %f\n", scene->camera->vect_3d[0], scene->camera->vect_3d[1], scene->camera->vect_3d[2]);
-		printf("camera FOV: %d\n", scene->camera->fov);
+		printf("camera FOV: %f\n", scene->camera->fov);
 	}
 	if (scene->stack)
 	{

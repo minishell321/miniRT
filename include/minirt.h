@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 11:48:20 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 07:42:59 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 //open
 # include <unistd.h>
 // close read write
-
+# define WIDTH 1250
+# define HEIGHT 1250
 
 // int 	parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
@@ -36,6 +37,7 @@ unsigned int	encode_rgb(unsigned char r, unsigned char g, unsigned char b);
 void			ft_error(void);
 int				my_close(int keycode, t_data *data);
 int				close_win(t_data *data);
+void			init_data(t_data *data, t_scene *scene);
 
 // PARSING_UTILS.C
 int				init_vect_3d(t_shapes *shape, char *str);

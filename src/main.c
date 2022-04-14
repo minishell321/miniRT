@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 11:54:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 08:12:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,25 @@ double *dir_vec(double *ray_dir, int i, int j, t_data data)
 // 	return (ray_dir);
 // }
 
+void	pixel_colors(t_data data, double *tmp, double *normal, double *position)
+{
+	double pixel_intensity_r;
+	double pixel_intensity_g;
+	double pixel_intensity_b;
+	
+	pixel_intensity_r = fmin(data.scene->stack->colors[0], data.scene->stack->colors[0] \
+		* data.scene->light->ratio * 10000 \
+		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+	pixel_intensity_g = fmin(data.scene->stack->colors[1], data.scene->stack->colors[1] \
+		* data.scene->light->ratio * 10000 \
+		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+	pixel_intensity_b = fmin(data.scene->stack->colors[2], data.scene->stack->colors[2] \
+		* data.scene->light->ratio * 10000 \
+		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+	data.scene->stack->color = encode_rgb((unsigned char)pixel_intensity_r, \
+		(unsigned char)pixel_intensity_g, (unsigned char)pixel_intensity_b);
+}
+
 int	scene_intersect(double *ray_origin, double *ray_dir, t_data data, double *position, double *normal)
 {
 	int			has_intersect;
@@ -161,7 +180,7 @@ int	ray_tracing(t_data data)
 	double	*normal;
 	double	*nrm_light;
 	double	*tmp;
-	double	pixel_intensity;
+	// double	pixel_intensity;
 
 	i = 0;
 	ray_dir = malloc(sizeof(double) * 3);
@@ -183,7 +202,8 @@ int	ray_tracing(t_data data)
 			tmp[2] = 0;
 //			if (intersection(normalize(dir_vec(ray_dir, i, j, data.width, data.height, fov)), shape->coordinates, shape->diameter, position, normal))
 			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data.width, data.height, data.scene->camera->fov)), data, position, normal))
-			if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
+			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
+			if (scene_intersect(data.scene->camera->coordinates, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
 			{
 				tmp[0] = position[0] + 0.0001 * normal[0];
 				tmp[1] = position[1] + 0.0001 * normal[1];
@@ -206,8 +226,11 @@ int	ray_tracing(t_data data)
 				ray_light[1] = tmp[1];
 				ray_light[2] = tmp[2];
 				
-				pixel_intensity = data.scene->light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
-				my_mlx_pixel_put(&data, j, data.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
+				// pixel_intensity = data.scene->light->ratio * 1000000 * fmax(0, dot_product(tmp, normal)) / (norm_squared(position));
+				// my_mlx_pixel_put(&data, j, data.height - i - 1, (dec2hex(fmin(255, fmax(0, pixel_intensity)))));
+
+				pixel_colors(data, tmp, normal, position);
+				my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
 				}
 			}
 			j++;
@@ -236,9 +259,15 @@ int main(int argc, char **argv)
 	// init_scene(&scene);
 	if (argc == 2)
 	{
-		data.mlx = mlx_init();
-		data.win = mlx_new_window(data.mlx, 1250, 1250, "miniRT");
-		data.img = mlx_new_image(data.mlx, 1250, 1250);
+		if (read_file(&scene, argv[1]))
+		{
+			free_scene_el(&scene);
+			ft_error();
+		}
+		init_data(&data, &scene);
+		// data.mlx = mlx_init();
+		// data.win = mlx_new_window(data.mlx, 1250, 1250, "miniRT");
+		// data.img = mlx_new_image(data.mlx, 1250, 1250);
 		// (void)argv;
 		// shape = malloc(sizeof(t_shape));
 		// light = malloc(sizeof(t_light));
@@ -246,14 +275,9 @@ int main(int argc, char **argv)
 		// 	return (1);
 		// if (parse_scene(shape, argv[1]))
 		// 	ft_error();
-		if (read_file(&scene, argv[1]))
-		{
-			free_scene_el(&scene);
-			ft_error();
-		}
-		data.scene = &scene;
-		data.height = 1250;
-		data.width = 1250;
+		// data.scene = &scene;
+		// data.height = 1250;
+		// data.width = 1250;
 		// printf("shape->type = %s\n", shape->type);
 		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
 		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
@@ -265,8 +289,8 @@ int main(int argc, char **argv)
 		// light->coordinates[2] = 0;
 		// light->ratio = 0.7;
 
-		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
-				&data.line_length, &data.endian);
+		// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
+		// 		&data.line_length, &data.endian);
 //		if (ray_tracing(data, data.scene->stack, data.scene->light))
 		if (ray_tracing(data))
 			ft_error();

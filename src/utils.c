@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:55:21 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 10:59:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 07:43:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,16 @@ int	close_win(t_data *data)
 unsigned int	encode_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	return (r << 16 | g << 8 | b);
+}
+
+void init_data(t_data *data, t_scene *scene)
+{
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->scene = scene;
+	data->height = HEIGHT;
+	data->width = WIDTH;
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+				&data->line_length, &data->endian);
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 11:35:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 04:47:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_scene
 	t_amb_lit	*amb_lit;
 	t_light		*light;
 	t_camera	*camera;
+	double		pixel_intensity;
 }	t_scene;
 
 typedef struct s_data
