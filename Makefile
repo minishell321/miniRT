@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/19 15:43:02 by vbotev           ###   ########.fr        #
+#    Updated: 2022/04/21 16:29:29 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/vector_utils2.c\
 			$(SRC)/tracing.c\
 			$(SRC)/ray_utils.c\
+			$(SRC)/matrix_utils.c\
+			$(SRC)/geo_transform.c\
 			
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))

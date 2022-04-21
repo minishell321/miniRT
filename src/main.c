@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/19 15:45:39 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/21 17:23:56 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int main(int argc, char **argv)
 	// t_shape	*shape;
 	// t_light	*light;
 	t_scene scene;
+
+	double	test[4][4];
+	double	**res;
 
 	// data = malloc(sizeof(t_data));
 	// init_scene(&scene);
@@ -59,6 +62,44 @@ int main(int argc, char **argv)
 //		if (ray_tracing(data, data.scene->stack, data.scene->light))
 		if (ray_tracing(data))
 			ft_error();
+	
+		test[0][0] = 3;
+		test[0][1] = 2;
+		test[0][2] = -1;
+		test[0][3] = 1;
+		test[1][0] = 1;
+		test[1][1] = 0;
+		test[1][2] = 1;
+		test[1][3] = 2;
+		test[2][0] = 2;
+		test[2][1] = 1;
+		test[2][2] = 1;
+		test[2][3] = -1;
+		test[3][0] = 1;
+		test[3][1] = 1;
+		test[3][2] = 1;
+		test[3][3] = 0;
+
+		res = cofactor(test, 4);
+		printf("WOOHOO\n");
+		int i = -1;
+		int j;
+		while (++i < 4)
+		{
+			j = -1;
+			while (++j < 4)
+			{
+				if (j == 3)
+					printf("%f\n", res[i][j]);
+				else
+					printf("%f ", res[i][j]);
+			}
+
+		}
+
+
+
+
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 		mlx_hook(data.win, 2, 1L << 0, my_close, &data);
 		mlx_hook(data.win, 17, 0, close_win, &data);

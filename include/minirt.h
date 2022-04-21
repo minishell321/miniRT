@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/19 15:43:13 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/21 17:35:25 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ unsigned int	dec2hex(int n);
 void			pixel_colors(t_data data, t_ray *ray);
 int				init_ray(t_ray *ray);
 void			free_ray(t_ray *ray);
+//MATRIX_UTILS.C
+double	**init_mtrx(double **matrix);
+int	matrix_multiply(double **a, double **b, double **res);
+double	matrix_det(double matrix[4][4], int order);
+double	**cofactor(double a[4][4], double f);
+double	**transpose(double a[4][4], double fac[4][4], double r);
 
 #endif
 

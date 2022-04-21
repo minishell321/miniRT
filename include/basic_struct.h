@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 15:58:59 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/21 12:20:11 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ typedef struct s_ray
 	unsigned char	*sf_color;
 	double			intersect;
 }	t_ray;
+
+typedef struct	s_geo_tfrm
+{
+	double	**trans_m;
+	double	**rotX_m;
+	double	**rotY_m;
+	double	**rotZ_m;
+	double	**scale_m;
+	double	**fwd;
+	double	**bck;
+}	t_geo_tfrm;
 
 typedef struct s_amb_lit
 {
