@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 07:42:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/19 15:43:13 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ int				read_file(t_scene *scene, char *file);
 int				upload_scene(char **split, t_scene *scene);
 // CREATE_SHAPE.C
 int				create_shape(char **split, t_scene *scene);
+// VECTOR_UTILS.C
+double	norm_squared(double *crdnt);
+double	*normalize(double *crdnt);
+double	dot_product(double *a, double *b);
+double  *vec_add(double *a, double *b, double *res);
+double  *vec_sub(double *a, double *b, double *res);
+// VECTOR_UTILS2.C
+double	*vec_scalar_multip(double scalar, double *vec, double *res);
+double	*vec_dup(double *vec, double *dup);
+// TRACING.C
+double  intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm);
+double *dir_vec(double *ray_dir, int i, int j, t_data data);
+int scene_intersect(t_data data, t_ray *ray);
+int ray_tracing(t_data data);
+//RAY_UTILS.C
+unsigned int	dec2hex(int n);
+void			pixel_colors(t_data data, t_ray *ray);
+int				init_ray(t_ray *ray);
+void			free_ray(t_ray *ray);
 
 #endif
 
