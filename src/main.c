@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 08:12:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/14 11:03:27 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,13 @@ void	pixel_colors(t_data data, double *tmp, double *normal, double *position)
 	double pixel_intensity_b;
 	
 	pixel_intensity_r = fmin(data.scene->stack->colors[0], data.scene->stack->colors[0] \
-		* data.scene->light->ratio * 10000 \
+		* data.scene->light->ratio * 5000 \
 		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
 	pixel_intensity_g = fmin(data.scene->stack->colors[1], data.scene->stack->colors[1] \
-		* data.scene->light->ratio * 10000 \
+		* data.scene->light->ratio * 5000 \
 		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
 	pixel_intensity_b = fmin(data.scene->stack->colors[2], data.scene->stack->colors[2] \
-		* data.scene->light->ratio * 10000 \
+		* data.scene->light->ratio * 5000 \
 		* fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
 	data.scene->stack->color = encode_rgb((unsigned char)pixel_intensity_r, \
 		(unsigned char)pixel_intensity_g, (unsigned char)pixel_intensity_b);
@@ -205,9 +205,9 @@ int	ray_tracing(t_data data)
 			// if (scene_intersect(tmp, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
 			if (scene_intersect(data.scene->camera->coordinates, normalize(dir_vec(ray_dir, i, j, data)), data, position, normal))
 			{
-				tmp[0] = position[0] + 0.0001 * normal[0];
-				tmp[1] = position[1] + 0.0001 * normal[1];
-				tmp[2] = position[2] + 0.0001 * normal[2];
+				tmp[0] = position[0] + 0 * normal[0];
+				tmp[1] = position[1] + 0 * normal[1];
+				tmp[2] = position[2] + 0 * normal[2];
 				position[0] = data.scene->light->coordinates[0] - position[0];
 				position[1] = data.scene->light->coordinates[1] - position[1];
 				position[2] = data.scene->light->coordinates[2] - position[2];
