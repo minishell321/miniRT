@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 11:40:21 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:23:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,22 @@ int	upload_scene(char **split, t_scene *scene)
 {
 	if (!ft_strncmp(split[0], "A", 2))
 	{
-		if (create_amb_lit(split, scene))
+		if (scene->amb_lit || create_amb_lit(split, scene))
 			return (1);
 	}
 	else if (!ft_strncmp(split[0], "C", 2))
 	{
-		if (create_camera(split, scene))
+		if (scene->camera || create_camera(split, scene))
 			return (1);
 	}
 	else if (!ft_strncmp(split[0], "L", 2))
 	{
-		if (create_light(split, scene))
+		if (scene->light || create_light(split, scene))
 			return (1);
 	}
 	else
 	{
+		printf("create shape\n");
 		if (create_shape(split, scene))
 			return (1);
 	}

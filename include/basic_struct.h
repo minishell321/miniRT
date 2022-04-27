@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 15:58:59 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:03:57 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_shapes
 {
-	char	*type;
+	int		type;
 	double	coordinates[3];
 	double	vect_3d[3];
 	double	diameter;

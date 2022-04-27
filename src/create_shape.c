@@ -3,7 +3,7 @@
 
 static void shape_init(t_shapes *shape)
 {
-	shape->type = NULL;
+	shape->type = 0;
 	shape->coordinates[0] = 0;
 	shape->coordinates[1] = 0;
 	shape->coordinates[2] = 0;
@@ -27,7 +27,7 @@ static int  create_plan(t_scene *scene, char **split)
     if (shape == NULL)
         return (1);
 	shape_init(shape);
-    shape->type = ft_strdup("pl");
+    shape->type = PL;
     if  (init_coord(shape, split[1]) == 1)
             return (1);
 	if (init_vect_3d(shape, split[2]) == 1)
@@ -47,7 +47,7 @@ static int  create_sphere(t_scene *scene, char **split)
     if (shape == NULL)
         return (1);
 	shape_init(shape);
-    shape->type = ft_strdup("sp");
+    shape->type = SP;
     if (init_coord(shape, split[1]) == 1)
         return (1);
     shape->diameter = ft_atof(split[2]);
@@ -67,7 +67,7 @@ static int  create_cylinder(t_scene *scene, char **split)
     if (shape == NULL)
         return (1);
 	shape_init(shape);
-    shape->type = ft_strdup("cy");
+    shape->type = CY;
     if (init_coord(shape, split[1]) == 1)
             return (1);
 	if (init_vect_3d(shape, split[2]) == 1)

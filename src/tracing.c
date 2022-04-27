@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/19 17:35:14 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:03:33 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,19 @@ int	scene_intersect(t_data data, t_ray *ray)
 	tmp = data.scene->stack;
 	while (tmp)
 	{
-		ret = intersection(ray, tmp, position_tmp, normal_tmp);
-		if (ret && ret < ray->intersect)
+		if (tmp->type == SP)
 		{
-			has_intersect = 1;
-			ray->intersect = ret;
-			vec_dup(position_tmp, ray->pos);
-			vec_dup(normal_tmp, ray->nrm);
-			ray->sf_color[0] = tmp->colors[0];
-			ray->sf_color[1] = tmp->colors[1];
-			ray->sf_color[2] = tmp->colors[2];
+			ret = intersection(ray, tmp, position_tmp, normal_tmp);
+			if (ret && ret < ray->intersect)
+			{
+				has_intersect = 1;
+				ray->intersect = ret;
+				vec_dup(position_tmp, ray->pos);
+				vec_dup(normal_tmp, ray->nrm);
+				ray->sf_color[0] = tmp->colors[0];
+				ray->sf_color[1] = tmp->colors[1];
+				ray->sf_color[2] = tmp->colors[2];
+			}
 		}
 		tmp = tmp->next;
 	}

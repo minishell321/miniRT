@@ -6,18 +6,28 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/13 10:57:34 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:25:15 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+int split_len(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
 
 int	init_coord(t_shapes *shape, char *str)
 {
 	char	**sub_split;
 
 	sub_split = ft_split(str, ',');
-	if (sub_split == NULL)
+	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
 	shape->coordinates[0] = ft_atof(sub_split[0]);
 	shape->coordinates[1] = ft_atof(sub_split[1]);
@@ -33,7 +43,7 @@ int	init_vect_3d(t_shapes *shape, char *str)
 
 	i = 0;
 	sub_split = ft_split(str, ',');
-	if (sub_split == NULL)
+	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
 	while (i < 3)
 	{
@@ -53,7 +63,7 @@ int	init_colors(t_shapes *shape, char *str)
 
 	i = 0;
 	sub_split = ft_split(str, ',');
-	if (sub_split == NULL)
+	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
 	while (i < 3)
 	{

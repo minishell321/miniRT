@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/14 03:48:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:05:37 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	free_scene_el(t_scene *scene)
 		while (tmp != NULL)
 		{
 			tmp_next = tmp->next;
-			printf("free : %s\n", tmp->type);
-			free(tmp->type);
+			printf("free : shape\n");
 			free(tmp);
 			tmp = tmp_next;
 		}
@@ -83,7 +82,7 @@ void	print_scene(t_scene *scene)
 		tmp = scene->stack;
 		while (tmp != NULL)
 		{
-			printf("\033[0;31mshape type: %s\n\033[0m",tmp->type);
+			printf("\033[0;31mshape type: %d\n\033[0m",tmp->type);
 			printf("shape coord: x = %f, y = %f, z = %f\n", tmp->coordinates[0], tmp->coordinates[1], tmp->coordinates[2]);
 			printf("shape RGB: %d, %d ,%d\n", tmp->colors[0], tmp->colors[1], tmp->colors[2]);
 			printf("color unsigned int : %d\n", tmp->color);

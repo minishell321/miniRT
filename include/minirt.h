@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/19 15:43:13 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:02:50 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 // close read write
 # define WIDTH 1250
 # define HEIGHT 1250
+# define SP 1
+# define PL 2
+# define CY 3
 
 // int 	parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
