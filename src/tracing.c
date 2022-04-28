@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 09:22:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/28 11:40:47 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,24 @@ double	plan_intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 	double	t;
 	double	denom1;
 	double	denom2;
+	double	*tmp;
 
-	denom1 = dot_product(vec_sub(pos, shape->coordinates, nrm), shape->coordinates);
-	denom2 = dot_product(shape->coordinates, ray->dir);
+	tmp = malloc(sizeof(double) * 3);
+	vec_sub(shape->coordinates, ray->org, tmp);
+
+//	denom1 = dot_product(vec_sub(pos, shape->coordinates, nrm), shape->coordinates);
+	
+	denom1 = dot_product(tmp, shape->vect_3d);
+	denom2 = dot_product(ray->dir, shape->vect_3d);
+	if (denom2 == 0)
+		return (0);
 	t = denom1 / denom2;
-	if (denom2 == 0 || t <= 0)
-		 return (2147483648);
+	if (t <= 0)
+		 return (0);
+	vec_scalar_multip(t, ray->dir, pos);
+    vec_add(ray->org, pos, pos);
+    vec_sub(pos, shape->coordinates, nrm);
+    nrm = normalize(nrm);
 	return (t);
 }
 
