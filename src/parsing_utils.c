@@ -6,21 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/27 11:25:15 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/28 10:06:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-int split_len(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-		i++;
-	return (i);
-}
 
 int	init_coord(t_shapes *shape, char *str)
 {
@@ -91,9 +81,4 @@ void	insert_shape_at_end(t_scene *scene, t_shapes *shape)
 			tmp = tmp->next;
 		tmp->next = shape;
 	}
-}
-
-int	ft_isspace_nnl(int c)
-{
-	return (c == ' ' || c == '\f' || c == '\r' || c == '\t' || c == '\v');
 }

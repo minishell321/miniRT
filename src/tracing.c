@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/27 11:03:33 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/28 09:22:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ double	intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 	return (t);
 }
 
+double	plan_intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
+{
+	double	t;
+	double	denom1;
+	double	denom2;
+
+	denom1 = dot_product(vec_sub(pos, shape->coordinates, nrm), shape->coordinates);
+	denom2 = dot_product(shape->coordinates, ray->dir);
+	t = denom1 / denom2;
+	if (denom2 == 0 || t <= 0)
+		 return (2147483648);
+	return (t);
+}
+
 double	*dir_vec(double *ray_dir, int i, int j, t_data data)
 {
 	ray_dir[0] = j - data.width / 2;
@@ -64,9 +78,35 @@ int	scene_intersect(t_data data, t_ray *ray)
 	tmp = data.scene->stack;
 	while (tmp)
 	{
+		// ret = plan_intersection(ray, tmp, position_tmp, normal_tmp);
+		// if (ret && ret < ray->intersect)
+		// {
+		// 	has_intersect = 1;
+		// 	ray->intersect = ret;
+		// 	vec_dup(position_tmp, ray->pos);
+		// 	vec_dup(normal_tmp, ray->nrm);
+		// 	ray->sf_color[0] = tmp->colors[0];
+		// 	ray->sf_color[1] = tmp->colors[1];
+		// 	ray->sf_color[2] = tmp->colors[2];
+		// }
+		// tmp = tmp->next;
 		if (tmp->type == SP)
 		{
 			ret = intersection(ray, tmp, position_tmp, normal_tmp);
+			if (ret && ret < ray->intersect)
+			{
+				has_intersect = 1;
+				ray->intersect = ret;
+				vec_dup(position_tmp, ray->pos);
+				vec_dup(normal_tmp, ray->nrm);
+				ray->sf_color[0] = tmp->colors[0];
+				ray->sf_color[1] = tmp->colors[1];
+				ray->sf_color[2] = tmp->colors[2];
+			}
+		}
+		else if (tmp->type == PL)
+		{
+			ret = plan_intersection(ray, tmp, position_tmp, normal_tmp);
 			if (ret && ret < ray->intersect)
 			{
 				has_intersect = 1;

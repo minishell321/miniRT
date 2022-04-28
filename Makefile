@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/04/19 15:43:02 by vbotev           ###   ########.fr        #
+#    Updated: 2022/04/28 09:43:42 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ $(shell mkdir -p $(BIN))
 SOURCE =  	$(SRC)/main.c\
 			$(SRC)/mlx_utils.c\
 			$(SRC)/utils.c\
+			$(SRC)/utils2.c\
 			$(SRC)/parsing_utils.c\
 			$(SRC)/parsing.c\
 			$(SRC)/upload_scene.c\

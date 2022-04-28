@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/27 11:02:50 by rburri           ###   ########.fr       */
+/*   Updated: 2022/04/28 10:07:08 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ int				my_close(int keycode, t_data *data);
 int				close_win(t_data *data);
 void			init_data(t_data *data, t_scene *scene);
 
+// UTILS2.C
+int				split_len(char **split);
+
 // PARSING_UTILS.C
 int				init_vect_3d(t_shapes *shape, char *str);
 int				init_colors(t_shapes *shape, char *str);
 int				init_coord(t_shapes *shape, char *str);
 void			insert_shape_at_end(t_scene *scene, t_shapes *shape);
-int				ft_isspace_nnl(int c);
+
 // SCENE_UTILS.C
 void			init_scene(t_scene *scene);
 void			print_scene(t_scene *scene);
