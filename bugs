@@ -1,6 +1,6 @@
-TODO
-// - miss a ',' in .rt make it segfault
-// - doesn't accept more than one type of MAJ element
+DONE
+- miss a ',' in .rt make it segfault
+- doesn't accept more than one type of MAJ element
 
 
 

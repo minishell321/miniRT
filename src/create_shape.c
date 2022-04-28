@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_shape.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/28 10:12:12 by rburri            #+#    #+#             */
+/*   Updated: 2022/04/28 10:14:21 by rburri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-static void shape_init(t_shapes *shape)
+static void	shape_init(t_shapes *shape)
 {
 	shape->type = 0;
 	shape->coordinates[0] = 0;
@@ -19,84 +30,84 @@ static void shape_init(t_shapes *shape)
 	shape->next = NULL;
 }
 
-static int  create_plan(t_scene *scene, char **split)
+static int	create_plan(t_scene *scene, char **split)
 {
-    t_shapes *shape;
+	t_shapes	*shape;
 
-    shape = malloc(sizeof(t_shapes));
-    if (shape == NULL)
-        return (1);
+	shape = malloc(sizeof(t_shapes));
+	if (shape == NULL)
+		return (1);
 	shape_init(shape);
-    shape->type = PL;
-    if  (init_coord(shape, split[1]) == 1)
-            return (1);
+	shape->type = PL;
+	if (init_coord(shape, split[1]) == 1)
+		return (1);
 	if (init_vect_3d(shape, split[2]) == 1)
-            return (1);
-    if (init_colors(shape, split[3]) == 1)
-            return (1);
-    shape->next = NULL;
-    insert_shape_at_end(scene, shape);
-    return (0);
+		return (1);
+	if (init_colors(shape, split[3]) == 1)
+		return (1);
+	shape->next = NULL;
+	insert_shape_at_end(scene, shape);
+	return (0);
 }
 
-static int  create_sphere(t_scene *scene, char **split)
+static int	create_sphere(t_scene *scene, char **split)
 {
-    t_shapes *shape;
+	t_shapes	*shape;
 
-    shape = malloc(sizeof(t_shapes));
-    if (shape == NULL)
-        return (1);
+	shape = malloc(sizeof(t_shapes));
+	if (shape == NULL)
+		return (1);
 	shape_init(shape);
-    shape->type = SP;
-    if (init_coord(shape, split[1]) == 1)
-        return (1);
-    shape->diameter = ft_atof(split[2]);
-    if (init_colors(shape, split[3]) == 1)
-        return (1);
-    shape->next = NULL;
-    shape->height = 0;
-    insert_shape_at_end(scene, shape);
-    return (0);
+	shape->type = SP;
+	if (init_coord(shape, split[1]) == 1)
+		return (1);
+	shape->diameter = ft_atof(split[2]);
+	if (init_colors(shape, split[3]) == 1)
+		return (1);
+	shape->next = NULL;
+	shape->height = 0;
+	insert_shape_at_end(scene, shape);
+	return (0);
 }
 
-static int  create_cylinder(t_scene *scene, char **split)
+static int	create_cylinder(t_scene *scene, char **split)
 {
-    t_shapes *shape;
+	t_shapes	*shape;
 
-    shape = malloc(sizeof(t_shapes));
-    if (shape == NULL)
-        return (1);
+	shape = malloc(sizeof(t_shapes));
+	if (shape == NULL)
+		return (1);
 	shape_init(shape);
-    shape->type = CY;
-    if (init_coord(shape, split[1]) == 1)
-            return (1);
+	shape->type = CY;
+	if (init_coord(shape, split[1]) == 1)
+		return (1);
 	if (init_vect_3d(shape, split[2]) == 1)
-            return (1);
-    if (init_colors(shape, split[5]) == 1)
-        return (1);
-    shape->diameter = ft_atof(split[3]);
-    shape->height = ft_atof(split[4]);
-    shape->next = NULL;
-    insert_shape_at_end(scene, shape);
-    return (0);
+		return (1);
+	if (init_colors(shape, split[5]) == 1)
+		return (1);
+	shape->diameter = ft_atof(split[3]);
+	shape->height = ft_atof(split[4]);
+	shape->next = NULL;
+	insert_shape_at_end(scene, shape);
+	return (0);
 }
 
 int	create_shape(char **split, t_scene *scene)
 {
-    if (!ft_strncmp(split[0], "sp", 3))
-    {
-        if (create_sphere(scene, split) == 1)
-            return (1);
-    }
-    if (!ft_strncmp(split[0], "cy", 3))
-    {
-        if (create_cylinder(scene, split) == 1)
-            return (1);
-    }
-    if (!ft_strncmp(split[0], "pl", 3))
-    {
-        if (create_plan(scene, split) == 1)
-            return (1);
-    }
+	if (!ft_strncmp(split[0], "sp", 3))
+	{
+		if (create_sphere(scene, split) == 1)
+			return (1);
+	}
+	if (!ft_strncmp(split[0], "cy", 3))
+	{
+		if (create_cylinder(scene, split) == 1)
+			return (1);
+	}
+	if (!ft_strncmp(split[0], "pl", 3))
+	{
+		if (create_plan(scene, split) == 1)
+			return (1);
+	}
 	return (0);
 }
