@@ -6,11 +6,43 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/19 17:35:14 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:56:35 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+double	cyl_intersect(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
+{
+	t_geo_tfrm	*tfrm;
+	double		*trans;
+	double		*rot;
+	double		*scale;
+	double		*tmp;
+	t_ray		*r_local;
+
+
+	trans = malloc(sizeof(double) * 3);
+	rot = malloc(sizeof(double) * 3);
+	scale = malloc(sizeof(double) * 3);
+	tmp = malloc(sizeof(double) * 3);
+	vec_assign(trans, 0, 0, 0);
+	vec_assign(rot, 0, 0, 0);
+	vec_assign(scale, 1, 1, 1);
+	tfrm = geo_transform(trans, rot, scale);
+	r_local = malloc(sizeof(t_ray));
+	init_ray(r_local);
+	vec_dup(ray->org, r_local->org);
+	vec_dup(ray->dir, r_local->dir);
+	vec_mat_multip(tfrm->bck, r_local->org, tmp);
+	vec_mat_multip(tfrm->bck, r_local->dir, tmp);
+
+
+
+
+	
+
+}
 
 double	intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 {

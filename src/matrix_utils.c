@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:20:56 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/21 17:55:13 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/28 14:35:13 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ double  matrix_det(double matrix[4][4], int order)
     return (det);
 }
 
-double	**cofactor(double a[4][4], double f)
+double	**matrix_inv(double a[4][4], double f)
 {
     double  b[4][4];
     double  fac[4][4];
@@ -152,7 +152,7 @@ double	**cofactor(double a[4][4], double f)
             fac[i[1]][i[0]] = pow(-1, i[1] + i[0]) * matrix_det(b, f - 1);
         }
     }
-    return (transpose(b, fac, f));
+    return (transpose(a, fac, f));
 }
 
 double  **transpose(double a[4][4], double fac[4][4], double r)
@@ -182,16 +182,21 @@ double  **transpose(double a[4][4], double fac[4][4], double r)
             inv[i[0]][i[1]] = b[i[0]][i[1]] / d;
 		}
     }
-	printf("\n\n\nThe inverse of matrix is : \n");
-	i[0] = -1;
-	while (++i[0] < r)
-	{
-		i[1] = -1;
-		while (++i[1] < r)
-		{
-			printf("\t%f",inv[i[0]][i[1]]);
-		}
-		printf("\n");
-	}
     return (inv);
+}
+
+double [][4]ptr2arr(double **matrix)
+{
+	double	ret[4][4];
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < 4)
+			ret[i][j] = matrix[i][j];
+	}
+	return (ret);
 }

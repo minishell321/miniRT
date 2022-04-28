@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:07:11 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/21 17:01:12 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/28 16:26:18 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	set_transform(t_geo_tfrm *tfrm, double *trans, double *rot, double *scale)
 	return (0);
 }
 
-int	geo_transform(double *trans, double *rot, double *scale)
+// HANDLE LEAKS
+t_geo_tfrm	*geo_transform(double *trans, double *rot, double *scale)
 {
 	t_geo_tfrm	*tfrm;
 	double		**tmp;
@@ -52,6 +53,7 @@ int	geo_transform(double *trans, double *rot, double *scale)
 	matrix_multiply(tmp, tfrm->rotY_m, tfrm->fwd);
 	matrix_multiply(tfrm->fwd, tfrm->rotZ_m, tmp);
 	matrix_multiply(tmp, tfrm->scale_m, tfrm->fwd);
+	tfrm->bck = matrix_inv(ptr2arr(tfrm->fwd), 4);
 
 	return (0);
 }

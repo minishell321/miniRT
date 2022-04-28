@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/21 17:23:56 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/04/28 12:49:09 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 		test[3][2] = 1;
 		test[3][3] = 0;
 
-		res = cofactor(test, 4);
+		res = matrix_inv(test, 4);
 		printf("WOOHOO\n");
 		int i = -1;
 		int j;
