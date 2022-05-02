@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 11:40:47 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 15:01:52 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ double	plan_intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 
 //	denom1 = dot_product(vec_sub(pos, shape->coordinates, nrm), shape->coordinates);
 	
-	denom1 = dot_product(tmp, shape->vect_3d);
-	denom2 = dot_product(ray->dir, shape->vect_3d);
+	denom1 = dot_product(tmp, normalize(shape->vect_3d));
+	denom2 = dot_product(ray->dir, normalize(shape->vect_3d));
 	if (denom2 == 0)
 		return (0);
 	t = denom1 / denom2;
@@ -158,7 +158,7 @@ int	ray_tracing(t_data data)
 			vec_dup(data.scene->camera->coordinates, ray->org);
 			if (scene_intersect(data, ray))
 			{
-				vec_scalar_multip(0.000001, ray->nrm, light->org);
+				vec_scalar_multip(0.01, ray->nrm, light->org);
 				vec_add(ray->pos, light->org, light->org);
 				vec_sub(data.scene->light->coordinates, ray->pos, ray->pos);
 				vec_dup(ray->pos, light->dir);
