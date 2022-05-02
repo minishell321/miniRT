@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 17:29:50 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 15:44:58 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void			pixel_colors(t_data data, t_ray *ray);
 int				init_ray(t_ray *ray);
 void			free_ray(t_ray *ray);
 //GEO_TRANSFORM
-t_geo_tfrm	*geo_transform(double *trans, double *rot, double *scale);
+t_geo_tfrm	*geo_transform(double *trans, double *rot, double *scale, t_geo_tfrm *tfrm);
 //MATRIX_UTILS.C
 double	**init_mtrx(double **matrix);
 int	matrix_multiply(double **a, double **b, double **res);
 double	matrix_det(double matrix[4][4], int order);
 double	**matrix_inv(double a[4][4], double f);
 double	**transpose(double a[4][4], double fac[4][4], double r);
-double	[][4]ptr2arr(double **matrix);
+double	**inverse(double **matrix);
 
 #endif
 

@@ -6,26 +6,26 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:20:56 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 14:35:13 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 15:47:41 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-double **init_mtrx(double **matrix)
+double	**init_mtrx(double **matrix)
 {
     int     i;
     int     j;
 
     matrix = malloc(sizeof(double *) * 4);
-  //  if (matrix == 0)
-  //      return (1);
+   if (matrix == 0)
+	   return (0);
     i = 0;
     while (i < 4)
     {
         matrix[i] = malloc(sizeof(double) * 4);
-      //  if (matrix[i] == 0)
-        //    return (1);
+		if (matrix[i] == 0)
+			return (0);
         j = 0;
         while (j < 4)
         {
@@ -37,8 +37,9 @@ double **init_mtrx(double **matrix)
         }
         i++;
     }
-	printf("matrix[0][0] = %f\n", matrix[0][0]);
-    return (matrix);
+//	printf("matrix[0][0] = %f\n", matrix[0][0]);
+   return (matrix);
+ //  return (0);
 }
 
 int matrix_multiply(double **a, double **b, double **res)
@@ -172,7 +173,7 @@ double  **transpose(double a[4][4], double fac[4][4], double r)
             b[i[0]][i[1]] = fac[i[1]][i[0]];
     }
     d = matrix_det(a, r);
-	printf("d = %f\n", d);
+//	printf("d = %f\n", d);
     i[0] = -1;
     while (++i[0] < r)
     {
@@ -185,7 +186,7 @@ double  **transpose(double a[4][4], double fac[4][4], double r)
     return (inv);
 }
 
-double [][4]ptr2arr(double **matrix)
+double **inverse(double **matrix)
 {
 	double	ret[4][4];
 	int		i;
@@ -198,5 +199,5 @@ double [][4]ptr2arr(double **matrix)
 		while (++j < 4)
 			ret[i][j] = matrix[i][j];
 	}
-	return (ret);
+	return (matrix_inv(ret, 4));
 }

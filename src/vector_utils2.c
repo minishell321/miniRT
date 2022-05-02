@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:50:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 17:33:22 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 15:08:18 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,13 @@ double	*vec_mat_multip(double **matrix, double *vec, double *res)
 	int	i;
 	int	j;
 	double	sum;
+	double	tmp[4];
+	double	res_tmp[4];
 
+	tmp[0] = vec[0];
+	tmp[1] = vec[1];
+	tmp[2] = vec[2];
+	tmp[3] = 1;
 	sum = 0;
 	i = -1;
 	while (++i < 4)
@@ -49,10 +55,13 @@ double	*vec_mat_multip(double **matrix, double *vec, double *res)
 		j = -1;
 		while (++j < 4)
 		{
-			sum += matrix[i][j] * vec[j];
+			sum += matrix[i][j] * tmp[j];
 		}
-		res[i] = sum;
+		res_tmp[i] = sum;
 		sum = 0;
 	}
+	res[0] = res_tmp[0];
+	res[1] = res_tmp[1];
+	res[2] = res_tmp[2];
 	return (res);
 }

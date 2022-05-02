@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:07:11 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 16:26:18 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 16:06:50 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,43 @@ int	set_transform(t_geo_tfrm *tfrm, double *trans, double *rot, double *scale)
 	return (0);
 }
 
-// HANDLE LEAKS
-t_geo_tfrm	*geo_transform(double *trans, double *rot, double *scale)
+int	init_matrices(t_geo_tfrm *tfrm)
 {
-	t_geo_tfrm	*tfrm;
+	tfrm->trans_m = init_mtrx(tfrm->trans_m);
+	tfrm->rotX_m = init_mtrx(tfrm->rotX_m);
+	tfrm->rotY_m = init_mtrx(tfrm->rotY_m);
+	tfrm->rotZ_m = init_mtrx(tfrm->rotZ_m);
+	tfrm->scale_m = init_mtrx(tfrm->scale_m);
+	tfrm->fwd = init_mtrx(tfrm->fwd);
+	tfrm->bck = init_mtrx(tfrm->bck);
+	if (!tfrm->trans_m || !tfrm->rotX_m || !tfrm->rotY_m || !tfrm->rotZ_m
+		|| !tfrm->scale_m || !tfrm->fwd || !tfrm->bck)
+		return (1);
+	return (0);
+}
+
+// HANDLE LEAKS
+t_geo_tfrm	*geo_transform(double *trans, double *rot, double *scale, t_geo_tfrm *tfrm)
+{
+//	t_geo_tfrm	*tfrm;
 	double		**tmp;
 
 	tmp = NULL;
 	tfrm = malloc(sizeof(t_geo_tfrm));
-	if (tfrm == 0 || init_mtrx(tfrm->trans_m) || init_mtrx(tfrm->rotX_m)
-		|| init_mtrx(tfrm->rotY_m) || init_mtrx(tfrm->rotZ_m)
-		|| init_mtrx(tfrm->scale_m) || init_mtrx(tfrm->fwd)
-		|| init_mtrx(tfrm->bck) || set_transform(tfrm, trans, rot, scale))
-		return (1);
-	init_mtrx(tmp);
+//	if (tfrm == 0 || init_mtrx(tfrm->trans_m) || init_mtrx(tfrm->rotX_m)
+//		|| init_mtrx(tfrm->rotY_m) || init_mtrx(tfrm->rotZ_m)
+//		|| init_mtrx(tfrm->scale_m) || init_mtrx(tfrm->fwd)
+//		|| init_mtrx(tfrm->bck) || set_transform(tfrm, trans, rot, scale))
+	if (tfrm == 0 || init_matrices(tfrm))
+		return (0);
+	set_transform(tfrm, trans, rot, scale);
+//	printf("AFTER INIT\n");
+	tmp = init_mtrx(tmp);
 	matrix_multiply(tfrm->trans_m, tfrm->rotX_m, tmp);
 	matrix_multiply(tmp, tfrm->rotY_m, tfrm->fwd);
 	matrix_multiply(tfrm->fwd, tfrm->rotZ_m, tmp);
 	matrix_multiply(tmp, tfrm->scale_m, tfrm->fwd);
-	tfrm->bck = matrix_inv(ptr2arr(tfrm->fwd), 4);
-
-	return (0);
+	tfrm->bck = inverse(tfrm->fwd);
+    
+	return (tfrm);
 }

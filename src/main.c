@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 12:49:09 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/02 15:47:00 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int main(int argc, char **argv)
 	// t_light	*light;
 	t_scene scene;
 
-	double	test[4][4];
-	double	**res;
+//	double	test[4][4];
+//	double	**res;
 
 	// data = malloc(sizeof(t_data));
 	// init_scene(&scene);
@@ -60,9 +60,12 @@ int main(int argc, char **argv)
 		// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
 		// 		&data.line_length, &data.endian);
 //		if (ray_tracing(data, data.scene->stack, data.scene->light))
-		if (ray_tracing(data))
+
+
+	if (ray_tracing(data))
 			ft_error();
-	
+
+/*	
 		test[0][0] = 3;
 		test[0][1] = 2;
 		test[0][2] = -1;
@@ -96,6 +99,7 @@ int main(int argc, char **argv)
 			}
 
 		}
+*/
 
 
 
