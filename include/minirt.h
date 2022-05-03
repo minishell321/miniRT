@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/02 15:44:58 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/03 11:31:54 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ double	*vec_scalar_multip(double scalar, double *vec, double *res);
 double	*vec_dup(double *vec, double *dup);
 double	*vec_assign(double *vec, double x, double y, double z);
 double	*vec_mat_multip(double **matrix, double *vec, double *res);
+double	*vec_cross_prod(double *a, double *b, double *res);
 // TRACING.C
 double  intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm);
 double *dir_vec(double *ray_dir, int i, int j, t_data data);

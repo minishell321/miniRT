@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:50:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/02 15:08:18 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/03 11:32:40 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,13 @@ double	*vec_mat_multip(double **matrix, double *vec, double *res)
 	res[0] = res_tmp[0];
 	res[1] = res_tmp[1];
 	res[2] = res_tmp[2];
+	return (res);
+}
+
+double	*vec_cross_prod(double *a, double *b, double *res)
+{
+	res[0] = a[1] * b[2] - (a[2] * b[1]);
+	res[1] = a[2] * b[0] - (a[0] * b[2]);
+	res[2] = a[0] * b[1] - (a[1] * b[0]);
 	return (res);
 }
