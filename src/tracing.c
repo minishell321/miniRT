@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/03 12:05:58 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:05:10 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,9 @@ int	ray_tracing(t_data data)
 	int		j;
 	t_ray	*ray;
 	t_ray	*light;
+	double	pixel_intensity_r;
+	double	pixel_intensity_g;
+	double	pixel_intensity_b;
 
 	i = 0;
 	ray = malloc(sizeof(t_ray));
@@ -161,15 +164,29 @@ int	ray_tracing(t_data data)
 			vec_dup(data.scene->camera->coordinates, ray->org);
 			if (scene_intersect(data, ray))
 			{
+				vec_scalar_multip(0.01, ray->nrm, light->org);
 				vec_add(ray->pos, light->org, light->org);
 				vec_sub(data.scene->light->coordinates, ray->pos, ray->pos);
-				vec_scalar_multip(0.01, ray->nrm, light->org);
 				vec_dup(ray->pos, light->dir);
 				light->dir = normalize(light->dir);
 				if (!(scene_intersect(data, light) && (light->intersect * light->intersect < norm_squared(ray->pos))))
 				{
 					pixel_colors(data, ray);
 					my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
+				}
+				else
+				{
+					pixel_intensity_r = (0 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
+					pixel_intensity_g = (0 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
+					pixel_intensity_b = (0 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
+
+					if (pixel_intensity_r > 255)
+						pixel_intensity_r = 255;
+					if (pixel_intensity_g > 255)
+						pixel_intensity_g = 255;
+					if (pixel_intensity_b > 255)
+						pixel_intensity_b = 255;
+					my_mlx_pixel_put(&data, j, data.height - i - 1, encode_rgb(pixel_intensity_r, pixel_intensity_g, pixel_intensity_b));
 				}
 			}
 			j++;

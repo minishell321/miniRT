@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/03 10:51:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/03 15:30:42 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 void			my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 
 // UTILS.C
-unsigned int	encode_rgb(unsigned char r, unsigned char g, unsigned char b);
+unsigned int	encode_rgb(int r, int g, int b);
 void			ft_error(void);
 int				my_close(int keycode, t_data *data);
 int				close_win(t_data *data);
