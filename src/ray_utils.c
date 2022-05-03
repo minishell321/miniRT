@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:37:50 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/02 15:28:35 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/03 12:09:48 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	pixel_colors(t_data data, t_ray *ray)
 	double	pixel_intensity_b;
 	double	*tmp;
 	int lum_intensity;
+	double sum1;
+	double sum2;
+	double sum3;
 	
-	lum_intensity = 4000000;
+	lum_intensity = 1000000;
 	tmp = malloc(sizeof(double) * 3);
 	tmp = vec_dup(ray->pos, tmp);
 	tmp = normalize(tmp);
@@ -57,19 +60,19 @@ void	pixel_colors(t_data data, t_ray *ray)
 //      * 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
 //  pixel_intensity_b = fmin(ray->sf_color[0], fmax(0, data.scene->light->ratio \
 //      * 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
-
-	pixel_intensity_r = fmin(ray->sf_color[0] * lum_intensity, ray->sf_color[0] \
-		* data.scene->light->ratio * lum_intensity\
-		* fmax(0.2, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
-	pixel_intensity_g = fmin(ray->sf_color[1]* lum_intensity, ray->sf_color[1] \
-		* data.scene->light->ratio * lum_intensity\
-		* fmax(0.2, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
-	pixel_intensity_b = fmin(ray->sf_color[2]* lum_intensity, ray->sf_color[2] \
-		* data.scene->light->ratio * lum_intensity\
-		* fmax(0.2, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
-	pixel_intensity_r = pow(pixel_intensity_r, 1/2.2) ;
-	pixel_intensity_g = pow(pixel_intensity_g, 1/2.2) ;
-	pixel_intensity_b = pow(pixel_intensity_b, 1/2.2) ;
+	sum1 = ray->sf_color[0] * data.scene->light->ratio * lum_intensity * fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos));
+	sum2 = ray->sf_color[1] * data.scene->light->ratio * lum_intensity * fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos));
+	sum3 = ray->sf_color[2] * data.scene->light->ratio * lum_intensity * fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos));
+	// pixel_intensity_r = fmin((double)ray->sf_color[0] * data.scene->amb_lit->colors[0] * data.scene->amb_lit->light, sum1);
+	// pixel_intensity_g = fmin((double)ray->sf_color[1] * data.scene->amb_lit->colors[1] * data.scene->amb_lit->light, sum2);
+	// pixel_intensity_b = fmin((double)ray->sf_color[2] * data.scene->amb_lit->colors[2] * data.scene->amb_lit->light, sum3);
+	pixel_intensity_r = fmin((double)ray->sf_color[0] * lum_intensity, sum1);
+	pixel_intensity_g = fmin((double)ray->sf_color[1] * lum_intensity, sum2);
+	pixel_intensity_b = fmin((double)ray->sf_color[2] * lum_intensity, sum3);
+	
+	// pixel_intensity_r = pow(pixel_intensity_r, 1/2.2) ;
+	// pixel_intensity_g = pow(pixel_intensity_g, 1/2.2) ;
+	// pixel_intensity_b = pow(pixel_intensity_b, 1/2.2) ;
 
 	data.scene->stack->color = encode_rgb((unsigned char)pixel_intensity_r, \
 		(unsigned char)pixel_intensity_g, (unsigned char)pixel_intensity_b);

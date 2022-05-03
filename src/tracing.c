@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/02 15:01:52 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/03 12:05:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ double	plan_intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 		 return (0);
 	vec_scalar_multip(t, ray->dir, pos);
     vec_add(ray->org, pos, pos);
-    vec_sub(pos, shape->coordinates, nrm);
+    // vec_sub(pos, shape->coordinates, nrm);
+	nrm[0] = shape->vect_3d[0];
+	nrm[1] = shape->vect_3d[1];
+	nrm[2] = shape->vect_3d[2];
     nrm = normalize(nrm);
 	return (t);
 }
@@ -158,9 +161,9 @@ int	ray_tracing(t_data data)
 			vec_dup(data.scene->camera->coordinates, ray->org);
 			if (scene_intersect(data, ray))
 			{
-				vec_scalar_multip(0.01, ray->nrm, light->org);
 				vec_add(ray->pos, light->org, light->org);
 				vec_sub(data.scene->light->coordinates, ray->pos, ray->pos);
+				vec_scalar_multip(0.01, ray->nrm, light->org);
 				vec_dup(ray->pos, light->dir);
 				light->dir = normalize(light->dir);
 				if (!(scene_intersect(data, light) && (light->intersect * light->intersect < norm_squared(ray->pos))))
