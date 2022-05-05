@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/04/28 11:40:47 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/05 10:43:07 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,110 @@ double	intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 	vec_sub(pos, shape->coordinates, nrm);
 	nrm = normalize(nrm);
 	return (t);
+}
+
+double	cyl_intersect_open(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
+{
+	double	*u;
+	double	*v;
+	double	*d2shape;
+	double	coeff[3];
+	double	t;
+	double	delta;
+
+	u = malloc(sizeof(double) * 3);
+	v = malloc(sizeof(double) * 3);
+	d2shape = malloc(sizeof(double) * 3);
+	vec_cross_prod(ray->dir, shape->vect_3d, u);
+	vec_sub(ray->org, shape->coordinates, d2shape);
+	vec_cross_prod(d2shape, shape->vect_3d, v);
+	coeff[0] = dot_product(u, u);
+	coeff[1] = 2 * dot_product(u, v);
+	coeff[2] = dot_product(v, v) - (shape->diameter * shape->diameter / 4);
+	delta = coeff[1] * coeff[1] - (4 * coeff[0] * coeff[2]);
+	if (delta < 0 || (-coeff[1] + sqrtf(delta)) / (2 * coeff[0]) < 0)
+		return (0);
+	if ((-coeff[1] - sqrtf(delta)) / (2 * coeff[0]) > 0)
+		t = (-coeff[1] - sqrtf(delta)) / (2 * coeff[0]);
+	else
+	{
+		t = (-coeff[1] + sqrtf(delta)) /  (2 * coeff[0]);
+	}
+	vec_scalar_multip(t, ray->dir, pos);
+	vec_add(ray->org, pos, pos);
+	vec_sub(pos, shape->coordinates, d2shape);
+	vec_cross_prod(shape->vect_3d, d2shape, u);
+	vec_cross_prod(u, shape->vect_3d, nrm);
+	nrm = normalize(nrm);
+	vec_sub(pos, shape->coordinates, v);
+	if (fabs(dot_product(v, shape->vect_3d)) < (shape->height / 2))
+		return (t);
+	return (0);
+}
+
+double	cyl_intersect(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
+{
+	double	*u;
+	double	*v;
+	double	*tmp;
+	double	denom;
+	double	t[3];
+	double	t_min;
+
+	u = malloc(sizeof(double) * 3);
+	v = malloc(sizeof(double) * 3);
+	tmp = malloc(sizeof(double) * 3);
+	vec_scalar_multip(shape->height / 2, shape->vect_3d, tmp);
+	vec_add(tmp, shape->coordinates, u);
+	vec_sub(shape->coordinates, tmp, v);
+	t[0] = cyl_intersect_open(ray, shape, pos, nrm);
+	if (t[0])
+		return (t[0]);
+	vec_sub(u, ray->org, tmp);
+	denom = dot_product(ray->dir, normalize(shape->vect_3d));
+	if (denom == 0)
+		return (0);
+	t[1] = dot_product(tmp, normalize(shape->vect_3d)) / denom;
+	vec_sub(v, ray->org, tmp);
+	t[2] = dot_product(tmp, normalize(shape->vect_3d)) / denom;
+	if (t[1] <= 0 || t[2] <= 0)
+		return (0);
+	if (t[1] < t[2])
+		t_min = t[1];
+	else
+		t_min = t[2];
+//	if (t[0] && t[0] < t_min)
+//		return (t[0]);
+	vec_scalar_multip(t_min, ray->dir, pos);
+	vec_add(ray->org, pos, pos);
+	vec_assign(nrm, shape->vect_3d[0], shape->vect_3d[1], shape->vect_3d[2]);
+	vec_sub(pos, u, tmp);
+	vec_sub(pos, v, u);
+	if (dot_product(tmp, tmp) <= (shape->diameter * shape->diameter / 4)
+			|| dot_product(u, u) <= (shape->diameter * shape->diameter / 4))
+		return (t_min);
+
+/*
+	t = cyl_intersect_open(ray, shape, pos, nrm);
+	vec_sub(pos, shape->coordinates, tmp);
+	if (t)
+		return (t);
+	if (fabs(dot_product(tmp, shape->vect_3d)) == (shape->height / 2))
+	{
+		vec_sub(u, ray->org, tmp);
+		delta = dot_product(tmp, normalize(shape->vect_3d));
+		if (delta == 0)
+			return (0);
+		t = dot_product(ray->dir, normalize(shape->vect_3d));
+		if (t <= 0)
+			return (0);
+		vec_assign(nrm, shape->vect_3d[0], shape->vect_3d[1], shape->vect_3d[2]);
+		vec_sub(pos, u, tmp);
+		if (dot_product(tmp, tmp) <= (shape->diameter * shape->diameter / 4))
+			return (t);
+	}
+*/
+	return (0);
 }
 
 double	plan_intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
@@ -119,6 +223,20 @@ int	scene_intersect(t_data data, t_ray *ray)
 		else if (tmp->type == PL)
 		{
 			ret = plan_intersection(ray, tmp, position_tmp, normal_tmp);
+			if (ret && ret < ray->intersect)
+			{
+				has_intersect = 1;
+				ray->intersect = ret;
+				vec_dup(position_tmp, ray->pos);
+				vec_dup(normal_tmp, ray->nrm);
+				ray->sf_color[0] = tmp->colors[0];
+				ray->sf_color[1] = tmp->colors[1];
+				ray->sf_color[2] = tmp->colors[2];
+			}
+		}
+		else if (tmp->type == CY)
+		{
+			ret = cyl_intersect(ray, tmp, position_tmp, normal_tmp);
 			if (ret && ret < ray->intersect)
 			{
 				has_intersect = 1;

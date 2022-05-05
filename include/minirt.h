@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 10:07:08 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 10:44:52 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,12 @@ double  *vec_sub(double *a, double *b, double *res);
 // VECTOR_UTILS2.C
 double	*vec_scalar_multip(double scalar, double *vec, double *res);
 double	*vec_dup(double *vec, double *dup);
+double	*vec_assign(double *vec, double x, double y, double z);
+double	*vec_mat_multip(double **matrix, double *vec, double *res);
+double	*vec_cross_prod(double *a, double *b, double *res);
 // TRACING.C
 double  intersection(t_ray *ray, t_shapes *shape, double *pos, double *nrm);
+double	cyl_intersect(t_ray *ray, t_shapes *shape, double *pos, double *nrm);
 double *dir_vec(double *ray_dir, int i, int j, t_data data);
 int scene_intersect(t_data data, t_ray *ray);
 int ray_tracing(t_data data);
