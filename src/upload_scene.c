@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 09:51:55 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:46:10 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,32 @@ static int	create_camera(char **split, t_scene *scene)
 {
 	char	**sub_split;
 	char	**sub_split2;
-	int		i;	
+//	int		i;	
 
-	i = -1;
+//	i = -1;
 	scene->camera = malloc(sizeof(t_camera));
 	sub_split = ft_split(split[1], ',');
 	sub_split2 = ft_split(split[2], ',');
 	if (sub_split == NULL || sub_split2 == NULL || scene->camera == NULL \
 	|| split_len(sub_split) != 3 || split_len(sub_split2) != 3)
 		return (1);
-	while (++i < 3)
-	{
-		scene->camera->coordinates[i] = ft_atof(sub_split[i]);
-		scene->camera->vect_3d[i] = ft_atof(sub_split2[i]);
-		if (scene->camera->vect_3d[i] < -1.0 || scene->camera->vect_3d[i] > 1.0)
-			return (1);
-	}
+	scene->camera->coordinates.x = ft_atof(sub_split[0]);
+	scene->camera->coordinates.y = ft_atof(sub_split[1]);
+	scene->camera->coordinates.z = ft_atof(sub_split[2]);
+	scene->camera->vect_3d.x = ft_atof(sub_split2[0]);
+	scene->camera->vect_3d.y = ft_atof(sub_split2[1]);
+	scene->camera->vect_3d.z = ft_atof(sub_split2[2]);
+	if (scene->camera->vect_3d.x < -1.0 || scene->camera->vect_3d.x > 1.0
+		|| scene->camera->vect_3d.y < -1.0 || scene->camera->vect_3d.y > 1.0
+		|| scene->camera->vect_3d.z < -1.0 || scene->camera->vect_3d.z > 1.0)
+		return (1);
+//	while (++i < 3)
+//	{
+//		scene->camera->coordinates.xyz[i] = ft_atof(sub_split[i]);
+//		scene->camera->vect_3d.xyz[i] = ft_atof(sub_split2[i]);
+//		if (scene->camera->vect_3d.xyz[i] < -1.0 || scene->camera->vect_3d.xyz[i] > 1.0)
+//			return (1);
+//	}
 	ft_free_split(sub_split);
 	ft_free_split(sub_split2);
 	scene->camera->fov = ft_atof(split[3]);
@@ -72,9 +82,9 @@ static int	create_camera(char **split, t_scene *scene)
 static int	create_light(char **split, t_scene *scene)
 {
 	char	**sub_split;
-	int		i;
+//	int		i;
 
-	i = 0;
+//	i = 0;
 	scene->light = malloc(sizeof(t_light));
 	if (scene->light == NULL)
 		return (1);
@@ -84,11 +94,14 @@ static int	create_light(char **split, t_scene *scene)
 	sub_split = ft_split(split[1], ',');
 	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
-	while (i < 3)
-	{
-		scene->light->coordinates[i] = ft_atof(sub_split[i]);
-		i++;
-	}
+	scene->light->coordinates.x = ft_atof(sub_split[0]);
+	scene->light->coordinates.y = ft_atof(sub_split[1]);
+	scene->light->coordinates.z = ft_atof(sub_split[2]);
+//	while (i < 3)
+//	{
+//		scene->light->coordinates[i] = ft_atof(sub_split[i]);
+//		i++;
+//	}
 	ft_free_split(sub_split);
 	return (0);
 }

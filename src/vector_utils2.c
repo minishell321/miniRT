@@ -6,34 +6,34 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:50:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/05 10:41:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:09:44 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-double	*vec_scalar_multip(double scalar, double *vec, double *res)
+t_vect	vec_scalar_multip(float scalar, t_vect *vec, t_vect *res)
 {
-	res[0] = scalar * vec[0];
-	res[1] = scalar * vec[1];
-	res[2] = scalar * vec[2];
-	return (res);
+	res->x = scalar * vec->x;
+	res->y = scalar * vec->y;
+	res->z = scalar * vec->z;
+	return (*res);
 }
 
-double	*vec_dup(double *vec, double *dup)
+t_vect	vec_dup(t_vect *vec, t_vect *dup)
 {
-	dup[0] = vec[0];
-	dup[1] = vec[1];
-	dup[2] = vec[2];
-	return (dup);
+	dup->x = vec->x;
+	dup->y = vec->y;
+	dup->z = vec->z;
+	return (*dup);
 }
 
-double	*vec_assign(double *vec, double x, double y, double z)
+t_vect	vec_assign(t_vect *vec, float x_crd, float y_crd, float z_crd)
 {
-	vec[0] = x;
-	vec[1] = y;
-	vec[2] = z;
-	return (vec);
+	vec->x = x_crd;
+	vec->y = y_crd;
+	vec->z = z_crd;
+	return (*vec);
 }
 
 double	*vec_mat_multip(double **matrix, double *vec, double *res)
@@ -66,10 +66,10 @@ double	*vec_mat_multip(double **matrix, double *vec, double *res)
 	return (res);
 }
 
-double	*vec_cross_prod(double *a, double *b, double *res)
+t_vect vec_cross_prod(t_vect *a, t_vect *b, t_vect *res)
 {
-	res[0] = a[1] * b[2] - (a[2] * b[1]);
-	res[1] = a[2] * b[0] - (a[0] * b[2]);
-	res[2] = a[0] * b[1] - (a[1] * b[0]);
-	return (res);
+	res->x = a->y * b->z - (a->z * b->y);
+	res->y = a->z * b->x - (a->x * b->z);
+	res->z = a->x * b->y - (a->y * b->x);
+	return (*res);
 }
