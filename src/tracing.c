@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/03 16:05:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 08:33:27 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,6 @@ int	ray_tracing(t_data data)
 	int		j;
 	t_ray	*ray;
 	t_ray	*light;
-	double	pixel_intensity_r;
-	double	pixel_intensity_g;
-	double	pixel_intensity_b;
 
 	i = 0;
 	ray = malloc(sizeof(t_ray));
@@ -176,17 +173,8 @@ int	ray_tracing(t_data data)
 				}
 				else
 				{
-					pixel_intensity_r = (0 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
-					pixel_intensity_g = (0 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
-					pixel_intensity_b = (0 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
-
-					if (pixel_intensity_r > 255)
-						pixel_intensity_r = 255;
-					if (pixel_intensity_g > 255)
-						pixel_intensity_g = 255;
-					if (pixel_intensity_b > 255)
-						pixel_intensity_b = 255;
-					my_mlx_pixel_put(&data, j, data.height - i - 1, encode_rgb(pixel_intensity_r, pixel_intensity_g, pixel_intensity_b));
+					pixel_colors_shadow(data, ray);
+					my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
 				}
 			}
 			j++;

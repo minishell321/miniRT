@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/03 15:30:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 08:33:19 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int ray_tracing(t_data data);
 //RAY_UTILS.C
 unsigned int	dec2hex(int n);
 void			pixel_colors(t_data data, t_ray *ray);
+void			pixel_colors_shadow(t_data data, t_ray *ray);
 int				init_ray(t_ray *ray);
 void			free_ray(t_ray *ray);
 

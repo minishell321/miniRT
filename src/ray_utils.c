@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:37:50 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 09:42:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	pixel_colors(t_data data, t_ray *ray)
 	double sum1;
 	double sum2;
 	double sum3;
+	double sum4;
+	double sum5;
+	double sum6;
 	
 	lum_intensity = 1000;
 	tmp = malloc(sizeof(double) * 3);
@@ -63,17 +66,28 @@ void	pixel_colors(t_data data, t_ray *ray)
 
 
 
-
+	ray->sf_color[0] = ray->sf_color[0] * (data.scene->amb_lit->colors[0] / 255);
+	ray->sf_color[1] = ray->sf_color[1] * (data.scene->amb_lit->colors[1] / 255);
+	ray->sf_color[2] = ray->sf_color[2] * (data.scene->amb_lit->colors[2] / 255);
 	sum1 = ray->sf_color[0] * lum_intensity * data.scene->light->ratio * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
 	sum2 = ray->sf_color[1] * lum_intensity * data.scene->light->ratio * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
 	sum3 = ray->sf_color[2] * lum_intensity * data.scene->light->ratio * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	sum4 = ray->sf_color[0] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	sum5 = ray->sf_color[1] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	sum6 = ray->sf_color[2] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	sum1 = fmax(sum1, sum4);
+	sum2 = fmax(sum2, sum5);
+	sum3 = fmax(sum3, sum6);
 	// sum1 = ray->sf_color[0] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
 	// sum2 = ray->sf_color[1] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
 	// sum3 = ray->sf_color[2] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
-	pixel_intensity_r = (sum1 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
-	pixel_intensity_g = (sum2 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
-	pixel_intensity_b = (sum3 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_r = (sum1 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_g = (sum2 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_b = (sum3 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
 
+	pixel_intensity_r = sum1;
+	pixel_intensity_g = sum2;
+	pixel_intensity_b = sum3;
 	if (pixel_intensity_r > 255)
 		pixel_intensity_r = 255;
 	if (pixel_intensity_g > 255)
@@ -118,6 +132,77 @@ void	pixel_colors(t_data data, t_ray *ray)
 	data.scene->stack->color = encode_rgb((int)pixel_intensity_r, \
 		(int)pixel_intensity_g, (int)pixel_intensity_b);
 	free(tmp);
+}
+
+void	pixel_colors_shadow(t_data data, t_ray *ray)
+{
+	double	pixel_intensity_r;
+	double	pixel_intensity_g;
+	double	pixel_intensity_b;
+	double	*tmp;
+	int lum_intensity;
+	double sum1;
+	double sum2;
+	double sum3;
+	
+	lum_intensity = 1000;
+	tmp = malloc(sizeof(double) * 3);
+	tmp = vec_dup(ray->pos, tmp);
+	tmp = normalize(tmp);
+
+//  pixel_intensity_r = fmin(data.scene->stack->colors[0], data.scene->stack->colors[0] \
+//      * data.scene->light->ratio * 10000 \
+//      * fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+//  pixel_intensity_g = fmin(data.scene->stack->colors[1], data.scene->stack->colors[1] \
+//      * data.scene->light->ratio * 10000 \
+//      * fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+//  pixel_intensity_b = fmin(data.scene->stack->colors[2], data.scene->stack->colors[2] \
+//      * data.scene->light->ratio * 10000 \
+//      * fmax(0, dot_product(tmp, normal)) / (norm_squared(position)));
+
+//  pixel_intensity_r = fmin(ray->sf_color[0], fmax(0, data.scene->light->ratio \
+//      * 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+//  pixel_intensity_g = fmin(ray->sf_color[1], fmax(0, data.scene->light->ratio \
+//      * 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+//  pixel_intensity_b = fmin(ray->sf_color[0], fmax(0, data.scene->light->ratio \
+//      * 1000000 * fmax(0, dot_product(tmp,ray->nrm)) / (norm_squared(ray->pos))));
+
+
+
+	
+	// sum1 = ray->sf_color[0] * lum_intensity * data.scene->amb_lit->light * 0.0001;
+	// sum2 = ray->sf_color[1] * lum_intensity * data.scene->amb_lit->light * 0.0001;
+	// sum3 = ray->sf_color[2] * lum_intensity * data.scene->amb_lit->light * 0.0001;
+	ray->sf_color[0] = ray->sf_color[0] * (data.scene->amb_lit->colors[0] / 255);
+	ray->sf_color[1] = ray->sf_color[1] * (data.scene->amb_lit->colors[1] / 255);
+	ray->sf_color[2] = ray->sf_color[2] * (data.scene->amb_lit->colors[2] / 255);
+	sum1 = ray->sf_color[0] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	sum2 = ray->sf_color[1] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	sum3 = ray->sf_color[2] * lum_intensity * data.scene->amb_lit->light * 0.0003;
+	// sum1 = ray->sf_color[0] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	// sum2 = ray->sf_color[1] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	// sum3 = ray->sf_color[2] * data.scene->light->ratio * lum_intensity * (fmax(0.0, dot_product(tmp, ray->nrm)) / (norm_squared(ray->pos)));
+	// pixel_intensity_r = (sum1 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_g = (sum2 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_b = (sum3 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
+	pixel_intensity_r = sum1;
+	pixel_intensity_g = sum2;
+	pixel_intensity_b = sum3;
+
+
+	// pixel_intensity_r = (0 + data.scene->amb_lit->colors[0] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_g = (0 + data.scene->amb_lit->colors[1] * data.scene->amb_lit->light) / 2;
+	// pixel_intensity_b = (0 + data.scene->amb_lit->colors[2] * data.scene->amb_lit->light) / 2;
+
+	if (pixel_intensity_r > 255)
+		pixel_intensity_r = 255;
+	if (pixel_intensity_g > 255)
+		pixel_intensity_g = 255;
+	if (pixel_intensity_b > 255)
+		pixel_intensity_b = 255;
+
+	data.scene->stack->color = encode_rgb((int)pixel_intensity_r, \
+		(int)pixel_intensity_g, (int)pixel_intensity_b);
 }
 
 int	init_ray(t_ray *ray)
