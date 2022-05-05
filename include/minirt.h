@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/05 08:33:19 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 10:39:08 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 // close read write
 # define WIDTH 1250
 # define HEIGHT 1250
+# define LIGHT_INTENS 1000
 # define SP 1
 # define PL 2
 # define CY 3
