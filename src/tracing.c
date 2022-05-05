@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/05 10:43:07 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 10:58:24 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,18 @@ double	cyl_intersect(t_ray *ray, t_shapes *shape, double *pos, double *nrm)
 		t_min = t[1];
 	else
 		t_min = t[2];
+	
 //	if (t[0] && t[0] < t_min)
 //		return (t[0]);
 	vec_scalar_multip(t_min, ray->dir, pos);
 	vec_add(ray->org, pos, pos);
 	vec_assign(nrm, shape->vect_3d[0], shape->vect_3d[1], shape->vect_3d[2]);
+	if (t[1] > t[2])
+	{
+		// vec_assign(nrm, v[0], v[1], v[2]);
+		// nrm = normalize(nrm);
+		vec_scalar_multip(-1, nrm, nrm);
+	}
 	vec_sub(pos, u, tmp);
 	vec_sub(pos, v, u);
 	if (dot_product(tmp, tmp) <= (shape->diameter * shape->diameter / 4)
