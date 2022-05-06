@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/05 17:46:50 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:43:55 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,18 +212,6 @@ int	scene_intersect(t_data data, t_ray *ray)
 	tmp = data.scene->stack;
 	while (tmp)
 	{
-		// ret = plan_intersection(ray, tmp, position_tmp, normal_tmp);
-		// if (ret && ret < ray->intersect)
-		// {
-		// 	has_intersect = 1;
-		// 	ray->intersect = ret;
-		// 	vec_dup(position_tmp, ray->pos);
-		// 	vec_dup(normal_tmp, ray->nrm);
-		// 	ray->sf_color[0] = tmp->colors[0];
-		// 	ray->sf_color[1] = tmp->colors[1];
-		// 	ray->sf_color[2] = tmp->colors[2];
-		// }
-		// tmp = tmp->next;
 		if (tmp->type == SP)
 		{
 			ret = intersection(ray, tmp, &position_tmp, &normal_tmp);
@@ -279,20 +267,15 @@ int	ray_tracing(t_data data)
 	int		j;
 	t_ray	ray;
 	t_ray	light;
-
-
+	
 	i = 0;
-//	ray = malloc(sizeof(t_ray));
-//	light = malloc(sizeof(t_ray));
-//	if (ray == 0 || init_ray(ray) || light == 0 || init_ray(light))
-//		return (1);
+	vec_dup(&data.scene->camera->coordinates, &ray.org);
 	while (i < data.height)
 	{
 		j = 0;
 		while (j < data.width)
 		{
 			ray.dir = *normalize(dir_vec(&ray.dir, i, j, data));
-			vec_dup(&data.scene->camera->coordinates, &ray.org);
 			if (scene_intersect(data, &ray))
 			{
 				vec_scalar_multip(0.01, &ray.nrm, &light.org);
@@ -301,21 +284,14 @@ int	ray_tracing(t_data data)
 				vec_dup(&ray.pos, &light.dir);
 				light.dir = *normalize(&light.dir);
 				if (!(scene_intersect(data, &light) && (light.intersect * light.intersect < norm_squared(&ray.pos))))
-				{
 					pixel_colors(data, &ray);
-					my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
-				}
 				else
-				{
 					pixel_colors_shadow(data, &ray);
-					my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
-				}
+				my_mlx_pixel_put(&data, j, data.height - i - 1, data.scene->stack->color);
 			}
 			j++;
 		}
 		i++;
 	}
-//	free_ray(ray);
-//	free_ray(light);
 	return (0);
 }

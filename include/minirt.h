@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/05 17:14:41 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:33:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // close read write
 # define WIDTH 1250
 # define HEIGHT 1250
-# define LIGHT_INTENS 1000
+# define L_INT 1000
 # define SP 1
 # define PL 2
 # define CY 3
@@ -65,6 +65,8 @@ int				read_file(t_scene *scene, char *file);
 
 // UPLOAD_SCENE.C
 int				upload_scene(char **split, t_scene *scene);
+// UPLOAD_SCENE_UTILS.C
+int				create_camera(char **split, t_scene *scene);
 // CREATE_SHAPE.C
 int				create_shape(char **split, t_scene *scene);
 // VECTOR_UTILS.C

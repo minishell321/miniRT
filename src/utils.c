@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:55:21 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/03 15:33:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:06:54 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	my_close(int keycode, t_data *data)
 {
 	if (keycode == 53)
 	{
-		printf("before\n");
 		mlx_destroy_window(data->mlx, data->win);
-		printf("after\n");
 		free_scene_el(data->scene);
 		exit(0);
 	}
@@ -34,6 +32,7 @@ int	my_close(int keycode, t_data *data)
 int	close_win(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
+	free_scene_el(data->scene);
 	exit (0);
 }
 

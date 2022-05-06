@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/05 17:39:57 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:38:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ typedef struct s_ray
 //	double			intersect;
 //}	t_ray;
 
-typedef struct s_amb_lit
+typedef struct s_amb
 {
 	float	light;
 	unsigned char	colors[3];
 	unsigned int color;
-}	t_amb_lit;
+}	t_amb;
 
 typedef struct s_light
 {
@@ -84,7 +84,7 @@ typedef struct s_camera
 typedef struct s_scene
 {
 	t_shapes	*stack;
-	t_amb_lit	*amb_lit;
+	t_amb	*amb;
 	t_light		*light;
 	t_camera	*camera;
 	float		pixel_intensity;

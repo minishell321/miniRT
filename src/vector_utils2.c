@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:50:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/05 16:09:44 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:09:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ t_vect	vec_assign(t_vect *vec, float x_crd, float y_crd, float z_crd)
 
 double	*vec_mat_multip(double **matrix, double *vec, double *res)
 {
-	int	i;
-	int	j;
 	double	sum;
 	double	tmp[4];
 	double	res_tmp[4];
+	int		i;
+	int		j;
 
 	tmp[0] = vec[0];
 	tmp[1] = vec[1];
@@ -66,7 +66,7 @@ double	*vec_mat_multip(double **matrix, double *vec, double *res)
 	return (res);
 }
 
-t_vect vec_cross_prod(t_vect *a, t_vect *b, t_vect *res)
+t_vect	vec_cross_prod(t_vect *a, t_vect *b, t_vect *res)
 {
 	res->x = a->y * b->z - (a->z * b->y);
 	res->y = a->z * b->x - (a->x * b->z);

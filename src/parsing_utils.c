@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/05 17:07:43 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:40:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@ int	init_coord(t_shapes *shape, char *str)
 int	init_vect_3d(t_shapes *shape, char *str)
 {
 	char	**sub_split;
-//	int		i;
 
-//	i = 0;
 	sub_split = ft_split(str, ',');
 	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
-
 	shape->vect_3d.x = ft_atof(sub_split[0]);
 	if (shape->vect_3d.x < -1.0 || shape->vect_3d.x > 1.0)
 		return (1);
@@ -45,13 +42,6 @@ int	init_vect_3d(t_shapes *shape, char *str)
 	shape->vect_3d.z = ft_atof(sub_split[2]);
 	if (shape->vect_3d.z < -1.0 || shape->vect_3d.z > 1.0)
 		return (1);
-//	while (i < 3)
-//	{
-//		shape->vect_3d[i] = ft_atof(sub_split[i]);
-//		if (shape->vect_3d[i] < -1.0 || shape->vect_3d[i] > 1.0)
-//			return (1);
-//		i++;
-//	}
 	ft_free_split(sub_split);
 	return (0);
 }
