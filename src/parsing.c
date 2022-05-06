@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 10:05:54 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:21:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,5 @@ int	read_file(t_scene *scene, char *file)
 	if (line)
 		free(line);
 	close(fd);
-	print_scene(scene);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:12:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 10:14:21 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:39:09 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void	shape_init(t_shapes *shape)
 {
 	shape->type = 0;
-	shape->coordinates[0] = 0;
-	shape->coordinates[1] = 0;
-	shape->coordinates[2] = 0;
-	shape->vect_3d[0] = 0;
-	shape->vect_3d[1] = 0;
-	shape->vect_3d[2] = 0;
+	shape->coordinates.x = 0;
+	shape->coordinates.y = 0;
+	shape->coordinates.z = 0;
+	shape->vect_3d.x = 0;
+	shape->vect_3d.y = 0;
+	shape->vect_3d.z = 0;
 	shape->diameter = 0;
 	shape->height = 0;
 	shape->color = 0;

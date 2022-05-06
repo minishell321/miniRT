@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/27 11:03:57 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/06 13:38:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 
 # define M_PI 3.141592653589793
 
+typedef struct s_vect
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vect;
+
 typedef struct s_shapes
 {
 	int		type;
-	double	coordinates[3];
-	double	vect_3d[3];
-	double	diameter;
-	double	height;
+	t_vect	coordinates;
+	t_vect	vect_3d;
+	float	diameter;
+	float	height;
 	unsigned char	colors[3];
 	unsigned int color;
 	struct s_shapes *next;
@@ -36,41 +43,51 @@ typedef struct s_shapes
 
 typedef struct s_ray
 {
-	double			*org;
-	double			*dir;
-	double			*pos;
-	double			*nrm;
-	unsigned char	*sf_color;
-	double			intersect;
+	t_vect			org;
+	t_vect			dir;
+	t_vect			pos;
+	t_vect			nrm;
+	unsigned char	sf_color[3];
+	float			intersect;
 }	t_ray;
 
-typedef struct s_amb_lit
+//typedef struct s_ray
+//{
+//	double			*org;
+//	double			*dir;
+//	double			*pos;
+//	double			*nrm;
+//	unsigned char	*sf_color;
+//	double			intersect;
+//}	t_ray;
+
+typedef struct s_amb
 {
-	double	light;
+	float	light;
 	unsigned char	colors[3];
 	unsigned int color;
-}	t_amb_lit;
+}	t_amb;
 
 typedef struct s_light
 {
-	double	coordinates[3];
-	double	ratio;
+	t_vect	coordinates;
+	float	ratio;
 }	t_light;
 
 typedef struct s_camera
 {
-	double	coordinates[3];
-	double	vect_3d[3];
-	double		fov;
+	t_vect	coordinates;
+	t_vect	vect_3d;
+	float		fov;
 }	t_camera;
 
 typedef struct s_scene
 {
 	t_shapes	*stack;
-	t_amb_lit	*amb_lit;
+	t_amb	*amb;
 	t_light		*light;
 	t_camera	*camera;
-	double		pixel_intensity;
+	float		pixel_intensity;
 }	t_scene;
 
 typedef struct s_data

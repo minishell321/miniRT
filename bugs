@@ -2,11 +2,10 @@ DONE
 - miss a ',' in .rt make it segfault
 - doesn't accept more than one type of MAJ element
 - plan
-- cylinder
 - ambient light
 
 
 
 TODO for mandatory part
-- Si applicable, toutes les intersections possibles et l’intérieur de l’objet doivent être gérés correctement?
+- cylinder
 - Vecteur d’orientation 3d pour la camera
