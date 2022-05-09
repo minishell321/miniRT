@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 10:06:54 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 11:03:26 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,28 @@ float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 //	u = malloc(sizeof(double) * 3);
 //	v = malloc(sizeof(double) * 3);
 //	tmp = malloc(sizeof(double) * 3);
-	vec_scalar_multip(shape->h / 2, &shape->vect_3d, &tmp);
+	vec_scalar_multip(shape->h / 2, normalize(&shape->vect_3d), &tmp);
 	vec_add(&tmp, &shape->coordinates, &u);
 	vec_sub(&shape->coordinates, &tmp, &v);
-	t[0] = cyl_intersect_open(ray, shape, pos, nrm);
-	if (t[0])
-		return (t[0]);
+//	t[0] = cyl_intersect_open(ray, shape, pos, nrm);
+//	if (t[0])
+//		return (t[0]);
 	vec_sub(&u, &ray->org, &tmp);
-	denom = dot_product(&ray->dir, normalize(&shape->vect_3d));
+	denom = dot_product(&ray->dir, &shape->vect_3d);
 	if (denom == 0)
-		return (0);
+		return (cyl_intersect_open(ray,shape,pos,nrm));
 	t[1] = dot_product(&tmp, normalize(&shape->vect_3d)) / denom;
 	vec_sub(&v, &ray->org, &tmp);
 	t[2] = dot_product(&tmp, normalize(&shape->vect_3d)) / denom;
 	if (t[1] <= 0 || t[2] <= 0)
-		return (0);
+		return (cyl_intersect_open(ray,shape,pos,nrm));
+//	if (t[1] == t[2])
+//		return (cyl_intersect_open(ray,shape,pos,nrm));	
 	if (t[1] < t[2])
 		t_min = t[1];
 	else
 		t_min = t[2];
+
 	
 //	if (t[0] && t[0] < t_min)
 //		return (t[0]);
@@ -135,6 +138,8 @@ float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	if (dot_product(&tmp, &tmp) <= (shape->diameter * shape->diameter / 4)
 			|| dot_product(&u, &u) <= (shape->diameter * shape->diameter / 4))
 		return (t_min);
+	else
+		return (cyl_intersect_open(ray, shape, pos, nrm));
 
 /*
 	t = cyl_intersect_open(ray, shape, pos, nrm);
@@ -156,7 +161,7 @@ float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 			return (t);
 	}
 */
-	return (0);
+//	return (0);
 }
 
 float	plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
