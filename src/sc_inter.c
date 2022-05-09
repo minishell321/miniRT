@@ -12,13 +12,27 @@
 
 #include "../include/minirt.h"
 
-void	add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm_tmp)
+static void	add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm)
 {
 	vec_dup(pos, &ray->pos);
-	vec_dup(norm_tmp, &ray->nrm);
+	vec_dup(norm, &ray->nrm);
 	ray->sf_color[0] = tmp->colors[0];
 	ray->sf_color[1] = tmp->colors[1];
 	ray->sf_color[2] = tmp->colors[2];
+}
+
+static float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
+{
+	float	ret;
+
+	ret = 0;
+	if (tmp->type == SP)
+		ret = sphere_intersection(ray, tmp, pos, nrm);
+	else if (tmp->type == PL)
+		ret = plan_intersection(ray, tmp, pos, nrm);
+	else if (tmp->type == CY)
+		ret = cyl_intersect(ray, tmp, pos, nrm);
+	return (ret);
 }
 
 int	sc_inter(t_data d, t_ray *ray)
@@ -34,12 +48,7 @@ int	sc_inter(t_data d, t_ray *ray)
 	tmp = d.s->stack;
 	while (tmp)
 	{
-		if (tmp->type == SP)
-			ret = sphere_intersection(ray, tmp, &position_tmp, &normal_tmp);
-		else if (tmp->type == PL)
-			ret = plan_intersection(ray, tmp, &position_tmp, &normal_tmp);
-		else if (tmp->type == CY)
-			ret = cyl_intersect(ray, tmp, &position_tmp, &normal_tmp);
+		ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
 		if (ret && ret < ray->intr)
 		{
 			has_intersect = 1;

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 09:58:36 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:15:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ t_vect			vec_cross_prod(t_vect *a, t_vect *b, t_vect *res);
 // TRACING.C
 t_vect			*dir_vec(t_vect *ray_dir, int i, int j, t_data d);
 int				ray_tracing(t_data d);
-// sc_inter.C
+// SC_INTER.C
 int				sc_inter(t_data d, t_ray *ray);
-void			add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm_tmp);
 
 // SHAPES_INTERSECTION.C
 float			plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
