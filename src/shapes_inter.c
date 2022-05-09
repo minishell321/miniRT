@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shapes_intersection.c                              :+:      :+:    :+:   */
+/*   shapes_inter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 07:53:47 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:06:54 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ float	sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	vec_sub(&ray->org, &shape->coordinates, &d2shape);
 	coeff[0] = 1;
 	coeff[1] = 2 * dot_product(&ray->dir, &d2shape);
-	coeff[2] = norm_squared(&d2shape) - (shape->diameter * shape->diameter / 4);
+	coeff[2] = norm_sq(&d2shape) - (shape->diameter * shape->diameter / 4);
 	delta = coeff[1] * coeff[1] - (4 * coeff[0] * coeff[2]);
 //	free(d2shape);
 	if (delta < 0 || (-coeff[1] + sqrt(delta)) / (2 * coeff[0]) < 0)
@@ -78,7 +78,7 @@ float	cyl_intersect_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	vec_cross_prod(&u, &shape->vect_3d, nrm);
 	nrm = normalize(nrm);
 	vec_sub(pos, &shape->coordinates, &v);
-	if (fabs(dot_product(&v, &shape->vect_3d)) < (shape->height / 2))
+	if (fabs(dot_product(&v, &shape->vect_3d)) < (shape->h / 2))
 		return (t);
 	return (0);
 }
@@ -98,7 +98,7 @@ float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 //	u = malloc(sizeof(double) * 3);
 //	v = malloc(sizeof(double) * 3);
 //	tmp = malloc(sizeof(double) * 3);
-	vec_scalar_multip(shape->height / 2, &shape->vect_3d, &tmp);
+	vec_scalar_multip(shape->h / 2, &shape->vect_3d, &tmp);
 	vec_add(&tmp, &shape->coordinates, &u);
 	vec_sub(&shape->coordinates, &tmp, &v);
 	t[0] = cyl_intersect_open(ray, shape, pos, nrm);
@@ -141,7 +141,7 @@ float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	vec_sub(pos, shape->coordinates, tmp);
 	if (t)
 		return (t);
-	if (fabs(dot_product(tmp, shape->vect_3d)) == (shape->height / 2))
+	if (fabs(dot_product(tmp, shape->vect_3d)) == (shape->h / 2))
 	{
 		vec_sub(u, ray->org, tmp);
 		delta = dot_product(tmp, normalize(shape->vect_3d));
@@ -166,11 +166,7 @@ float	plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	float	denom2;
 	t_vect	tmp;
 
-//	tmp = malloc(sizeof(double) * 3);
 	vec_sub(&shape->coordinates, &ray->org, &tmp);
-
-//	denom1 = dot_product(vec_sub(pos, shape->coordinates, nrm), shape->coordinates);
-	
 	denom1 = dot_product(&tmp, normalize(&shape->vect_3d));
 	denom2 = dot_product(&ray->dir, normalize(&shape->vect_3d));
 	if (denom2 == 0)
@@ -179,12 +175,8 @@ float	plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	if (t <= 0)
 		 return (0);
 	vec_scalar_multip(t, &ray->dir, pos);
-    vec_add(&ray->org, pos, pos);
-    // vec_sub(pos, shape->coordinates, nrm);
+	vec_add(&ray->org, pos, pos);
 	vec_assign(nrm, shape->vect_3d.x, shape->vect_3d.y, shape->vect_3d.z);
-//	nrm->x = shape->vect_3d[0];
-//	nrm->y = shape->vect_3d[1];
-//	nrm->z = shape->vect_3d[2];
-    nrm = normalize(nrm);
+	nrm = normalize(nrm);
 	return (t);
 }

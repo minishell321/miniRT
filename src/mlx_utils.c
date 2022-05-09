@@ -6,16 +6,16 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:56:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/28 10:15:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 09:50:10 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
+void	my_mlx_pixel_put(t_data *d, int x, int y, unsigned int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = d->addr + (y * d->line_length + x * (d->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }

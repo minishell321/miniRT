@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/06 13:21:51 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 09:58:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	check_split(char **split)
 	return (0);
 }
 
-static int	parse_line(char *str, t_scene *scene)
+static int	parse_line(char *str, t_scene *s)
 {
 	int		i;
 	char	**split;
@@ -87,9 +87,9 @@ static int	parse_line(char *str, t_scene *scene)
 	}
 	else
 	{
-		if (upload_scene(split, scene))
+		if (upload_scene(split, s))
 		{
-			free_scene_el(scene);
+			free_scene_el(s);
 			return (1);
 		}
 	}
@@ -97,7 +97,7 @@ static int	parse_line(char *str, t_scene *scene)
 	return (0);
 }
 
-int	read_file(t_scene *scene, char *file)
+int	read_file(t_scene *s, char *file)
 {
 	int		fd;
 	char	*line;
@@ -108,7 +108,7 @@ int	read_file(t_scene *scene, char *file)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (parse_line(line, scene))
+		if (parse_line(line, s))
 		{
 			free(line);
 			ft_error();

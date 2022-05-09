@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/04/25 07:40:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 09:58:42 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 int main(int argc, char **argv)
 {
-	t_data	data;
+	t_data	d;
 	// t_vars	vars;
 	// t_shape	*shape;
 	// t_light	*light;
-	t_scene scene;
+	t_scene s;
 
-	// data = malloc(sizeof(t_data));
-	// init_scene(&scene);
+	// d = malloc(sizeof(t_data));
+	// init_scene(&s);
 	if (argc == 2)
 	{
-		if (read_file(&scene, argv[1]))
+		if (read_file(&s, argv[1]))
 		{
-			free_scene_el(&scene);
+			free_scene_el(&s);
 			ft_error();
 		}
-		init_data(&data, &scene);
-		// data.mlx = mlx_init();
-		// data.win = mlx_new_window(data.mlx, 1250, 1250, "miniRT");
-		// data.img = mlx_new_image(data.mlx, 1250, 1250);
+		init_data(&d, &s);
+		// d.mlx = mlx_init();
+		// d.win = mlx_new_window(d.mlx, 1250, 1250, "miniRT");
+		// d.img = mlx_new_image(d.mlx, 1250, 1250);
 		// (void)argv;
 		// shape = malloc(sizeof(t_shape));
 		// light = malloc(sizeof(t_light));
@@ -40,9 +40,9 @@ int main(int argc, char **argv)
 		// 	return (1);
 		// if (parse_scene(shape, argv[1]))
 		// 	ft_error();
-		// data.scene = &scene;
-		// data.height = 1250;
-		// data.width = 1250;
+		// d.s = &s;
+		// d.h = 1250;
+		// d.w = 1250;
 		// printf("shape->type = %s\n", shape->type);
 		// printf("shape->coordinates[0] = %f\n", shape->coordinates[0]);
 		// printf("shape->coordinates[1] = %f\n", shape->coordinates[1]);
@@ -54,15 +54,15 @@ int main(int argc, char **argv)
 		// light->coordinates[2] = 0;
 		// light->ratio = 0.7;
 
-		// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
-		// 		&data.line_length, &data.endian);
-//		if (ray_tracing(data, data.scene->stack, data.scene->light))
-		if (ray_tracing(data))
+		// d.addr = mlx_get_data_addr(d.img, &d.bits_per_pixel,
+		// 		&d.line_length, &d.endian);
+//		if (ray_tracing(d, d.s->stack, d.s->light))
+		if (ray_tracing(d))
 			ft_error();
-		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-		mlx_hook(data.win, 2, 1L << 0, my_close, &data);
-		mlx_hook(data.win, 17, 0, close_win, &data);
-		mlx_loop(data.mlx);
+		mlx_put_image_to_window(d.mlx, d.win, d.img, 0, 0);
+		mlx_hook(d.win, 2, 1L << 0, my_close, &d);
+		mlx_hook(d.win, 17, 0, close_win, &d);
+		mlx_loop(d.mlx);
 	}
 	else
 		ft_error();

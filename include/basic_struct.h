@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/06 13:38:22 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:01:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_shapes
 	t_vect	coordinates;
 	t_vect	vect_3d;
 	float	diameter;
-	float	height;
+	float	h;
 	unsigned char	colors[3];
 	unsigned int color;
 	struct s_shapes *next;
@@ -48,7 +48,7 @@ typedef struct s_ray
 	t_vect			pos;
 	t_vect			nrm;
 	unsigned char	sf_color[3];
-	float			intersect;
+	float			intr;
 }	t_ray;
 
 //typedef struct s_ray
@@ -98,11 +98,11 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 	int		size;
-	int		height;
-	int		width;
+	int		h;
+	int		w;
 	void	*mlx;
 	void	*win;
-	t_scene	*scene;
+	t_scene	*s;
 }	t_data;
 
 typedef struct s_vars

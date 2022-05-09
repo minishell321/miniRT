@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/06 13:40:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 09:58:44 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	init_colors(t_shapes *shape, char *str)
 	return (0);
 }
 
-void	insert_shape_at_end(t_scene *scene, t_shapes *shape)
+void	insert_shape_at_end(t_scene *s, t_shapes *shape)
 {
 	t_shapes	*tmp;
 
-	tmp = scene->stack;
+	tmp = s->stack;
 	if (tmp == NULL)
-		scene->stack = shape;
+		s->stack = shape;
 	else
 	{
 		while (tmp->next != NULL)

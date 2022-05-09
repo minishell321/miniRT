@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:10:09 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/05 17:14:14 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/09 09:49:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-float	norm_squared(t_vect *crdnt)
+float	norm_sq(t_vect *crdnt)
 {
 	float	res;
 
@@ -24,7 +24,7 @@ t_vect	*normalize(t_vect *crdnt)
 {
 	float	norm;
 
-	norm = sqrtf(norm_squared(crdnt));
+	norm = sqrtf(norm_sq(crdnt));
 	crdnt->x = crdnt->x / norm;
 	crdnt->y = crdnt->y / norm;
 	crdnt->z = crdnt->z / norm;

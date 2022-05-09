@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_intersection.c                               :+:      :+:    :+:   */
+/*   sc_inter.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,7 +21,7 @@ void	add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm_tmp)
 	ray->sf_color[2] = tmp->colors[2];
 }
 
-int	scene_intersection(t_data data, t_ray *ray)
+int	sc_inter(t_data d, t_ray *ray)
 {
 	int			has_intersect;
 	t_shapes	*tmp;
@@ -29,9 +29,9 @@ int	scene_intersection(t_data data, t_ray *ray)
 	t_vect		normal_tmp;
 	float		ret;
 
-	ray->intersect = 2147483647;
+	ray->intr = 2147483647;
 	has_intersect = 0;
-	tmp = data.scene->stack;
+	tmp = d.s->stack;
 	while (tmp)
 	{
 		if (tmp->type == SP)
@@ -40,10 +40,10 @@ int	scene_intersection(t_data data, t_ray *ray)
 			ret = plan_intersection(ray, tmp, &position_tmp, &normal_tmp);
 		else if (tmp->type == CY)
 			ret = cyl_intersect(ray, tmp, &position_tmp, &normal_tmp);
-		if (ret && ret < ray->intersect)
+		if (ret && ret < ray->intr)
 		{
 			has_intersect = 1;
-			ray->intersect = ret;
+			ray->intr = ret;
 			add_pos_colors(ray, tmp, &position_tmp, &normal_tmp);
 		}
 		tmp = tmp->next;
