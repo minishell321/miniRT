@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:50:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/06 13:09:13 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:56:45 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,36 @@ t_vect	vec_assign(t_vect *vec, float x_crd, float y_crd, float z_crd)
 	return (*vec);
 }
 
-double	*vec_mat_multip(double **matrix, double *vec, double *res)
+t_vect	vec_mat_multip(float matrix[][3], t_vect *vec, t_vect *res)
 {
-	double	sum;
-	double	tmp[4];
-	double	res_tmp[4];
+	float	sum;
+	float	tmp[3];
+	float	res_tmp[3];
 	int		i;
 	int		j;
 
-	tmp[0] = vec[0];
-	tmp[1] = vec[1];
-	tmp[2] = vec[2];
-	tmp[3] = 1;
+//	vec_dup(vec, &tmp);
+	tmp[0] = vec->x;
+	tmp[1] = vec->y;
+	tmp[2] = vec->z;
+//	tmp[3] = 1;
 	sum = 0;
 	i = -1;
-	while (++i < 4)
+	while (++i < 3)
 	{
 		j = -1;
-		while (++j < 4)
+		while (++j < 3)
 		{
 			sum += matrix[i][j] * tmp[j];
 		}
 		res_tmp[i] = sum;
 		sum = 0;
 	}
-	res[0] = res_tmp[0];
-	res[1] = res_tmp[1];
-	res[2] = res_tmp[2];
-	return (res);
+//	vec_dup(&res_tmp, res);
+	res->x = res_tmp[0];
+	res->y = res_tmp[1];
+	res->z = res_tmp[2];
+	return (*res);
 }
 
 t_vect	vec_cross_prod(t_vect *a, t_vect *b, t_vect *res)

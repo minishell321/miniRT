@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 10:15:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:50:07 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ t_vect			vec_sub(t_vect *a, t_vect *b, t_vect *res);
 t_vect			vec_scalar_multip(float scalar, t_vect *vec, t_vect *res);
 t_vect			vec_dup(t_vect *vec, t_vect *dup);
 t_vect			vec_assign(t_vect *vec, float x, float y, float z);
-double			*vec_mat_multip(double **matrix, double *vec, double *res);
+t_vect			vec_mat_multip(float matrix[][3], t_vect *vec, t_vect *res);
 t_vect			vec_cross_prod(t_vect *a, t_vect *b, t_vect *res);
 // TRACING.C
+t_vect			*camera_dir(t_vect *ray_dir, t_data d);
 t_vect			*dir_vec(t_vect *ray_dir, int i, int j, t_data d);
 int				ray_tracing(t_data d);
 // SC_INTER.C

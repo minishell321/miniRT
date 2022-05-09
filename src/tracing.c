@@ -6,11 +6,107 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/09 10:01:35 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 17:32:16 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+void	init_mtrx(float matrix[][3])
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 3)
+	{
+		j = -1;
+		while (++j < 3)
+		{
+			if (j == i)
+				matrix[i][j] = 1;
+			else
+				matrix[i][j] = 0;
+		}
+	}
+}
+
+void	set_transform(float x[][3], float y[][3], float z[][3], float angle[3])
+{
+	x[1][1] = cos(angle[0]);
+    x[1][2] = -sin(angle[0]);
+    x[2][1] = sin(angle[0]);
+    x[2][2] = cos(angle[0]);
+    y[0][0] = cos(angle[1]);
+    y[0][2] = sin(angle[1]);
+    y[2][0] = -sin(angle[1]);
+    y[2][2] = cos(angle[1]);
+    z[0][0] = cos(angle[2]);
+    z[0][1] = -sin(angle[2]);
+    z[1][0] = sin(angle[2]);
+    z[1][1] = cos(angle[2]);
+}
+
+t_vect	*camera_dir(t_vect *ray_dir, t_data d)
+{
+	float	rot_x[3][3];
+	float	rot_y[3][3];
+	float	rot_z[3][3];
+	float	angle[3];
+//	int		i;
+//	int		j;
+
+	init_mtrx(rot_x);
+	init_mtrx(rot_y);
+	init_mtrx(rot_z);
+	if (d.s->camera->vect_3d.z)
+	angle[0] = M_PI - atan(d.s->camera->vect_3d.y / (d.s->camera->vect_3d.z));
+	angle[1] = M_PI - atan(d.s->camera->vect_3d.x / (d.s->camera->vect_3d.z));
+//	angle[2] = atan(d.s->camera->vect_3d.y / d.s->camera->vect_3d.x);
+	angle[2] = M_PI;
+	set_transform(rot_x, rot_y, rot_z, angle);
+	vec_mat_multip(rot_x, ray_dir, ray_dir);
+	vec_mat_multip(rot_y, ray_dir, ray_dir);
+	vec_mat_multip(rot_z, ray_dir, ray_dir);
+
+
+/*	
+	i = -1;
+	while (++i < 3)
+	{
+		j = -1;
+		while (++j < 3)
+		{
+			printf("%f   ", rot_x[i][j]);
+		}
+		printf("\n");
+	}
+	 i = -1;
+    while (++i < 3)
+    {
+        j = -1;
+        while (++j < 3)
+        {
+            printf("%f   ", rot_y[i][j]);
+        }
+        printf("\n");
+    }
+	 i = -1;
+    while (++i < 3)
+    {
+        j = -1;
+        while (++j < 3)
+        {
+            printf("%f   ", rot_z[i][j]);
+        }
+        printf("\n");
+    }
+
+	
+*/
+
+	return (ray_dir);
+}
 
 t_vect	*dir_vec(t_vect *ray_dir, int i, int j, t_data d)
 {
@@ -22,7 +118,7 @@ t_vect	*dir_vec(t_vect *ray_dir, int i, int j, t_data d)
 
 void	math_operations(t_ray *ray, t_ray *light, t_data *d)
 {
-	vec_scalar_multip(0.01, &ray->nrm, &light->org);
+	vec_scalar_multip(0.001, &ray->nrm, &light->org);
 	vec_add(&ray->pos, &light->org, &light->org);
 	vec_sub(&d->s->light->coordinates, &ray->pos, &ray->pos);
 	vec_dup(&ray->pos, &light->dir);
@@ -44,6 +140,7 @@ int	ray_tracing(t_data d)
 		while (++j < d.w)
 		{
 			ray.dir = *normalize(dir_vec(&ray.dir, i, j, d));
+			ray.dir = *normalize(camera_dir(&ray.dir, d));
 			if (sc_inter(d, &ray))
 			{
 				math_operations(&ray, &l, &d);
