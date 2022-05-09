@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/09 17:32:16 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/09 17:55:36 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,25 @@ void	math_operations(t_ray *ray, t_ray *light, t_data *d)
 	light->dir = *normalize(&light->dir);
 }
 
+t_vect	*reflect(t_ray *l, t_vect *rfl)
+{
+	float	tmp;
+
+	tmp = 2 * dot_product(&l->nrm,&l->dir);
+	vec_dup(&l->nrm, rfl);
+	vec_scalar_multip(tmp, rfl, rfl);
+	vec_sub(rfl, &l->dir, rfl);
+	return (rfl);
+
+}
+
 int	ray_tracing(t_data d)
 {
 	int		i;
 	int		j;
 	t_ray	ray;
 	t_ray	l;
+	t_vect	rfl;
 
 	i = -1;
 	vec_dup(&d.s->camera->coordinates, &ray.org);
@@ -144,6 +157,7 @@ int	ray_tracing(t_data d)
 			if (sc_inter(d, &ray))
 			{
 				math_operations(&ray, &l, &d);
+				reflect(&l, &rfl);
 				if (!(sc_inter(d, &l) && (l.intr * l.intr < norm_sq(&ray.pos))))
 					pixel_colors(d, &ray);
 				else
