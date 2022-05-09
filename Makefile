@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/05/06 13:14:25 by rburri           ###   ########.fr        #
+#    Updated: 2022/05/09 08:08:56 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/tracing.c\
 			$(SRC)/ray_utils.c\
 			$(SRC)/upload_scene_utils.c\
+			$(SRC)/shapes_intersection.c\
+			$(SRC)/scene_intersection.c\
 			
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))

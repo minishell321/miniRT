@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/06 13:33:51 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:12:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,30 @@ int				create_camera(char **split, t_scene *scene);
 // CREATE_SHAPE.C
 int				create_shape(char **split, t_scene *scene);
 // VECTOR_UTILS.C
-float	norm_squared(t_vect *crdnt);
-t_vect	*normalize(t_vect *crdnt);
-float	dot_product(t_vect *a, t_vect *b);
-t_vect  vec_add(t_vect *a, t_vect *b, t_vect *res);
-t_vect  vec_sub(t_vect *a, t_vect *b, t_vect *res);
+float			norm_squared(t_vect *crdnt);
+t_vect			*normalize(t_vect *crdnt);
+float			dot_product(t_vect *a, t_vect *b);
+t_vect 			vec_add(t_vect *a, t_vect *b, t_vect *res);
+t_vect			vec_sub(t_vect *a, t_vect *b, t_vect *res);
 // VECTOR_UTILS2.C
-t_vect	vec_scalar_multip(float scalar, t_vect *vec, t_vect *res);
-t_vect	vec_dup(t_vect *vec, t_vect *dup);
-t_vect	vec_assign(t_vect *vec, float x, float y, float z);
-double	*vec_mat_multip(double **matrix, double *vec, double *res);
-t_vect	vec_cross_prod(t_vect *a, t_vect *b, t_vect *res);
+t_vect			vec_scalar_multip(float scalar, t_vect *vec, t_vect *res);
+t_vect			vec_dup(t_vect *vec, t_vect *dup);
+t_vect			vec_assign(t_vect *vec, float x, float y, float z);
+double			*vec_mat_multip(double **matrix, double *vec, double *res);
+t_vect			vec_cross_prod(t_vect *a, t_vect *b, t_vect *res);
 // TRACING.C
-float  intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
-float	cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
-t_vect *dir_vec(t_vect *ray_dir, int i, int j, t_data data);
-int scene_intersect(t_data data, t_ray *ray);
-int ray_tracing(t_data data);
+t_vect			*dir_vec(t_vect *ray_dir, int i, int j, t_data data);
+int				ray_tracing(t_data data);
+// SCENE_INTERSECTION.C
+int				scene_intersection(t_data data, t_ray *ray);
+void			add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm_tmp);
+
+// SHAPES_INTERSECTION.C
+float			plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+float			cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+float			cyl_intersect_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+float			sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+
 //RAY_UTILS.C
 unsigned int	dec2hex(int n);
 void			pixel_colors(t_data data, t_ray *ray);
