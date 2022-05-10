@@ -6,11 +6,51 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 11:03:26 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/10 17:59:34 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+float	cone_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
+{
+	float	coeff[3];
+	float	t;
+	float	delta;
+	float	c_angle;
+	t_vect	c_crd;
+	t_vect	vect_3d;
+	t_vect	tmp;
+	t_vect	tmp2;
+	
+	(void)shape;
+	c_angle = 20 * M_PI / 180;
+	vec_assign(&c_crd, 0, 7, -20); 
+	vec_assign(&vect_3d, 0, -1, 0);
+	vec_scalar_multip(-1, &c_crd, &c_crd);
+	coeff[0] = powf(dot_product(&ray->dir, &vect_3d),2) - powf(cosf(c_angle), 2);
+	coeff[1] = 2 * (dot_product(&ray->dir, &vect_3d) * dot_product(&c_crd, &vect_3d) - dot_product(&ray->dir, &c_crd) * powf(cosf(c_angle), 2));
+	coeff[2] = powf(dot_product(&c_crd, &vect_3d) , 2) - dot_product(&c_crd, &c_crd) * powf(cosf(c_angle), 2);
+	delta = coeff[1] * coeff[1] - (4 * coeff[0] * coeff[2]);
+	if (delta < 0)
+		return (0);
+	if (delta == 0 && (-coeff[1] / (2 * coeff[0]) > 0))
+		t = - coeff[1] / (2 * coeff[0]);
+	if (-coeff[1] + sqrtf(delta) / (2 * coeff[0]) > -coeff[1] - sqrtf(delta) / (2 * coeff[0]))
+		t = -coeff[1] - sqrtf(delta) / (2 * coeff[0]);
+	else
+		t = -coeff[1] + sqrtf(delta) / (2 * coeff[0]);
+	vec_scalar_multip(t, &ray->dir, pos);
+	vec_add(&ray->org, pos, pos);
+	vec_scalar_multip(-1, &c_crd, &c_crd);
+	vec_sub(pos, &c_crd, &tmp);
+	vec_cross_prod(&tmp, &vect_3d, &tmp2);
+	vec_cross_prod(&tmp, &tmp2, nrm);
+	nrm = normalize(nrm);
+	if (dot_product(&tmp, &vect_3d) > 0)
+		return (t);
+	return (0);
+}
 
 float	sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 {
