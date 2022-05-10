@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/10 10:55:25 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:07:45 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_vect	*camera_dir(t_vect *ray_dir, t_data d)
 	init_mtrx(rot_y);
 	init_mtrx(rot_z);
 //	if (d.s->camera->vect_3d.z)
-	angle[0] = M_PI * atan(d.s->camera->vect_3d.y / (d.s->camera->vect_3d.z));
-	angle[1] = M_PI * atan(d.s->camera->vect_3d.x / (d.s->camera->vect_3d.z));
+	angle[0] = M_PI - atan(d.s->camera->vect_3d.y / (d.s->camera->vect_3d.z));
+	angle[1] = M_PI - atan(d.s->camera->vect_3d.x / (d.s->camera->vect_3d.z));
 //	angle[2] = atan(d.s->camera->vect_3d.y / d.s->camera->vect_3d.x);
-	angle[2] = 0;
+	angle[2] = M_PI;
 	set_transform(rot_x, rot_y, rot_z, angle);
 	vec_mat_multip(rot_x, ray_dir, ray_dir);
 	vec_mat_multip(rot_y, ray_dir, ray_dir);
