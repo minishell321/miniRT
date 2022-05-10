@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 14:20:04 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:12:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // close read write
 # define WIDTH 1250
 # define HEIGHT 1250
-# define L_INT 1000
+# define L_INT 800
 # define SP 1
 # define PL 2
 # define CY 3
@@ -60,6 +60,7 @@ int				check_split_len(char **split);
 void			init_scene(t_scene *s);
 void			print_scene(t_scene *s);
 void			free_scene_el(t_scene *s);
+void			check_scene_compete(t_data *d);
 
 // FT_ATOF.C
 double			ft_atof(char *str);

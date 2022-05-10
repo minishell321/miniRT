@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:05:09 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 11:50:36 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:02:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 		init_data(&d, &s);
 		if (read_file(&s, argv[1]))
 			free_scene_el(&s);
+		check_scene_compete(&d);
 		if (ray_tracing(d))
 			ft_err("ray_tracing");
 		mlx_put_image_to_window(d.mlx, d.win, d.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 14:17:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:03:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,14 @@ void	free_scene_el(t_scene *s)
 			free(tmp);
 			tmp = tmp_next;
 		}
+	}
+}
+
+void	check_scene_compete(t_data *d)
+{
+	if (!d->s->amb || !d->s->light || !d->s->camera)
+	{
+		free_scene_el(d->s);
+		ft_err(" Scene incomplete");
 	}
 }
