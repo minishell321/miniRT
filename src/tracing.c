@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/09 17:55:36 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/10 10:55:25 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_vect	*camera_dir(t_vect *ray_dir, t_data d)
 	init_mtrx(rot_x);
 	init_mtrx(rot_y);
 	init_mtrx(rot_z);
-	if (d.s->camera->vect_3d.z)
-	angle[0] = M_PI - atan(d.s->camera->vect_3d.y / (d.s->camera->vect_3d.z));
-	angle[1] = M_PI - atan(d.s->camera->vect_3d.x / (d.s->camera->vect_3d.z));
+//	if (d.s->camera->vect_3d.z)
+	angle[0] = M_PI * atan(d.s->camera->vect_3d.y / (d.s->camera->vect_3d.z));
+	angle[1] = M_PI * atan(d.s->camera->vect_3d.x / (d.s->camera->vect_3d.z));
 //	angle[2] = atan(d.s->camera->vect_3d.y / d.s->camera->vect_3d.x);
-	angle[2] = M_PI;
+	angle[2] = 0;
 	set_transform(rot_x, rot_y, rot_z, angle);
 	vec_mat_multip(rot_x, ray_dir, ray_dir);
 	vec_mat_multip(rot_y, ray_dir, ray_dir);
@@ -112,7 +112,10 @@ t_vect	*dir_vec(t_vect *ray_dir, int i, int j, t_data d)
 {
 	ray_dir->x = j - d.w / 2;
 	ray_dir->y = i - d.h / 2;
-	ray_dir->z = -d.w / (2 * tan (d.s->camera->fov / 2));
+	if (d.s->camera->vect_3d.z < 0)
+		ray_dir->z = -d.w / (2 * tan(d.s->camera->fov / 2));
+	else
+		ray_dir->z = d.w / (2 * tan(d.s->camera->fov / 2));
 	return (ray_dir);
 }
 
