@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/10 11:07:45 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:37:56 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,15 @@ void	math_operations(t_ray *ray, t_ray *light, t_data *d)
 	light->dir = *normalize(&light->dir);
 }
 
-t_vect	*reflect(t_ray *l, t_vect *rfl)
+t_vect	*reflect(t_ray *l, t_ray *r, t_vect *rfl)
 {
 	float	tmp;
 
-	tmp = 2 * dot_product(&l->nrm,&l->dir);
-	vec_dup(&l->nrm, rfl);
+	tmp = 2 * dot_product(&r->nrm,&l->dir);
+	vec_dup(&r->nrm, rfl);
 	vec_scalar_multip(tmp, rfl, rfl);
-	vec_sub(rfl, &l->dir, rfl);
+//	vec_sub(rfl, &l->dir, rfl);
+	vec_sub(&l->dir, rfl, rfl);
 	return (rfl);
 
 }
@@ -147,6 +148,8 @@ int	ray_tracing(t_data d)
 	t_ray	ray;
 	t_ray	l;
 	t_vect	rfl;
+	float	specular;
+	t_vect	tmp;
 
 	i = -1;
 	vec_dup(&d.s->camera->coordinates, &ray.org);
@@ -160,9 +163,12 @@ int	ray_tracing(t_data d)
 			if (sc_inter(d, &ray))
 			{
 				math_operations(&ray, &l, &d);
-				reflect(&l, &rfl);
+				reflect(&l, &ray, &rfl);
+				rfl = *normalize(&rfl);
+				vec_assign(&tmp, 1 * ray.dir.x, 1 * ray.dir.y, 1 * ray.dir.z);
+				specular = pow(fmax(0, dot_product(&rfl, &tmp)), 2);
 				if (!(sc_inter(d, &l) && (l.intr * l.intr < norm_sq(&ray.pos))))
-					pixel_colors(d, &ray);
+					pixel_colors(d, &ray, specular);
 				else
 					pixel_colors_shadow(d, &ray);
 				my_mlx_pixel_put(&d, j, d.h - i - 1, d.s->stack->color);

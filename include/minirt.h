@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 15:50:07 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:38:38 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ float			sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nr
 
 //RAY_UTILS.C
 unsigned int	dec2hex(int n);
-void			pixel_colors(t_data d, t_ray *ray);
+void			pixel_colors(t_data d, t_ray *ray, float specular);
 void			pixel_colors_shadow(t_data d, t_ray *ray);
 int				init_ray(t_ray *ray);
 void			free_ray(t_ray *ray);
