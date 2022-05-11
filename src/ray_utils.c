@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:37:50 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/10 15:37:59 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/11 11:03:19 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	pixel_colors(t_data d, t_ray *ray, float specular)
 	b = fmin(ray->sf_color[2], ray->sf_color[2] \
 		* d.s->light->ratio * L_INT \
 		* fmax(0, dot_product(&tmp, &ray->nrm)) / (norm_sq(&ray->pos)));
-	r = fmax(r + L_INT * specular * 0.2, ray->sf_color[0] * L_INT * d.s->amb->light * 0.0003);
-	g = fmax(g + L_INT * specular * 0.2, ray->sf_color[1] * L_INT * d.s->amb->light * 0.0003);
-	b = fmax(b + L_INT * specular * 0.2, ray->sf_color[2] * L_INT * d.s->amb->light * 0.0003);
+	r = fmax(r + L_INT * specular * 0.15, ray->sf_color[0] * L_INT * d.s->amb->light * 0.0003);
+	g = fmax(g + L_INT * specular * 0.15, ray->sf_color[1] * L_INT * d.s->amb->light * 0.0003);
+	b = fmax(b + L_INT * specular * 0.15, ray->sf_color[2] * L_INT * d.s->amb->light * 0.0003);
 	check_max_value(&r, &g, & b);
 	d.s->stack->color = encode_rgb((int)r, \
 		(int)g, (int)b);
