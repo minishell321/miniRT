@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/10 11:38:38 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/11 08:01:03 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // close read write
 # define WIDTH 1250
 # define HEIGHT 1250
-# define L_INT 1000
+# define L_INT 800
 # define SP 1
 # define PL 2
 # define CY 3
@@ -42,26 +42,29 @@ void			ft_error(void);
 int				my_close(int keycode, t_data *d);
 int				close_win(t_data *d);
 void			init_data(t_data *d, t_scene *s);
+void			ft_err(char *str);
 
 // UTILS2.C
 int				split_len(char **split);
+// PARSING.C
+int				read_file(t_scene *s, char *file);
 
 // PARSING_UTILS.C
 int				init_vect_3d(t_shapes *shape, char *str);
 int				init_colors(t_shapes *shape, char *str);
 int				init_coord(t_shapes *shape, char *str);
 void			insert_shape_at_end(t_scene *s, t_shapes *shape);
+int				check_split_len(char **split);
 
 // SCENE_UTILS.C
 void			init_scene(t_scene *s);
 void			print_scene(t_scene *s);
 void			free_scene_el(t_scene *s);
+void			check_scene_compete(t_data *d);
 
 // FT_ATOF.C
 double			ft_atof(char *str);
 
-// PARSING.C
-int				read_file(t_scene *s, char *file);
 
 // UPLOAD_SCENE.C
 int				upload_scene(char **split, t_scene *s);

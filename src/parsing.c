@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 09:58:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/10 10:58:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	check_param(char **split)
 	int	i;
 
 	i = 1;
+	if (check_split_len(split))
+		return (1);
 	while (split[i])
 	{
 		if (check_char(split[i]))
@@ -104,14 +106,14 @@ int	read_file(t_scene *s, char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		ft_error();
+		ft_err("Cannot open file");
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		if (parse_line(line, s))
 		{
 			free(line);
-			ft_error();
+			ft_err(" with .rt file");
 		}
 		free(line);
 		line = get_next_line(fd);

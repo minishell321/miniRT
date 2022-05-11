@@ -6,15 +6,24 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:55:21 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/10 12:01:35 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/11 08:01:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	ft_error(void)
+// void	ft_error(void)
+// {
+// 	write(2, "Error\n", 6);
+// 	exit (1);
+// }
+
+void	ft_err(char *str)
 {
-	write(2, "Error\n", 6);
+	write(2, "Error ", 6);
+	if (str)
+		write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
 	exit (1);
 }
 
