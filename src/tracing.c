@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/10 15:37:56 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/12 08:05:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_vect	*dir_vec(t_vect *ray_dir, int i, int j, t_data d)
 
 void	math_operations(t_ray *ray, t_ray *light, t_data *d)
 {
-	vec_scalar_multip(0.001, &ray->nrm, &light->org);
+	vec_scalar_multip(0.01, &ray->nrm, &light->org);
 	vec_add(&ray->pos, &light->org, &light->org);
 	vec_sub(&d->s->light->coordinates, &ray->pos, &ray->pos);
 	vec_dup(&ray->pos, &light->dir);
