@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/11 08:01:03 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/12 11:53:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define SP 1
 # define PL 2
 # define CY 3
+# define CN 4
 
 // int 	parse_scene(t_shape *shape, char *file);
 // MLX_UTILS.C
