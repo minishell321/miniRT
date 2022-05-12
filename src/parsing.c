@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:43:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/10 10:58:23 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/12 11:56:05 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	check_split(char **split)
 			return (1);
 	}
 	else if (ft_strncmp(split[0], "L", 2) == 0 || \
-	ft_strncmp(split[0], "sp", 3) == 0)
+	ft_strncmp(split[0], "sp", 3) == 0 || ft_strncmp(split[0], "cn", 3) == 0)
 	{
 		if (check_param(split))
 			return (1);
