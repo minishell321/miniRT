@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/12 14:31:11 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:52:25 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,13 @@ int				ray_tracing(t_data d);
 int				sc_inter(t_data d, t_ray *ray);
 
 // SHAPES_INTERSECTION.C
-float			cn_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 float			plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 float			cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 float			cyl_intersect_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 float			sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+
+// SHAPES_INTER_CN.C
+float			cn_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 
 //RAY_UTILS.C
 unsigned int	dec2hex(int n);
