@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:07:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 08:40:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/12 11:43:12 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	add_pos_colors(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *norm)
 	ray->sf_color[2] = tmp->colors[2];
 }
 
-static float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
+float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
 {
 	float	ret;
 
@@ -48,7 +48,8 @@ int	sc_inter(t_data d, t_ray *ray)
 	tmp = d.s->stack;
 	while (tmp)
 	{
-		ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
+	//	ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
+		ret = cone_intersection(ray, tmp, &position_tmp, &normal_tmp);
 		if (ret && ret < ray->intr)
 		{
 			has_intersect = 1;

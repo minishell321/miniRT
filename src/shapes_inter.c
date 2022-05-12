@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/10 17:59:34 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/12 12:05:21 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,23 @@ float	sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	coeff[2] = norm_sq(&d2shape) - (shape->diameter * shape->diameter / 4);
 	delta = coeff[1] * coeff[1] - (4 * coeff[0] * coeff[2]);
 //	free(d2shape);
-	if (delta < 0 || (-coeff[1] + sqrt(delta)) / (2 * coeff[0]) < 0)
-		return (0);
-	if ((-coeff[1] - sqrt(delta)) / (2 * coeff[0]) > 0)
-		t = (-coeff[1] - sqrt(delta)) / (2 * coeff[0]);
-	else
-	{
-		t = (-coeff[1] + sqrt(delta)) / (2 * coeff[0]);
-	}
+
+//	if (delta < 0 || (-coeff[1] + sqrt(delta)) / (2 * coeff[0]) < 0)
+//		return (0);
+//	if ((-coeff[1] - sqrt(delta)) / (2 * coeff[0]) > 0)
+//		t = (-coeff[1] - sqrt(delta)) / (2 * coeff[0]);
+//	else
+//	{
+//		t = (-coeff[1] + sqrt(delta)) / (2 * coeff[0]);
+//	}
+	if (delta < 0 || (-coeff[1] + sqrtf(delta)) / (2 * coeff[0]) < 0)
+        return (0);
+    if ((-coeff[1] - sqrtf(delta)) / (2 * coeff[0]) > 0)
+        t = (-coeff[1] - sqrtf(delta)) / (2 * coeff[0]);
+    else
+    {
+        t = (-coeff[1] + sqrtf(delta)) /  (2 * coeff[0]);
+    }
 	vec_scalar_multip(t, &ray->dir, pos);
 	vec_add(&ray->org, pos, pos);
 	vec_sub(pos, &shape->coordinates, nrm);
