@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:07:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/12 11:43:12 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/12 14:30:53 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
 	else if (tmp->type == CY)
 		ret = cyl_intersect(ray, tmp, pos, nrm);
 	else if (tmp->type == CN)
-		ret = cyl_intersect(ray, tmp, pos, nrm);
+		ret = cn_intersect(ray, tmp, pos, nrm);
 	return (ret);
 }
 
@@ -50,8 +50,8 @@ int	sc_inter(t_data d, t_ray *ray)
 	tmp = d.s->stack;
 	while (tmp)
 	{
-	//	ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
-		ret = cone_intersection(ray, tmp, &position_tmp, &normal_tmp);
+		ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
+	//	ret = cone_intersection(ray, tmp, &position_tmp, &normal_tmp);
 		if (ret && ret < ray->intr)
 		{
 			has_intersect = 1;

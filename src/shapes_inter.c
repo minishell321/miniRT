@@ -6,50 +6,114 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/12 12:05:21 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:03:27 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-float	cone_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
+float	cn_intersect_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 {
 	float	coeff[3];
 	float	t;
 	float	delta;
 	float	c_angle;
 	t_vect	c_crd;
-	t_vect	vect_3d;
+//	t_vect	vect_3d;
 	t_vect	tmp;
-	t_vect	tmp2;
+//	t_vect	tmp2;
 	
-	(void)shape;
-	c_angle = 20 * M_PI / 180;
-	vec_assign(&c_crd, 0, 7, -20); 
-	vec_assign(&vect_3d, 0, -1, 0);
-	vec_scalar_multip(-1, &c_crd, &c_crd);
-	coeff[0] = powf(dot_product(&ray->dir, &vect_3d),2) - powf(cosf(c_angle), 2);
-	coeff[1] = 2 * (dot_product(&ray->dir, &vect_3d) * dot_product(&c_crd, &vect_3d) - dot_product(&ray->dir, &c_crd) * powf(cosf(c_angle), 2));
-	coeff[2] = powf(dot_product(&c_crd, &vect_3d) , 2) - dot_product(&c_crd, &c_crd) * powf(cosf(c_angle), 2);
+	c_angle = shape->diameter * M_PI / 180;
+	vec_dup(&shape->coordinates, &c_crd);
+	vec_sub(&ray->org, &c_crd, &c_crd);
+//	vec_scalar_multip(-1, &c_crd, &c_crd);
+//	vec_assign(&vect_3d, 0, -1, 0);
+//	vec_scalar_multip(-1, &shape->coordinates, &shape->coordinates);
+	coeff[0] = powf(dot_product(&ray->dir, &shape->vect_3d), 2) - powf(cosf(c_angle), 2);
+	coeff[1] = 2 * (dot_product(&ray->dir, &shape->vect_3d) * dot_product(&c_crd, &shape->vect_3d) - (dot_product(&ray->dir, &c_crd) * powf(cosf(c_angle), 2)));
+	coeff[2] = powf(dot_product(&c_crd, &shape->vect_3d), 2) - (dot_product(&c_crd, &c_crd) * powf(cosf(c_angle), 2));
 	delta = coeff[1] * coeff[1] - (4 * coeff[0] * coeff[2]);
-	if (delta < 0)
+//	if (delta < 0)
+//		return (0);
+//	if (delta == 0 && (-coeff[1] / (2 * coeff[0]) > 0))
+//		t = - coeff[1] / (2 * coeff[0]);
+//	if ((-coeff[1] + sqrtf(delta)) / (2 * coeff[0]) > (-coeff[1] - sqrtf(delta)) / (2 * coeff[0]))
+//		t = (-coeff[1] - sqrtf(delta)) / (2 * coeff[0]);
+//	else
+//		t = (-coeff[1] + sqrtf(delta)) / (2 * coeff[0]);
+
+	if (delta < 0 || (-coeff[1] - sqrt(delta)) / (2 * coeff[0]) < 0)
 		return (0);
-	if (delta == 0 && (-coeff[1] / (2 * coeff[0]) > 0))
-		t = - coeff[1] / (2 * coeff[0]);
-	if (-coeff[1] + sqrtf(delta) / (2 * coeff[0]) > -coeff[1] - sqrtf(delta) / (2 * coeff[0]))
-		t = -coeff[1] - sqrtf(delta) / (2 * coeff[0]);
-	else
-		t = -coeff[1] + sqrtf(delta) / (2 * coeff[0]);
+    if ((-coeff[1] + sqrtf(delta)) / (2 * coeff[0]) > 0)
+		t = (-coeff[1] + sqrtf(delta)) / (2 * coeff[0]);
+    else
+		t = (-coeff[1] - sqrtf(delta)) /  (2 * coeff[0]);
+
+
 	vec_scalar_multip(t, &ray->dir, pos);
 	vec_add(&ray->org, pos, pos);
-	vec_scalar_multip(-1, &c_crd, &c_crd);
-	vec_sub(pos, &c_crd, &tmp);
-	vec_cross_prod(&tmp, &vect_3d, &tmp2);
-	vec_cross_prod(&tmp, &tmp2, nrm);
+//	vec_scalar_multip(-1, &shape->coordinates, &shape->coordinates);
+	vec_sub(pos, &shape->coordinates, &tmp);
+
+//	vec_scalar_multip(dot_product(&tmp, &shape->vect_3d) / dot_product(&shape->vect_3d, &shape->vect_3d), &shape->vect_3d, &tmp2);
+//	vec_add(pos, &tmp2, &tmp2);
+//	vec_sub(&shape->coordinates, &tmp2, &tmp2);
+//	vec_cross_prod(&tmp, &tmp2, &c_crd);
+//	vec_cross_prod(&c_crd, &tmp, nrm);
+
+//	vec_cross_prod(&tmp, &shape->vect_3d, &tmp2);
+
+//	vec_cross_prod(&shape->vect_3d, &tmp, &tmp2);
+//	vec_cross_prod(&tmp2, &tmp, nrm);
+
+//	vec_cross_prod(&tmp, &tmp2, nrm);
+
+	vec_scalar_multip(dot_product(&shape->vect_3d, &tmp) / dot_product(&tmp, &tmp), &tmp, nrm);
+	vec_sub(nrm, &shape->vect_3d, nrm);
 	nrm = normalize(nrm);
-	if (dot_product(&tmp, &vect_3d) > 0)
-		return (t);
+//	return (t);
+	if (dot_product(&tmp, &shape->vect_3d) > 0 && dot_product(&tmp, &shape->vect_3d) < shape->h)
+//	if (!(dot_product(&tmp, &shape->vect_3d) < 0) || !(dot_product(&tmp, &shape->vect_3d) > shape->h))
+			return (t);
 	return (0);
+}
+
+float	cn_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
+{
+	t_vect  u;
+    t_vect  tmp;
+    float   denom;
+    float   t;
+   
+	//  u = malloc(sizeof(double) * 3);
+//  v = malloc(sizeof(double) * 3);
+//  tmp = malloc(sizeof(double) * 3);
+    vec_scalar_multip(shape->h, normalize(&shape->vect_3d), &tmp);
+    vec_add(&tmp, &shape->coordinates, &u);
+//  t[0] = cyl_intersect_open(ray, shape, pos, nrm);
+//  if (t[0])
+//      return (t[0]);
+    vec_sub(&u, &ray->org, &tmp);
+    denom = dot_product(&ray->dir, normalize(&shape->vect_3d));
+    if (denom == 0)
+        return (cn_intersect_open(ray,shape,pos,nrm));
+    t = dot_product(&tmp, normalize(&shape->vect_3d)) / denom;
+    if (t <= 0)
+        return (cn_intersect_open(ray,shape,pos,nrm));
+//  if (t[1] == t[2])
+//      return (cyl_intersect_open(ray,shape,pos,nrm));
+    
+//  if (t[0] && t[0] < t_min)
+//      return (t[0]);
+    vec_scalar_multip(t, &ray->dir, pos);
+    vec_add(&ray->org, pos, pos);
+    vec_assign(nrm, shape->vect_3d.x, shape->vect_3d.y, shape->vect_3d.z);
+    nrm = normalize(nrm);
+    vec_sub(pos, &u, &tmp);
+	if (dot_product(&tmp, &tmp) <= powf(shape->h * tanf(shape->diameter * M_PI / 180), 2))
+		return (t);
+	else
+		return (cn_intersect_open(ray,shape,pos,nrm));
 }
 
 float	sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
