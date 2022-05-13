@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 15:08:41 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 14:21:28 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 11:40:07 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ int	init_coord(t_shapes *shape, char *str)
 	return (0);
 }
 
-int	init_vect_3d(t_shapes *shape, char *str)
+int	init_v_3d(t_shapes *shape, char *str)
 {
 	char	**sub_split;
 
 	sub_split = ft_split(str, ',');
 	if (sub_split == NULL || split_len(sub_split) != 3)
 		return (1);
-	shape->vect_3d.x = ft_atof(sub_split[0]);
-	if (shape->vect_3d.x < -1.0 || shape->vect_3d.x > 1.0)
+	shape->v_3d.x = ft_atof(sub_split[0]);
+	if (shape->v_3d.x < -1.0 || shape->v_3d.x > 1.0)
 		return (1);
-	shape->vect_3d.y = ft_atof(sub_split[1]);
-	if (shape->vect_3d.y < -1.0 || shape->vect_3d.y > 1.0)
+	shape->v_3d.y = ft_atof(sub_split[1]);
+	if (shape->v_3d.y < -1.0 || shape->v_3d.y > 1.0)
 		return (1);
-	shape->vect_3d.z = ft_atof(sub_split[2]);
-	if (shape->vect_3d.z < -1.0 || shape->vect_3d.z > 1.0)
+	shape->v_3d.z = ft_atof(sub_split[2]);
+	if (shape->v_3d.z < -1.0 || shape->v_3d.z > 1.0)
 		return (1);
 	ft_free_split(sub_split);
 	return (0);

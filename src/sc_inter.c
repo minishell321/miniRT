@@ -27,13 +27,13 @@ float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
 
 	ret = 0;
 	if (tmp->type == SP)
-		ret = sphere_intersection(ray, tmp, pos, nrm);
+		ret = sphere_inter(ray, tmp, pos, nrm);
 	else if (tmp->type == PL)
 		ret = plan_intersection(ray, tmp, pos, nrm);
 	else if (tmp->type == CY)
 		ret = cyl_intersect(ray, tmp, pos, nrm);
 	else if (tmp->type == CN)
-		ret = cone_intersection(ray, tmp, pos, nrm);
+		ret = cn_intersect(ray, tmp, pos, nrm);
 	return (ret);
 }
 
@@ -51,7 +51,6 @@ int	sc_inter(t_data d, t_ray *ray)
 	while (tmp)
 	{
 		ret = shapes_intr(ray, tmp, &position_tmp, &normal_tmp);
-	//	ret = cone_intersection(ray, tmp, &position_tmp, &normal_tmp);
 		if (ret && ret < ray->intr)
 		{
 			has_intersect = 1;

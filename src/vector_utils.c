@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:10:09 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/09 09:49:06 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 11:38:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vect	*normalize(t_vect *crdnt)
 	return (crdnt);
 }
 
-float	dot_product(t_vect *a, t_vect *b)
+float	dot_p(t_vect *a, t_vect *b)
 {
 	float	res;
 

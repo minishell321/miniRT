@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 10:01:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 12:44:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,30 @@ typedef struct s_vect
 	float	z;
 }	t_vect;
 
+typedef struct s_3vect
+{
+	t_vect	u;
+	t_vect	v;
+	t_vect	tmp;
+}	t_3vect;
+
+typedef struct s_specular
+{
+	t_vect	rfl;
+	float	s;
+}	t_specular;
+
 typedef struct s_shapes
 {
 	int		type;
 	t_vect	coordinates;
-	t_vect	vect_3d;
-	float	diameter;
+	t_vect	v_3d;
+	float	diam;
 	float	h;
 	unsigned char	colors[3];
 	unsigned int color;
 	struct s_shapes *next;
 }	t_shapes;
-
-// typedef	struct	s_shape {
-// 	char	*type;
-// 	double	coordinates[3];
-// 	double	diameter;
-// 	int		colors[3];
-// }	t_shape;
 
 typedef struct s_ray
 {
@@ -50,16 +56,6 @@ typedef struct s_ray
 	unsigned char	sf_color[3];
 	float			intr;
 }	t_ray;
-
-//typedef struct s_ray
-//{
-//	double			*org;
-//	double			*dir;
-//	double			*pos;
-//	double			*nrm;
-//	unsigned char	*sf_color;
-//	double			intersect;
-//}	t_ray;
 
 typedef struct s_amb
 {
@@ -77,7 +73,7 @@ typedef struct s_light
 typedef struct s_camera
 {
 	t_vect	coordinates;
-	t_vect	vect_3d;
+	t_vect	v_3d;
 	float		fov;
 }	t_camera;
 

@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/05/12 17:53:01 by vbotev           ###   ########.fr        #
+#    Updated: 2022/05/13 12:30:56 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,8 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/shapes_inter.c\
 			$(SRC)/sc_inter.c\
 			$(SRC)/shapes_inter_cn.c\
+			$(SRC)/shapes_inter_cy.c\
+			$(SRC)/shapes_inter_cy_open.c\
 			
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/12 17:52:25 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/05/13 12:49:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ void			ft_err(char *str);
 
 // UTILS2.C
 int				split_len(char **split);
+void			set_transform(float x[][3], float y[][3], float z[][3], float angle[3]);
+t_vect			*reflect(t_ray *l, t_ray *r, t_vect *rfl);
+void			shape_init(t_shapes *shape);
+void			init_mtrx(float matrix[][3]);
+
 // PARSING.C
 int				read_file(t_scene *s, char *file);
 
 // PARSING_UTILS.C
-int				init_vect_3d(t_shapes *shape, char *str);
+int				init_v_3d(t_shapes *shape, char *str);
 int				init_colors(t_shapes *shape, char *str);
 int				init_coord(t_shapes *shape, char *str);
 void			insert_shape_at_end(t_scene *s, t_shapes *shape);
@@ -71,12 +76,13 @@ double			ft_atof(char *str);
 int				upload_scene(char **split, t_scene *s);
 // UPLOAD_SCENE_UTILS.C
 int				create_camera(char **split, t_scene *s);
+t_vect			*camera_dir(t_vect *ray_dir, t_data d);
 // CREATE_SHAPE.C
 int				create_shape(char **split, t_scene *s);
 // VECTOR_UTILS.C
 float			norm_sq(t_vect *crdnt);
 t_vect			*normalize(t_vect *crdnt);
-float			dot_product(t_vect *a, t_vect *b);
+float			dot_p(t_vect *a, t_vect *b);
 t_vect 			vec_add(t_vect *a, t_vect *b, t_vect *res);
 t_vect			vec_sub(t_vect *a, t_vect *b, t_vect *res);
 // VECTOR_UTILS2.C
@@ -86,7 +92,6 @@ t_vect			vec_assign(t_vect *vec, float x, float y, float z);
 t_vect			vec_mat_multip(float matrix[][3], t_vect *vec, t_vect *res);
 t_vect			vec_cross_prod(t_vect *a, t_vect *b, t_vect *res);
 // TRACING.C
-t_vect			*camera_dir(t_vect *ray_dir, t_data d);
 t_vect			*dir_vec(t_vect *ray_dir, int i, int j, t_data d);
 int				ray_tracing(t_data d);
 // SC_INTER.C
@@ -95,11 +100,15 @@ int				sc_inter(t_data d, t_ray *ray);
 // SHAPES_INTERSECTION.C
 float			plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 float			cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
-float			cyl_intersect_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
-float			sphere_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+float			cyl_inter_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+float			sphere_inter(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 
 // SHAPES_INTER_CN.C
 float			cn_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+// SHAPES_INTER_CY.C
+float			cyl_intersect(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
+// SHAPES_INTER_CY_OPEN.C
+float			cyl_inter_open(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm);
 
 //RAY_UTILS.C
 unsigned int	dec2hex(int n);
