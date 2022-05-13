@@ -33,7 +33,7 @@ static float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
 	else if (tmp->type == CY)
 		ret = cyl_intersect(ray, tmp, pos, nrm);
 	else if (tmp->type == CN)
-		ret = cyl_intersect(ray, tmp, pos, nrm);
+		ret = cone_intersection(ray, tmp, pos, nrm);
 	return (ret);
 }
 
