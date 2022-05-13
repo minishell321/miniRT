@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:42:36 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/13 12:46:50 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 13:51:10 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	split_len(char **split)
 	return (i);
 }
 
-void	set_transform(float x[][3], float y[][3], float z[][3], float angle[3])
+void	s_trans(float x[][3], float y[][3], float z[][3], float angle[3])
 {
 	x[1][1] = cos(angle[0]);
 	x[1][2] = -sin(angle[0]);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 07:53:15 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/13 11:46:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 14:01:20 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ float	sphere_inter(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 	return (t);
 }
 
-float	plan_intersection(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
+float	plan_inter(t_ray *ray, t_shapes *shape, t_vect *pos, t_vect *nrm)
 {
 	float	t;
 	float	denom1;

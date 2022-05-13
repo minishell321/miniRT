@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:33:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/13 12:44:51 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 14:03:03 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ typedef struct s_specular
 
 typedef struct s_shapes
 {
-	int		type;
-	t_vect	coordinates;
-	t_vect	v_3d;
-	float	diam;
-	float	h;
+	int				type;
+	t_vect			coordinates;
+	t_vect			v_3d;
+	float			diam;
+	float			h;
 	unsigned char	colors[3];
-	unsigned int color;
-	struct s_shapes *next;
+	int				color;
+	struct s_shapes	*next;
 }	t_shapes;
 
 typedef struct s_ray
@@ -59,9 +59,9 @@ typedef struct s_ray
 
 typedef struct s_amb
 {
-	float	light;
+	float			light;
 	unsigned char	colors[3];
-	unsigned int color;
+	int				color;
 }	t_amb;
 
 typedef struct s_light
@@ -74,13 +74,13 @@ typedef struct s_camera
 {
 	t_vect	coordinates;
 	t_vect	v_3d;
-	float		fov;
+	float	fov;
 }	t_camera;
 
 typedef struct s_scene
 {
 	t_shapes	*stack;
-	t_amb	*amb;
+	t_amb		*amb;
 	t_light		*light;
 	t_camera	*camera;
 	float		pixel_intensity;

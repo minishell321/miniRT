@@ -29,7 +29,7 @@ float	shapes_intr(t_ray *ray, t_shapes *tmp, t_vect *pos, t_vect *nrm)
 	if (tmp->type == SP)
 		ret = sphere_inter(ray, tmp, pos, nrm);
 	else if (tmp->type == PL)
-		ret = plan_intersection(ray, tmp, pos, nrm);
+		ret = plan_inter(ray, tmp, pos, nrm);
 	else if (tmp->type == CY)
 		ret = cyl_intersect(ray, tmp, pos, nrm);
 	else if (tmp->type == CN)
