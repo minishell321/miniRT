@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/13 13:05:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:44:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	reflection_calc(t_specular *spec, t_ray *ray, t_ray *l)
 {
 	reflect(l, ray, &spec->rfl);
 	spec->rfl = *normalize(&spec->rfl);
-	spec->s = pow(fmax(0, dot_p(&spec->rfl, &ray->dir)), 2);
+	spec->s = pow(fmax(0, dot_p(&spec->rfl, &ray->dir)), 15);
 }
 
 int	ray_tracing(t_data d)

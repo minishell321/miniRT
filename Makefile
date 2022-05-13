@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 13:33:10 by rburri            #+#    #+#              #
-#    Updated: 2022/05/13 13:44:02 by rburri           ###   ########.fr        #
+#    Updated: 2022/05/13 15:36:49 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ ${DIR_BON}:
 
 bonus:		${DIR_BON}
 
-base:		${DIR_SRC}
+minirt:		${DIR_SRC}
 
 clean:
 

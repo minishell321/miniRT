@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:17 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/13 10:52:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:35:18 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	free_scene_el(t_scene *s)
 		while (tmp != NULL)
 		{
 			tmp_next = tmp->next;
-			printf("free %d\n", tmp->type);
 			free(tmp);
 			tmp = tmp_next;
 		}

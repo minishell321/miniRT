@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 07:50:27 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/09 09:58:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:34:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	upload_scene(char **split, t_scene *s)
 	}
 	else
 	{
-		printf("create shape\n");
 		if (create_shape(split, s))
 			return (1);
 	}

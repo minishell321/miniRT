@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:06:33 by rburri            #+#    #+#             */
-/*   Updated: 2022/05/13 14:38:30 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:54:11 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define WIDTH 1250
 # define HEIGHT 1250
 # define L_INT 800
+# define A_INT 0.0003
+
 # define SP 1
 # define PL 2
 # define CY 3
