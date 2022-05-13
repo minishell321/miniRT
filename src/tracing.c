@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:29:23 by vbotev            #+#    #+#             */
-/*   Updated: 2022/05/12 08:05:22 by rburri           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:57:56 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,35 +143,32 @@ t_vect	*reflect(t_ray *l, t_ray *r, t_vect *rfl)
 
 int	ray_tracing(t_data d)
 {
-	int		i;
-	int		j;
+	int		i[2];
 	t_ray	ray;
 	t_ray	l;
 	t_vect	rfl;
 	float	specular;
-	t_vect	tmp;
 
-	i = -1;
+	i[0] = -1;
 	vec_dup(&d.s->camera->coordinates, &ray.org);
-	while (++i < d.h)
+	while (++i[0] < d.h)
 	{
-		j = -1;
-		while (++j < d.w)
+		i[1] = -1;
+		while (++i[1] < d.w)
 		{
-			ray.dir = *normalize(dir_vec(&ray.dir, i, j, d));
+			ray.dir = *normalize(dir_vec(&ray.dir, i[0], i[1], d));
 			ray.dir = *normalize(camera_dir(&ray.dir, d));
 			if (sc_inter(d, &ray))
 			{
 				math_operations(&ray, &l, &d);
 				reflect(&l, &ray, &rfl);
 				rfl = *normalize(&rfl);
-				vec_assign(&tmp, 1 * ray.dir.x, 1 * ray.dir.y, 1 * ray.dir.z);
-				specular = pow(fmax(0, dot_product(&rfl, &tmp)), 2);
+				specular = pow(fmax(0, dot_product(&rfl, &ray.dir)), 2);
 				if (!(sc_inter(d, &l) && (l.intr * l.intr < norm_sq(&ray.pos))))
 					pixel_colors(d, &ray, specular);
 				else
 					pixel_colors_shadow(d, &ray);
-				my_mlx_pixel_put(&d, j, d.h - i - 1, d.s->stack->color);
+				my_mlx_pixel_put(&d, i[1], d.h - i[0] - 1, d.s->stack->color);
 			}
 		}
 	}

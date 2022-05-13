@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 08:04:22 by rburri            #+#    #+#              #
-#    Updated: 2022/05/09 09:42:22 by rburri           ###   ########.fr        #
+#    Updated: 2022/05/12 17:53:01 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SOURCE =  	$(SRC)/main.c\
 			$(SRC)/upload_scene_utils.c\
 			$(SRC)/shapes_inter.c\
 			$(SRC)/sc_inter.c\
+			$(SRC)/shapes_inter_cn.c\
 			
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))
